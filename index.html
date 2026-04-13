@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover, user-scalable=yes">
-    <title>QuestFlow — Estudos que fluem</title>
+    <title>QuestFlow — Evolução Premium</title>
     <!-- Google Fonts + Font Awesome 6 -->
     <link href="https://fonts.googleapis.com/css2?family=Inter:opsz,wght@14..32,300;14..32,400;14..32,500;14..32,600;14..32,700;14..32,800&display=swap" rel="stylesheet">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
@@ -17,169 +17,130 @@
 
         body {
             font-family: 'Inter', sans-serif;
-            background: #F8FAFC;
-            color: #0F172A;
+            background: radial-gradient(circle at 10% 20%, #0B1120, #0F172A);
+            color: #F8FAFC;
             overflow-x: hidden;
+            min-height: 100vh;
         }
 
-        /* Animações */
-        @keyframes fadeUp {
-            from { opacity: 0; transform: translateY(12px); }
+        /* Animações globais */
+        @keyframes fadeSlideUp {
+            from { opacity: 0; transform: translateY(20px); }
             to { opacity: 1; transform: translateY(0); }
         }
-        @keyframes pop {
-            0% { transform: scale(1); }
-            50% { transform: scale(1.05); background: #E0E7FF; }
-            100% { transform: scale(1); }
+        @keyframes glowPulse {
+            0% { text-shadow: 0 0 0 #FF7B00; }
+            100% { text-shadow: 0 0 12px #FF7B00, 0 0 6px #FF7B00; }
         }
-        @keyframes streakPulse {
-            0% { transform: scale(1); text-shadow: 0 0 0 #FACC15; }
-            100% { transform: scale(1.08); text-shadow: 0 0 8px #FACC15; }
+        @keyframes cardHover {
+            0% { transform: translateY(0); box-shadow: 0 8px 20px rgba(0,0,0,0.2); }
+            100% { transform: translateY(-6px); box-shadow: 0 20px 30px -10px rgba(255,123,0,0.2); }
         }
         .tab-content {
-            animation: fadeUp 0.3s cubic-bezier(0.2, 0.9, 0.4, 1.1);
+            animation: fadeSlideUp 0.4s cubic-bezier(0.2, 0.9, 0.4, 1.1);
         }
-
-        /* Transições e hover (botões com efeito branco) */
-        button, .tab-btn, .fab-btn, .nav-item {
-            transition: all 0.2s ease;
+        button, .nav-item, .fab-btn {
+            transition: all 0.2s cubic-bezier(0.2, 0.9, 0.4, 1.1);
         }
-        button:active, .tab-btn:active, .fab-btn:active, .nav-item:active {
+        button:active, .nav-item:active, .fab-btn:active {
             transform: scale(0.96);
         }
-        /* Efeito hover obrigatório: fundo branco, texto primário */
-        button:hover, .fab-btn:hover, .btn-outline:hover {
-            background: white !important;
-            color: #4F46E5 !important;
-            transform: scale(1.05);
-            border: 1px solid #4F46E5;
-        }
-        .nav-item:hover {
-            background: #EEF2FF;
-            color: #4F46E5;
-            transform: translateY(-2px);
-        }
-        .card {
-            transition: transform 0.2s, box-shadow 0.2s;
-        }
-        .card:hover {
-            transform: translateY(-4px);
-            box-shadow: 0 20px 30px -12px rgba(0, 0, 0, 0.12);
-        }
-
         /* Layout principal */
         .app-container {
             max-width: 1300px;
             margin: 0 auto;
             padding: 20px 24px 90px;
         }
-
-        /* Header com logo tipo guerreiro (ícone capacete) */
+        /* Header premium */
         .header {
             display: flex;
             justify-content: space-between;
             align-items: center;
             flex-wrap: wrap;
             gap: 16px;
-            margin-bottom: 28px;
-            background: white;
-            padding: 16px 24px;
-            border-radius: 32px;
-            box-shadow: 0 6px 14px rgba(0, 0, 0, 0.02), 0 2px 4px rgba(0, 0, 0, 0.03);
+            margin-bottom: 32px;
+            padding: 12px 24px;
+            background: rgba(30, 41, 59, 0.6);
+            backdrop-filter: blur(12px);
+            border-radius: 48px;
+            border: 1px solid rgba(255, 123, 0, 0.2);
+            box-shadow: 0 8px 20px rgba(0,0,0,0.3);
         }
         .logo {
             display: flex;
             align-items: center;
-            gap: 12px;
+            gap: 14px;
         }
         .logo-icon {
             font-size: 2.4rem;
-            color: #4F46E5;
-            filter: drop-shadow(0 2px 4px rgba(79,70,229,0.3));
+            color: #FF7B00;
+            filter: drop-shadow(0 0 6px rgba(255,123,0,0.6));
+            transition: transform 0.2s;
         }
-        .logo h1 {
-            font-size: 1.7rem;
+        .logo:hover .logo-icon {
+            transform: scale(1.02);
+        }
+        .logo-text h1 {
+            font-size: 1.8rem;
             font-weight: 800;
-            background: linear-gradient(135deg, #4F46E5, #A855F7);
+            background: linear-gradient(135deg, #FF7B00, #FFB347);
             -webkit-background-clip: text;
             background-clip: text;
             color: transparent;
-            letter-spacing: -0.3px;
+            letter-spacing: -0.5px;
         }
-        .logo p {
-            font-size: 0.75rem;
-            color: #475569;
+        .logo-text p {
+            font-size: 0.7rem;
+            color: #94A3B8;
         }
         .streak-badge {
-            background: #FEF9C3;
-            padding: 8px 18px;
+            background: linear-gradient(135deg, #2A2A35, #1E293B);
+            padding: 8px 20px;
             border-radius: 60px;
             display: flex;
             align-items: center;
-            gap: 10px;
+            gap: 12px;
             font-weight: 700;
-            color: #B45309;
-            box-shadow: 0 2px 8px rgba(250, 204, 21, 0.2);
+            color: #FACC15;
+            border: 1px solid rgba(250,204,21,0.3);
+            backdrop-filter: blur(4px);
         }
-        .streak-badge i {
-            font-size: 1.3rem;
-            color: #F59E0B;
-        }
-        .sheet-status {
-            background: #F1F5F9;
-            padding: 8px 20px;
-            border-radius: 48px;
-            display: flex;
-            align-items: center;
-            gap: 10px;
-            font-size: 0.85rem;
-            font-weight: 500;
-        }
-        .sheet-status i {
-            color: #22C55E;
-        }
-        button {
-            background: #4F46E5;
+        .report-btn-header {
+            background: linear-gradient(95deg, #FF7B00, #6366F1);
             border: none;
-            padding: 8px 20px;
+            padding: 10px 24px;
             border-radius: 40px;
             font-weight: 600;
             color: white;
             cursor: pointer;
-            display: inline-flex;
+            display: flex;
             align-items: center;
-            gap: 8px;
-            font-size: 0.85rem;
+            gap: 10px;
+            font-size: 0.9rem;
+            transition: 0.2s;
+            box-shadow: 0 4px 12px rgba(255,123,0,0.3);
         }
-        .btn-outline {
-            background: white;
-            border: 1px solid #4F46E5;
-            color: #4F46E5;
+        .report-btn-header:hover {
+            transform: scale(1.02);
+            box-shadow: 0 8px 20px rgba(255,123,0,0.5);
+            background: linear-gradient(95deg, #FF8C1A, #7C6FF5);
         }
-        .status-badge {
-            font-size: 0.7rem;
-            background: #E2E8F0;
-            padding: 6px 14px;
-            border-radius: 30px;
-            display: inline-flex;
-            align-items: center;
-            gap: 6px;
-            color: #1E293B;
-        }
-
-        /* Bottom Navigation */
+        /* Bottom Navigation moderna */
         .bottom-nav {
             position: fixed;
-            bottom: 0;
-            left: 0;
-            right: 0;
-            background: rgba(255,255,255,0.96);
-            backdrop-filter: blur(12px);
+            bottom: 20px;
+            left: 50%;
+            transform: translateX(-50%);
+            width: auto;
+            background: rgba(30, 41, 59, 0.85);
+            backdrop-filter: blur(20px);
             display: flex;
-            justify-content: space-around;
-            padding: 12px 16px 22px;
-            border-top: 1px solid #E9EEF3;
-            box-shadow: 0 -4px 12px rgba(0, 0, 0, 0.02);
+            justify-content: center;
+            gap: 8px;
+            padding: 8px 20px;
+            border-radius: 60px;
+            border: 1px solid rgba(255,255,255,0.1);
+            box-shadow: 0 8px 24px rgba(0,0,0,0.4);
             z-index: 100;
         }
         .nav-item {
@@ -191,30 +152,32 @@
             border: none;
             font-size: 0.7rem;
             font-weight: 500;
-            color: #64748B;
+            color: #94A3B8;
             cursor: pointer;
-            padding: 6px 12px;
+            padding: 8px 16px;
             border-radius: 40px;
+            transition: 0.2s;
         }
         .nav-item i {
-            font-size: 1.4rem;
+            font-size: 1.3rem;
         }
         .nav-item.active {
-            color: #4F46E5;
-            background: #EEF2FF;
+            color: #FF7B00;
+            background: rgba(255, 123, 0, 0.15);
+            transform: translateY(-2px);
         }
         .fab-btn {
             position: fixed;
-            bottom: 80px;
+            bottom: 100px;
             right: 24px;
-            background: #4F46E5;
+            background: linear-gradient(135deg, #FF7B00, #6366F1);
             width: 56px;
             height: 56px;
             border-radius: 28px;
             display: flex;
             align-items: center;
             justify-content: center;
-            box-shadow: 0 8px 20px rgba(79, 70, 229, 0.4);
+            box-shadow: 0 8px 20px rgba(255,123,0,0.5);
             z-index: 110;
             cursor: pointer;
         }
@@ -222,105 +185,108 @@
             font-size: 1.8rem;
             color: white;
         }
-        .fab-btn:hover i {
-            color: #4F46E5;
-        }
-        @media (max-width: 680px) {
-            .app-container { padding: 16px 16px 90px; }
-            .header { flex-direction: column; align-items: stretch; }
-        }
-        /* Cards */
+        /* Cards premium */
         .dashboard-grid {
             display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
-            gap: 24px;
-            margin-bottom: 32px;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 28px;
+            margin-bottom: 40px;
         }
         .card {
-            background: #FFFFFF;
-            border-radius: 28px;
-            padding: 24px;
-            box-shadow: 0 10px 25px -5px rgba(0, 0, 0, 0.05), 0 2px 4px rgba(0, 0, 0, 0.02);
-            border: 1px solid #F0F2F5;
+            background: #1E293B;
+            border-radius: 32px;
+            padding: 28px;
+            border: 1px solid rgba(255, 123, 0, 0.15);
+            box-shadow: 0 15px 35px -12px rgba(0,0,0,0.4);
+            transition: all 0.25s ease;
+            backdrop-filter: blur(2px);
+        }
+        .card:hover {
+            transform: translateY(-6px);
+            border-color: #FF7B00;
+            box-shadow: 0 25px 40px -15px rgba(255,123,0,0.25);
         }
         .card-title {
             font-size: 1.2rem;
             font-weight: 700;
-            margin-bottom: 18px;
+            margin-bottom: 20px;
             display: flex;
             align-items: center;
-            gap: 10px;
-            color: #1E293B;
+            gap: 12px;
+            color: #FFB347;
+            letter-spacing: -0.2px;
         }
         .stat-number {
-            font-size: 2.5rem;
+            font-size: 2.8rem;
             font-weight: 800;
-            color: #4F46E5;
+            background: linear-gradient(135deg, #FF7B00, #FFB347);
+            -webkit-background-clip: text;
+            background-clip: text;
+            color: transparent;
+            display: inline-block;
         }
         .progress-bar {
-            background: #E2E8F0;
-            border-radius: 20px;
-            height: 10px;
+            background: #0F172A;
+            border-radius: 40px;
+            height: 12px;
             overflow: hidden;
-            margin: 14px 0;
+            margin: 16px 0;
         }
         .progress-fill {
-            background: linear-gradient(90deg, #4F46E5, #A855F7);
+            background: linear-gradient(90deg, #FF7B00, #6366F1);
             width: 0%;
             height: 100%;
-            border-radius: 20px;
-            transition: width 0.5s cubic-bezier(0.2, 0.9, 0.4, 1.1);
+            border-radius: 40px;
+            transition: width 0.7s cubic-bezier(0.2, 0.9, 0.4, 1.1);
         }
         .task-item {
             display: flex;
             justify-content: space-between;
             align-items: center;
-            padding: 12px 0;
-            border-bottom: 1px solid #F1F5F9;
+            padding: 14px 0;
+            border-bottom: 1px solid rgba(255,255,255,0.08);
         }
         .chip {
-            background: #F1F5F9;
-            padding: 4px 12px;
-            border-radius: 30px;
+            background: rgba(255,123,0,0.2);
+            padding: 6px 14px;
+            border-radius: 40px;
             font-size: 0.7rem;
             font-weight: 500;
+            color: #FFB347;
         }
         .timer-display {
-            font-size: 3rem;
+            font-size: 3.5rem;
             font-weight: 800;
             font-family: monospace;
             text-align: center;
-            background: #F8FAFC;
-            padding: 16px;
-            border-radius: 32px;
-            letter-spacing: 4px;
+            background: #0F172A;
+            padding: 20px;
+            border-radius: 40px;
+            letter-spacing: 6px;
+            border: 1px solid #FF7B00;
+            box-shadow: inset 0 0 10px rgba(0,0,0,0.5);
         }
         .motivation-toast {
             position: fixed;
-            bottom: 100px;
+            bottom: 110px;
             left: 50%;
             transform: translateX(-50%);
             background: #1E293B;
+            border-left: 4px solid #FF7B00;
             color: white;
-            padding: 10px 20px;
+            padding: 12px 24px;
             border-radius: 60px;
             font-weight: 500;
             z-index: 1000;
-            animation: fadeUp 0.2s ease;
-            box-shadow: 0 8px 20px black;
-        }
-        footer {
-            margin-top: 40px;
-            text-align: center;
-            font-size: 0.7rem;
-            color: #94A3B8;
+            animation: fadeSlideUp 0.2s ease;
+            backdrop-filter: blur(12px);
         }
         .loading-overlay {
             position: fixed;
             top:0;left:0;
             width:100%;height:100%;
-            background: rgba(255,255,255,0.9);
-            backdrop-filter: blur(6px);
+            background: rgba(15,23,42,0.9);
+            backdrop-filter: blur(12px);
             display: flex;
             align-items: center;
             justify-content: center;
@@ -334,16 +300,92 @@
             opacity: 1;
         }
         .spinner {
-            width: 48px;
-            height: 48px;
-            border: 4px solid #E2E8F0;
-            border-top: 4px solid #4F46E5;
+            width: 54px;
+            height: 54px;
+            border: 4px solid #2A2A35;
+            border-top: 4px solid #FF7B00;
             border-radius: 50%;
             animation: spin 0.8s linear infinite;
         }
         @keyframes spin { to { transform: rotate(360deg); } }
-        .report-btn-icon {
-            margin-right: 4px;
+        .status-success, .status-warning {
+            border-radius: 40px;
+            padding: 6px 16px;
+            display: inline-flex;
+            align-items: center;
+            gap: 8px;
+            font-weight: 600;
+        }
+        .status-success { background: rgba(34,197,94,0.15); color: #4ADE80; }
+        .status-warning { background: rgba(239,68,68,0.15); color: #F87171; }
+        /* Modal Relatório */
+        .modal-overlay {
+            position: fixed;
+            top:0;left:0;
+            width:100%;height:100%;
+            background: rgba(0,0,0,0.8);
+            backdrop-filter: blur(12px);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            z-index: 1000;
+            visibility: hidden;
+            opacity: 0;
+            transition: 0.2s;
+        }
+        .modal-overlay.active {
+            visibility: visible;
+            opacity: 1;
+        }
+        .modal-content {
+            background: #1E293B;
+            border-radius: 40px;
+            width: 90%;
+            max-width: 600px;
+            max-height: 80vh;
+            overflow-y: auto;
+            padding: 28px;
+            border: 1px solid #FF7B00;
+            box-shadow: 0 30px 40px rgba(0,0,0,0.5);
+        }
+        .modal-content h3 {
+            font-size: 1.6rem;
+            margin-bottom: 20px;
+            color: #FF7B00;
+        }
+        .report-table {
+            width: 100%;
+            border-collapse: collapse;
+        }
+        .report-table th, .report-table td {
+            text-align: left;
+            padding: 14px 8px;
+            border-bottom: 1px solid #334155;
+        }
+        .report-table th { color: #FFB347; }
+        .close-modal {
+            background: linear-gradient(95deg, #FF7B00, #6366F1);
+            border: none;
+            padding: 12px 20px;
+            border-radius: 40px;
+            font-weight: 600;
+            margin-top: 24px;
+            cursor: pointer;
+            width: 100%;
+            color: white;
+        }
+        footer {
+            margin-top: 48px;
+            text-align: center;
+            font-size: 0.7rem;
+            color: #475569;
+        }
+        @media (max-width: 680px) {
+            .app-container { padding: 16px 16px 100px; }
+            .header { flex-direction: column; align-items: stretch; text-align: center; }
+            .bottom-nav { gap: 4px; padding: 6px 12px; }
+            .nav-item { padding: 6px 10px; }
+            .stat-number { font-size: 2rem; }
         }
     </style>
 </head>
@@ -352,300 +394,195 @@
 <div class="app-container" id="app">
     <div class="header">
         <div class="logo">
-            <!-- Ícone de capacete guerreiro (representação fiel ao solicitado) -->
             <i class="fas fa-helmet-battle logo-icon"></i>
-            <div>
+            <div class="logo-text">
                 <h1>QuestFlow</h1>
-                <p>seu ritmo, sua aprovação</p>
+                <p>performance & evolução</p>
             </div>
         </div>
         <div class="streak-badge" id="streakElement">
             <i class="fas fa-fire"></i> <span id="streakValue">0</span> dias em sequência
         </div>
-        <div class="sheet-status">
-            <i class="fas fa-database"></i> Planilha: <strong id="sheetStatusText">Conectada via SheetDB</strong>
-        </div>
+        <button id="reportHeaderBtn" class="report-btn-header"><i class="fas fa-chart-simple"></i> Relatórios</button>
     </div>
-    <div id="authStatus" class="status-badge"><i class="fas fa-check-circle"></i> ✅ Integração ativa com sua planilha</div>
-
+    <div id="authStatus" class="status-badge" style="margin-bottom: 20px; background: #1E293B;"><i class="fas fa-check-circle"></i> ✅ Planilha sincronizada</div>
     <div id="tabContent" class="tab-content"></div>
-    <footer>⚡ Dados sincronizados com SheetDB • Gamificação inteligente • Foco total</footer>
+    <footer>⚡ Dados em tempo real • Gamificação inteligente</footer>
 </div>
-
-<!-- Bottom Navigation + FAB -->
 <div class="bottom-nav" id="bottomNav">
-    <button class="nav-item" data-tab="dashboard"><i class="fas fa-chart-line"></i><span>Visão</span></button>
+    <button class="nav-item active" data-tab="dashboard"><i class="fas fa-chart-line"></i><span>Visão</span></button>
     <button class="nav-item" data-tab="planner"><i class="fas fa-calendar-week"></i><span>Plano</span></button>
     <button class="nav-item" data-tab="content"><i class="fas fa-book-open"></i><span>Conteúdo</span></button>
     <button class="nav-item" data-tab="reviews"><i class="fas fa-rotate-right"></i><span>Revisões</span></button>
     <button class="nav-item" data-tab="questions"><i class="fas fa-question-circle"></i><span>Questões</span></button>
-    <!-- Botão Relatórios com ícone de análise de dados -->
-    <button class="nav-item" data-tab="reports"><i class="fas fa-chart-simple report-btn-icon"></i><span>Relatórios</span></button>
+    <button class="nav-item" data-tab="reports"><i class="fas fa-chart-simple"></i><span>Relatórios</span></button>
     <button class="nav-item" data-tab="focus"><i class="fas fa-clock"></i><span>Foco</span></button>
     <button class="nav-item" data-tab="settings"><i class="fas fa-sliders-h"></i><span>Ajustes</span></button>
 </div>
-<div class="fab-btn" id="fabFocusBtn">
-    <i class="fas fa-play"></i>
-</div>
+<div class="fab-btn" id="fabFocusBtn"><i class="fas fa-play"></i></div>
 
 <script>
-// ====================== CONEXÃO DIRETA COM A PLANILHA SHEETDB FORNECIDA ======================
+// ====================== CONEXÃO SHEETDB ======================
 const SHEETDB_API_URL = "https://sheetdb.io/api/v1/7o3coa2jghj2r";
+let rawSheetData = [];
+let lastRecord = null;
 
-// Utilitários
-const showToast = (message, type = 'info') => {
+const showToast = (msg, type='info') => {
     const toast = document.createElement('div');
     toast.className = 'motivation-toast';
-    toast.innerHTML = `<i class="fas ${type === 'error' ? 'fa-exclamation-triangle' : 'fa-face-smile'}"></i> ${message}`;
+    toast.innerHTML = `<i class="fas ${type==='error'?'fa-exclamation-triangle':'fa-face-smile'}"></i> ${msg}`;
     document.body.appendChild(toast);
     setTimeout(() => toast.remove(), 2800);
 };
 const showLoading = (show) => {
     const overlay = document.getElementById('loadingOverlay');
-    if (overlay) show ? overlay.classList.add('active') : overlay.classList.remove('active');
+    if(overlay) show ? overlay.classList.add('active') : overlay.classList.remove('active');
 };
 
-// Cálculo de streak (gamificação)
-function calculateStreak(sessions) {
-    if (!sessions.length) return 0;
-    const uniqueDates = [...new Set(sessions.map(s => s.date ? new Date(s.date).toDateString() : null).filter(d => d))];
-    uniqueDates.sort((a,b) => new Date(a) - new Date(b));
-    let streak = 0;
-    let current = new Date();
-    while (true) {
-        let dateStr = current.toDateString();
-        if (uniqueDates.includes(dateStr)) streak++;
-        else break;
-        current.setDate(current.getDate() - 1);
-    }
-    return streak;
-}
-function updateStreakUI(state) {
-    const streak = calculateStreak(state.sessions);
-    const streakSpan = document.getElementById('streakValue');
-    if (streakSpan) streakSpan.innerText = streak;
-    const streakDiv = document.getElementById('streakElement');
-    if (streak > 0) streakDiv.style.animation = 'streakPulse 0.6s ease';
-    setTimeout(() => { if(streakDiv) streakDiv.style.animation = ''; }, 600);
-}
-
-// ---------- STATE MANAGER (central) ----------
+// ====================== ESTADO GLOBAL ======================
 const AppState = {
-    _data: {
-        rawSheets: [],
-        columnMapping: {},
-        disciplines: new Map(),
-        sessions: [],
-        reviewQueue: [],
-        questionsData: { history: [], accuracy: 0 },
-        stats: { totalHours: 0, weeklyGoal: 10, completedTasks: 0 },
-        notifications: []
-    },
+    _data: { rawSheets: [], columnMapping: {}, disciplines: new Map(), sessions: [], reviewQueue: [], questionsData: { history: [], accuracy: 0 }, stats: { totalHours: 0 }, notifications: [] },
     _listeners: [],
     getState() { return this._data; },
-    setState(updater) {
-        const newState = typeof updater === 'function' ? updater(this._data) : updater;
-        Object.assign(this._data, newState);
-        this._listeners.forEach(fn => fn(this._data));
-        updateStreakUI(this._data);
-    },
-    updateSpecific(key, value) {
-        this._data[key] = value;
-        this._listeners.forEach(fn => fn(this._data));
-        updateStreakUI(this._data);
-    },
-    subscribe(fn) { this._listeners.push(fn); return () => { this._listeners = this._listeners.filter(l => l !== fn); }; }
+    setState(updater) { const newState = typeof updater === 'function' ? updater(this._data) : updater; Object.assign(this._data, newState); this._listeners.forEach(fn=>fn(this._data)); },
+    updateSpecific(key,val) { this._data[key]=val; this._listeners.forEach(fn=>fn(this._data)); },
+    subscribe(fn) { this._listeners.push(fn); return ()=> this._listeners=this._listeners.filter(l=>l!==fn); }
 };
 
-// ---------- TIMER PERSISTENTE (localStorage) ----------
-const TimerService = {
-    _elapsed: 0, _running: false, _interval: null, _listeners: [],
-    init() {
-        const saved = localStorage.getItem('questflow_timer');
-        if (saved) { try { const data = JSON.parse(saved); this._elapsed = data.elapsed || 0; this._running = data.running || false; if (this._running) this.start(); } catch(e) {} }
-        window.addEventListener('beforeunload', () => this.persist());
-    },
-    persist() { localStorage.setItem('questflow_timer', JSON.stringify({ elapsed: this._elapsed, running: this._running })); },
-    getElapsed() { return this._elapsed; },
-    start() { if (this._interval) return; this._running = true; this._interval = setInterval(() => { if (this._running) { this._elapsed++; this._listeners.forEach(fn => fn(this._elapsed)); this.persist(); } }, 1000); this.persist(); },
-    pause() { this._running = false; if (this._interval) clearInterval(this._interval); this._interval = null; this.persist(); },
-    reset() { this.pause(); this._elapsed = 0; this._listeners.forEach(fn => fn(this._elapsed)); this.persist(); },
-    subscribe(fn) { this._listeners.push(fn); return () => { this._listeners = this._listeners.filter(l => l !== fn); }; }
-};
-
-// ====================== SERVIÇO DE PLANILHA (SheetDB) ======================
+// ====================== SERVIÇO DE PLANILHA ======================
 const SheetService = {
     async carregarDados() {
-        const resposta = await fetch(SHEETDB_API_URL);
-        if (!resposta.ok) throw new Error(`HTTP ${resposta.status}`);
-        const dados = await resposta.json();
-        return dados; // array de objetos (linhas)
+        const resp = await fetch(SHEETDB_API_URL);
+        if(!resp.ok) throw new Error(`HTTP ${resp.status}`);
+        return await resp.json();
     },
-    
-    async salvarSessao(novaSessao) {
-        const payload = {
-            data: {
-                Data: novaSessao.date?.toISOString().slice(0,10) || new Date().toISOString().slice(0,10),
-                Disciplina: novaSessao.discipline,
-                Horas: novaSessao.duration,
-                Status: "Concluído"
-            }
-        };
-        const resposta = await fetch(SHEETDB_API_URL, {
-            method: "POST",
-            headers: { "Content-Type": "application/json" },
-            body: JSON.stringify(payload)
-        });
-        if (!resposta.ok) throw new Error("Erro ao salvar sessão na planilha");
-        return await resposta.json();
-    },
-    
-    async loadSheetData() {
+    async carregarEProcessar() {
         showLoading(true);
         try {
             const rows = await this.carregarDados();
-            if (!rows || !rows.length) throw new Error("Nenhum dado encontrado na planilha");
-            
+            if(!rows || !rows.length) throw new Error("Nenhum dado encontrado");
+            rawSheetData = rows;
+            const sorted = [...rows].sort((a,b)=> new Date(b.Data || b.data) - new Date(a.Data || a.data));
+            lastRecord = sorted[0] || null;
             const headers = Object.keys(rows[0]);
-            const dataRows = rows.map(row => {
-                let obj = {};
-                headers.forEach(h => { obj[h] = row[h] || ''; });
-                return obj;
-            });
+            const dataRows = rows.map(row => { let obj = {}; headers.forEach(h => { obj[h] = row[h] || ''; }); return obj; });
             const sheetData = { name: "Principal", headers, data: dataRows };
             AppState.updateSpecific('rawSheets', [sheetData]);
-            
             this.intelligentMappingAndBuildState(sheetData);
-            document.getElementById('authStatus').innerHTML = `<i class="fas fa-check-circle"></i> ✅ Planilha carregada • ${rows.length} registros sincronizados`;
-            showToast("Dados carregados com sucesso! 🚀");
-        } catch (err) {
+            document.getElementById('authStatus').innerHTML = `<i class="fas fa-check-circle"></i> ✅ Planilha carregada • ${rows.length} registros`;
+            showToast("Dados sincronizados! 🚀");
+            return rows;
+        } catch(err) {
             console.error(err);
-            showToast("Erro ao carregar planilha: " + err.message, "error");
+            showToast("Erro ao carregar planilha: "+err.message, "error");
             document.getElementById('authStatus').innerHTML = `<i class="fas fa-exclamation-triangle"></i> ⚠️ Erro: ${err.message}`;
-        } finally {
-            showLoading(false);
-        }
+        } finally { showLoading(false); }
     },
-    
     intelligentMappingAndBuildState(sheet) {
-        const headers = sheet.headers.map(h => h?.toLowerCase() || '');
-        let dateCol = headers.find(h => /data|date|dia|quando/i.test(h));
-        let disciplineCol = headers.find(h => /disciplina|mat[eé]ria|assunto|conteudo|matéria/i.test(h));
-        let timeCol = headers.find(h => /tempo|horas|hora|dura[cç][aã]o|minutos/i.test(h));
-        let statusCol = headers.find(h => /status|conclu[ií]do|progresso|feito|estado/i.test(h));
-        let rightCol = headers.find(h => /acertos|certos|corretas/i.test(h));
-        let totalCol = headers.find(h => /total|questões|qtd/i.test(h));
-        
+        const headers = sheet.headers.map(h=>h?.toLowerCase()||'');
+        let dateCol = headers.find(h=>/data|date|dia/i.test(h));
+        let timeCol = headers.find(h=>/horas|hora|tempo|estudadas/i.test(h));
+        let disciplineCol = headers.find(h=>/disciplina|matéria|assunto/i.test(h));
         const disciplineSet = new Map();
-        let totalHours = 0;
-        let sessionsRaw = [];
-        let questionRecords = [];
-        
-        for (const row of sheet.data) {
-            let discipline = disciplineCol ? (row[disciplineCol] || "Geral").trim() : "Geral";
-            let timeValue = timeCol ? row[timeCol] : null;
+        let totalHours = 0, sessionsRaw = [];
+        for(const row of sheet.data) {
+            let discipline = disciplineCol ? (row[disciplineCol]||"Geral").trim() : "Geral";
             let hours = 0;
-            if (timeValue) {
-                let match = String(timeValue).match(/(\d+(?:[.,]\d+)?)/);
-                if (match) hours = parseFloat(match[1].replace(',', '.'));
-            }
+            let timeVal = timeCol ? row[timeCol] : null;
+            if(timeVal) { let m = String(timeVal).match(/(\d+(?:[.,]\d+)?)/); if(m) hours = parseFloat(m[1].replace(',','.')); }
             let rawDate = dateCol ? row[dateCol] : null;
-            let dateObj = null;
-            if (rawDate) {
-                let parsed = new Date(rawDate);
-                if (!isNaN(parsed)) dateObj = parsed;
-            }
-            let statusRaw = statusCol ? (row[statusCol] || '').toLowerCase() : '';
-            let completed = /concluído|feito|sim|ok/i.test(statusRaw);
-            
-            if (hours > 0) {
+            let dateObj = rawDate ? new Date(rawDate) : null;
+            if(dateObj && isNaN(dateObj)) dateObj = new Date();
+            if(hours>0) {
                 totalHours += hours;
-                sessionsRaw.push({ date: dateObj || new Date(), discipline, duration: hours, completed });
+                sessionsRaw.push({ date: dateObj || new Date(), discipline, duration: hours, completed: true });
             }
-            if (!disciplineSet.has(discipline)) disciplineSet.set(discipline, { totalHours: 0, topics: [] });
-            let discData = disciplineSet.get(discipline);
-            discData.totalHours += hours;
-            if (row["Tópico"] || row["topico"]) discData.topics.push(row["Tópico"] || row["topico"]);
-            
-            if (rightCol && totalCol) {
-                let right = rightCol ? parseInt(row[rightCol]) : 0;
-                let total = totalCol ? parseInt(row[totalCol]) : 0;
-                if (!isNaN(right) && !isNaN(total) && total > 0) {
-                    questionRecords.push({ right, total, discipline });
-                }
-            }
+            if(!disciplineSet.has(discipline)) disciplineSet.set(discipline, { totalHours:0, topics:[] });
+            disciplineSet.get(discipline).totalHours += hours;
         }
-        
-        let accuracy = 0;
-        if (questionRecords.length) {
-            let totalRight = questionRecords.reduce((a,b)=>a+b.right,0);
-            let totalTotal = questionRecords.reduce((a,b)=>a+b.total,0);
-            accuracy = totalTotal ? (totalRight/totalTotal)*100 : 0;
-        }
-        
-        const columnMapping = { [sheet.name]: { dateCol, disciplineCol, timeCol, statusCol, rightCol, totalCol } };
-        AppState.setState({
-            columnMapping,
-            disciplines: disciplineSet,
-            sessions: sessionsRaw.sort((a,b)=>(b.date||0)-(a.date||0)),
-            stats: { ...AppState.getState().stats, totalHours },
-            questionsData: { history: questionRecords, accuracy }
-        });
+        AppState.setState({ disciplines: disciplineSet, sessions: sessionsRaw, stats: { totalHours } });
         this.generateSmartReviews();
         this.updateNotifications();
     },
-    
     generateSmartReviews() {
         const data = AppState.getState();
         const now = new Date();
         const reviewMap = new Map();
-        for (const sess of data.sessions) {
-            if (!sess.date) continue;
-            const daysDiff = Math.floor((now - sess.date) / (1000*3600*24));
-            if (daysDiff >=1 && daysDiff <=7 && sess.discipline) {
-                reviewMap.set(`${sess.discipline}_${sess.date.toDateString()}`, { discipline: sess.discipline, dueDays: daysDiff });
-            }
+        for(const sess of data.sessions) {
+            if(!sess.date) continue;
+            const daysDiff = Math.floor((now - sess.date)/(1000*3600*24));
+            if(daysDiff>=1 && daysDiff<=7) reviewMap.set(sess.discipline, { discipline: sess.discipline, dueDays: daysDiff });
         }
-        let reviewQueue = Array.from(reviewMap.values()).sort((a,b)=>a.dueDays-b.dueDays);
-        if (reviewQueue.length===0 && data.disciplines.size) {
-            reviewQueue = Array.from(data.disciplines.keys()).slice(0,3).map(d => ({ discipline: d, dueDays: 2 }));
-        }
-        AppState.updateSpecific('reviewQueue', reviewQueue);
+        let queue = Array.from(reviewMap.values()).slice(0,3);
+        if(queue.length===0 && data.disciplines.size) queue = Array.from(data.disciplines.keys()).slice(0,2).map(d=>({ discipline: d, dueDays: 2 }));
+        AppState.updateSpecific('reviewQueue', queue);
     },
-    
     updateNotifications() {
         const data = AppState.getState();
         let notifs = [];
-        if (data.stats.totalHours === 0) notifs.push("🔥 Comece registrando horas!");
-        if (data.reviewQueue.length) notifs.push(`🔄 ${data.reviewQueue.length} revisões aguardando`);
+        if(data.stats.totalHours === 0) notifs.push("🔥 Comece registrando horas!");
+        if(data.reviewQueue.length) notifs.push(`🔄 ${data.reviewQueue.length} revisões pendentes`);
         AppState.updateSpecific('notifications', notifs);
     },
-    
     generateStudyPlan() {
         const data = AppState.getState();
-        let list = Array.from(data.disciplines.entries()).map(([name, d])=>({ name, hours: d.totalHours })).sort((a,b)=>a.hours-b.hours);
-        return list.slice(0,4).map(d => ({ discipline: d.name, suggestedHours: 1.5, reason: "prioridade máxima" }));
+        let list = Array.from(data.disciplines.entries()).map(([n,d])=>({ name: n, hours: d.totalHours })).sort((a,b)=>a.hours-b.hours);
+        return list.slice(0,4).map(d=>({ discipline: d.name, suggestedHours: 1.5, reason: "prioridade" }));
     },
-    
     generateDailyTasks() {
         const data = AppState.getState();
         let tasks = [];
-        for (let [disc, discData] of data.disciplines.entries()) {
-            if (discData.totalHours < 2 || Math.random()>0.6) tasks.push({ discipline: disc, priority: "recomendado" });
+        for(let [disc, discData] of data.disciplines.entries()) {
+            if(discData.totalHours < 2) tasks.push({ discipline: disc, priority: "recomendado" });
         }
-        if (!tasks.length && data.disciplines.size) tasks = [{ discipline: Array.from(data.disciplines.keys())[0], priority: "foco hoje" }];
+        if(!tasks.length && data.disciplines.size) tasks = [{ discipline: Array.from(data.disciplines.keys())[0], priority: "foco" }];
         return tasks.slice(0,3);
     }
+};
+
+// ====================== TIMER ======================
+const TimerService = {
+    _elapsed:0, _running:false, _interval:null, _listeners:[],
+    init() { const saved = localStorage.getItem('questflow_timer'); if(saved) try { const d=JSON.parse(saved); this._elapsed=d.elapsed||0; this._running=d.running||false; if(this._running) this.start(); } catch(e){} window.addEventListener('beforeunload',()=>this.persist()); },
+    persist() { localStorage.setItem('questflow_timer', JSON.stringify({ elapsed: this._elapsed, running: this._running })); },
+    getElapsed() { return this._elapsed; },
+    start() { if(this._interval) return; this._running=true; this._interval=setInterval(()=>{ if(this._running){ this._elapsed++; this._listeners.forEach(fn=>fn(this._elapsed)); this.persist(); } },1000); this.persist(); },
+    pause() { this._running=false; if(this._interval) clearInterval(this._interval); this._interval=null; this.persist(); },
+    reset() { this.pause(); this._elapsed=0; this._listeners.forEach(fn=>fn(this._elapsed)); this.persist(); },
+    subscribe(fn) { this._listeners.push(fn); return ()=> this._listeners=this._listeners.filter(l=>l!==fn); }
 };
 
 // ====================== UI RENDER ======================
 let activeTab = "dashboard";
 let currentCharts = {};
 
+function renderPlanilhaCard() {
+    if(!lastRecord) return '<div class="card">Nenhum dado disponível</div>';
+    const dataStr = lastRecord.Data || lastRecord.data || "—";
+    const horas = parseFloat(lastRecord.horas_estudadas ?? 0);
+    const meta = parseFloat(lastRecord.Meta ?? 0);
+    const sequencia = parseInt(lastRecord.Sequencia ?? lastRecord.sequencia ?? 0, 10);
+    const cumpriu = (lastRecord.cumpriu_meta ?? "").toString().toLowerCase();
+    const cumpriuMeta = (cumpriu === "sim" || cumpriu === "true");
+    const statusClass = cumpriuMeta ? "status-success" : "status-warning";
+    const statusIcon = cumpriuMeta ? "fa-check-circle" : "fa-exclamation-circle";
+    const statusText = cumpriuMeta ? "Meta cumprida! 🎯" : "Meta não cumprida ⚠️";
+    return `
+        <div class="card">
+            <div class="card-title"><i class="fas fa-crown"></i> Último registro</div>
+            <div class="task-item"><span>📅 Data</span><strong style="color:#FFB347">${dataStr}</strong></div>
+            <div class="task-item"><span>⏱ Horas estudadas</span><strong class="stat-number" style="font-size:1.8rem">${horas.toFixed(1)}h</strong></div>
+            <div class="task-item"><span>🎯 Meta diária</span><strong>${meta.toFixed(1)}h</strong></div>
+            <div class="task-item"><span>🔥 Sequência (streak)</span><strong class="stat-number" style="font-size:1.5rem">${sequencia} dias</strong></div>
+            <div class="task-item"><span>✅ Status</span><div class="${statusClass}"><i class="fas ${statusIcon}"></i> ${statusText}</div></div>
+        </div>
+    `;
+}
+
 const UIRenderer = {
     render() {
         const container = document.getElementById('tabContent');
-        if (!container) return;
+        if(!container) return;
         switch(activeTab) {
             case "dashboard": this.renderDashboard(container); break;
             case "planner": this.renderPlanner(container); break;
@@ -660,75 +597,109 @@ const UIRenderer = {
     },
     renderDashboard(container) {
         const state = AppState.getState();
-        let dailyTasks = SheetService.generateDailyTasks();
-        let totalHours = state.stats.totalHours, progressPerc = Math.min(100, (totalHours / 50) * 100);
+        const dailyTasks = SheetService.generateDailyTasks();
+        const totalHours = state.stats.totalHours;
+        const progressPerc = Math.min(100, (totalHours/50)*100);
+        const planilhaCard = renderPlanilhaCard();
         container.innerHTML = `
             <div class="dashboard-grid">
-                <div class="card"><div class="card-title"><i class="fas fa-hourglass-half" style="color:#4F46E5;"></i> Horas totais</div><div class="stat-number">${totalHours.toFixed(1)}h</div><div class="progress-bar"><div class="progress-fill" style="width:${progressPerc}%"></div></div><div>⚡ meta 50h/mês</div></div>
-                <div class="card"><div class="card-title"><i class="fas fa-chart-simple"></i> Desempenho</div><div class="stat-number">${state.questionsData.accuracy.toFixed(0)}%</div><div>acertos em questões</div></div>
+                ${planilhaCard}
+                <div class="card"><div class="card-title"><i class="fas fa-hourglass-half"></i> Total acumulado</div><div class="stat-number">${totalHours.toFixed(1)}h</div><div class="progress-bar"><div class="progress-fill" style="width:${progressPerc}%"></div></div><div>⚡ meta mensal 50h</div></div>
                 <div class="card"><div class="card-title"><i class="fas fa-list-check"></i> Tarefas do dia</div><div id="dailyTasksList"></div></div>
                 <div class="card"><div class="card-title"><i class="fas fa-bell"></i> Notificações</div><div id="notifList"></div></div>
             </div>
-            <div class="card"><div class="card-title"><i class="fas fa-chart-line"></i> Disciplinas (horas)</div><canvas id="disciplinesChart" height="120"></canvas></div>
+            <div class="card"><div class="card-title"><i class="fas fa-chart-line"></i> Distribuição por disciplina</div><canvas id="disciplinesChart" height="120"></canvas></div>
         `;
-        document.getElementById('dailyTasksList').innerHTML = dailyTasks.map(t => `<div class="task-item"><span>📖 ${t.discipline}</span><span class="chip">${t.priority}</span></div>`).join('');
-        document.getElementById('notifList').innerHTML = (state.notifications.length? state.notifications.map(n=>`<div>✨ ${n}</div>`).join('') : "<div>🏆 Tudo em dia!</div>");
-        setTimeout(() => {
+        document.getElementById('dailyTasksList').innerHTML = dailyTasks.map(t=>`<div class="task-item"><span>📖 ${t.discipline}</span><span class="chip">${t.priority}</span></div>`).join('');
+        document.getElementById('notifList').innerHTML = state.notifications.length ? state.notifications.map(n=>`<div>✨ ${n}</div>`).join('') : "<div>🏆 Tudo em dia!</div>";
+        setTimeout(()=>{
             const ctx = document.getElementById('disciplinesChart')?.getContext('2d');
-            if (ctx) { if (currentCharts.disciplinesChart) currentCharts.disciplinesChart.destroy();
+            if(ctx) {
+                if(currentCharts.disciplinesChart) currentCharts.disciplinesChart.destroy();
                 let labels = Array.from(state.disciplines.keys()).slice(0,5);
-                let data = labels.map(d => state.disciplines.get(d)?.totalHours || 0);
-                currentCharts.disciplinesChart = new Chart(ctx, { type: 'bar', data: { labels, datasets: [{ label: 'Horas', data, backgroundColor: '#4F46E5', borderRadius: 12 }] }, options: { responsive: true } }); }
-        }, 50);
+                let data = labels.map(d=>state.disciplines.get(d)?.totalHours||0);
+                currentCharts.disciplinesChart = new Chart(ctx, { type:'bar', data:{ labels, datasets:[{ label:'Horas', data, backgroundColor: '#FF7B00', borderRadius: 12 }] }, options:{ responsive: true, plugins: { legend: { labels: { color: '#94A3B8' } } } } });
+            }
+        },50);
     },
-    renderPlanner(container) { let plan = SheetService.generateStudyPlan(); container.innerHTML = `<div class="card"><div class="card-title"><i class="fas fa-calendar-alt"></i> Plano inteligente</div><div id="planList"></div></div>`; document.getElementById('planList').innerHTML = plan.map(p=>`<div class="task-item"><span>🎯 ${p.discipline}</span><span>${p.suggestedHours}h recomendadas</span><span class="chip">${p.reason}</span></div>`).join(''); },
-    renderContent(container) { const state = AppState.getState(); let html = ""; for (let [disc, d] of state.disciplines.entries()) html += `<div class="task-item"><strong><i class="fas fa-graduation-cap"></i> ${disc}</strong> <span>${d.totalHours.toFixed(1)}h</span> ${d.topics.length? `<span class="chip">${d.topics.slice(0,2).join(', ')}</span>` : ''}</div>`; container.innerHTML = `<div class="card"><div class="card-title"><i class="fas fa-layer-group"></i> Conteúdos</div>${html || '<p>Nenhum tópico específico. Adicione coluna "Conteúdo" na planilha.</p>'}</div>`; },
+    renderPlanner(container) { let plan = SheetService.generateStudyPlan(); container.innerHTML = `<div class="card"><div class="card-title"><i class="fas fa-calendar-alt"></i> Plano de estudos inteligente</div><div id="planList"></div></div>`; document.getElementById('planList').innerHTML = plan.map(p=>`<div class="task-item"><span>🎯 ${p.discipline}</span><span>${p.suggestedHours}h</span><span class="chip">${p.reason}</span></div>`).join(''); },
+    renderContent(container) { const state = AppState.getState(); let html=""; for(let [disc,d] of state.disciplines.entries()) html += `<div class="task-item"><strong><i class="fas fa-graduation-cap"></i> ${disc}</strong> <span>${d.totalHours.toFixed(1)}h</span> ${d.topics.length?`<span class="chip">${d.topics.slice(0,2).join(', ')}</span>`:''}</div>`; container.innerHTML = `<div class="card"><div class="card-title"><i class="fas fa-layer-group"></i> Conteúdos registrados</div>${html||'<p>Nenhum tópico específico.</p>'}</div>`; },
     renderReviews(container) { const revs = AppState.getState().reviewQueue; container.innerHTML = `<div class="card"><div class="card-title"><i class="fas fa-rotate-right"></i> Revisões estratégicas</div><div id="reviewList"></div></div>`; document.getElementById('reviewList').innerHTML = revs.length? revs.map(r=>`<div class="task-item"><span>📅 ${r.discipline}</span><span>vencimento ${r.dueDays}d</span><button class="chip" onclick="window.dispatchEvent(new CustomEvent('completeReview',{detail:{discipline:'${r.discipline}'}}))">✅ Revisar</button></div>`).join('') : "<p>🎉 Nenhuma revisão pendente!</p>"; },
-    renderQuestions(container) { const state = AppState.getState(); let acc = state.questionsData.accuracy; container.innerHTML = `<div class="card"><div class="card-title"><i class="fas fa-square-check"></i> Questões</div><div>Acertos: ${acc.toFixed(1)}%</div><div class="progress-bar mt-2"><div class="progress-fill" style="width:${acc}%; background:#22C55E;"></div></div><div id="questionHistory"></div><button id="addManualQuestionBtn" class="btn-outline mt-3"><i class="fas fa-plus-circle"></i> Registrar manual</button></div>`; document.getElementById('questionHistory').innerHTML = state.questionsData.history.slice(-5).map(q=>`<div>📊 ${q.discipline}: ${q.right}/${q.total}</div>`).join(''); document.getElementById('addManualQuestionBtn')?.addEventListener('click', () => { let disc = prompt("Disciplina"), right = parseInt(prompt("Acertos")), total = parseInt(prompt("Total")); if(!isNaN(right) && !isNaN(total) && total>0){ const newHist = [...state.questionsData.history, {right,total,discipline:disc||"Manual"}]; let totalR = newHist.reduce((a,b)=>a+b.right,0), totalT = newHist.reduce((a,b)=>a+b.total,0); AppState.setState({ questionsData: { history: newHist, accuracy: totalT ? (totalR/totalT)*100 : 0 } }); UIRenderer.renderQuestions(container); showToast("Questão registrada! Continue assim 💪"); } }); },
-    renderReports(container) { const state = AppState.getState(); container.innerHTML = `<div class="card"><div class="card-title"><i class="fas fa-chart-pie"></i> Evolução de Estudos</div><canvas id="hoursEvolutionChart" height="150"></canvas><div class="mt-4"><strong>Total sessões:</strong> ${state.sessions.length} • <strong>Disciplinas:</strong> ${state.disciplines.size}</div></div>`; setTimeout(()=>{ const ctx = document.getElementById('hoursEvolutionChart')?.getContext('2d'); if(ctx){ let last7=[]; for(let i=6;i>=0;i--){ let d=new Date(); d.setDate(d.getDate()-i); last7.push(d.toLocaleDateString()); } let hoursPerDay = last7.map(day=>state.sessions.filter(s=> s.date && s.date.toLocaleDateString()===day).reduce((a,b)=>a+b.duration,0)); new Chart(ctx, { type: 'line', data: { labels: last7, datasets: [{ label: 'Horas/dia', data: hoursPerDay, borderColor: '#FACC15', tension: 0.3, fill: true }] } }); } }, 50); },
+    renderQuestions(container) { const state = AppState.getState(); container.innerHTML = `<div class="card"><div class="card-title"><i class="fas fa-square-check"></i> Banco de questões</div><div>Desempenho: <strong class="stat-number">${state.questionsData.accuracy.toFixed(1)}%</strong></div><div class="progress-bar mt-2"><div class="progress-fill" style="width:${state.questionsData.accuracy}%; background:#22C55E;"></div></div><div id="questionHistory"></div><button id="addManualQuestionBtn" class="btn-outline mt-3"><i class="fas fa-plus-circle"></i> Registrar manual</button></div>`; document.getElementById('questionHistory').innerHTML = state.questionsData.history.slice(-5).map(q=>`<div>📊 ${q.discipline}: ${q.right}/${q.total}</div>`).join(''); document.getElementById('addManualQuestionBtn')?.addEventListener('click',()=>{ let disc=prompt("Disciplina"), right=parseInt(prompt("Acertos")), total=parseInt(prompt("Total")); if(!isNaN(right)&&!isNaN(total)&&total>0){ const newHist=[...state.questionsData.history,{right,total,discipline:disc||"Manual"}]; let totalR=newHist.reduce((a,b)=>a+b.right,0), totalT=newHist.reduce((a,b)=>a+b.total,0); AppState.setState({questionsData:{history:newHist, accuracy:totalT?(totalR/totalT)*100:0}}); UIRenderer.renderQuestions(container); showToast("Questão registrada!"); } }); },
+    renderReports(container) { 
+        if(!rawSheetData || !rawSheetData.length) { container.innerHTML = `<div class="card">Nenhum dado para exibir no relatório.</div>`; return; }
+        let tableHtml = `<table class="report-table"><thead><tr><th>Data</th><th>Horas</th><th>Meta</th><th>Cumpriu?</th><th>Streak</th></thead><tbody>`;
+        const sorted = [...rawSheetData].sort((a,b)=> new Date(b.Data||b.data) - new Date(a.Data||a.data));
+        for(const row of sorted) {
+            tableHtml += `<tr><td>${row.Data||row.data||"—"}</td><td>${parseFloat(row.horas_estudadas??0).toFixed(1)}h</td><td>${parseFloat(row.Meta??0).toFixed(1)}h</td><td>${(row.cumpriu_meta??"").toLowerCase()==="sim"?"✅ Sim":"❌ Não"}</td><td>${row.Sequencia??row.sequencia??0}</td></tr>`;
+        }
+        tableHtml += `</tbody></table>`;
+        container.innerHTML = `<div class="card"><div class="card-title"><i class="fas fa-chart-simple"></i> Relatório completo de estudos</div>${tableHtml}</div>`;
+    },
     renderFocusMode(container) {
-        container.innerHTML = `<div class="card"><div class="card-title"><i class="fas fa-stopwatch"></i> Modo Foco</div><div class="timer-display" id="focusTimer">00:00:00</div><div class="flex-between" style="gap:12px; margin:20px 0;"><button id="startFocusBtn"><i class="fas fa-play"></i> Iniciar</button><button id="pauseFocusBtn"><i class="fas fa-pause"></i> Pausar</button><button id="saveFocusBtn"><i class="fas fa-save"></i> Salvar</button></div><div><label><i class="fas fa-tag"></i> Disciplina: <input id="focusDiscipline" placeholder="Direito, Português..."></label></div></div>`;
-        const updateDisplay = (sec) => { const el = document.getElementById('focusTimer'); if(el) el.innerText = new Date(sec * 1000).toISOString().substr(11,8); };
+        container.innerHTML = `<div class="card"><div class="card-title"><i class="fas fa-stopwatch"></i> Modo Foco Profundo</div><div class="timer-display" id="focusTimer">00:00:00</div><div style="display:flex; gap:12px; margin:24px 0;"><button id="startFocusBtn" style="background:#FF7B00"><i class="fas fa-play"></i> Iniciar</button><button id="pauseFocusBtn" style="background:#6366F1"><i class="fas fa-pause"></i> Pausar</button><button id="saveFocusBtn" style="background:#22C55E"><i class="fas fa-save"></i> Salvar</button></div><div><label><i class="fas fa-tag"></i> Disciplina: <input id="focusDiscipline" placeholder="Ex: Direito Constitucional" style="background:#0F172A; border:1px solid #FF7B00; padding:8px; border-radius:40px; width:100%; color:white;"></label></div></div>`;
+        const updateDisplay = (sec)=>{ const el=document.getElementById('focusTimer'); if(el) el.innerText = new Date(sec*1000).toISOString().substr(11,8); };
         const unsub = TimerService.subscribe(updateDisplay); updateDisplay(TimerService.getElapsed());
-        document.getElementById('startFocusBtn')?.addEventListener('click', () => TimerService.start());
-        document.getElementById('pauseFocusBtn')?.addEventListener('click', () => TimerService.pause());
-        document.getElementById('saveFocusBtn')?.addEventListener('click', async () => {
+        document.getElementById('startFocusBtn')?.addEventListener('click',()=>TimerService.start());
+        document.getElementById('pauseFocusBtn')?.addEventListener('click',()=>TimerService.pause());
+        document.getElementById('saveFocusBtn')?.addEventListener('click', async ()=>{
             let disc = document.getElementById('focusDiscipline').value.trim() || "Foco";
-            let hours = TimerService.getElapsed() / 3600;
-            if (hours > 0) {
+            let hours = TimerService.getElapsed()/3600;
+            if(hours>0){
                 const state = AppState.getState();
                 const newSession = { date: new Date(), discipline: disc, duration: hours, completed: true };
                 const updatedSessions = [...state.sessions, newSession];
                 let totalHours = state.stats.totalHours + hours;
                 let discMap = new Map(state.disciplines);
-                if (!discMap.has(disc)) discMap.set(disc, { totalHours: 0, topics: [] });
+                if(!discMap.has(disc)) discMap.set(disc,{totalHours:0,topics:[]});
                 discMap.get(disc).totalHours += hours;
                 AppState.setState({ sessions: updatedSessions, disciplines: discMap, stats: { ...state.stats, totalHours } });
                 SheetService.generateSmartReviews(); SheetService.updateNotifications();
-                // Salvar na planilha SheetDB
-                try {
-                    await SheetService.salvarSessao(newSession);
-                    showToast("Sessão salva na planilha! ✅");
-                } catch(e) { console.warn("Erro ao salvar na planilha:", e); showToast("Sessão salva localmente, mas não na planilha", "error"); }
-                TimerService.reset(); showToast(`🔥 Sessão de ${hours.toFixed(1)}h registrada! +${Math.floor(hours)} pontos de foco`);
+                try { await fetch(SHEETDB_API_URL, { method:"POST", headers:{"Content-Type":"application/json"}, body: JSON.stringify({ data: { Data: new Date().toISOString().slice(0,10), Disciplina: disc, Horas: hours, Status:"Concluído" } }) }); showToast("Sessão salva na planilha! ✅"); } catch(e) { showToast("Sessão salva localmente", "error"); }
+                TimerService.reset(); showToast(`🔥 Sessão de ${hours.toFixed(1)}h registrada!`);
                 UIRenderer.render();
-            } else showToast("Estude ao menos alguns segundos", "error");
+            } else showToast("Estude ao menos alguns segundos","error");
         });
     },
-    renderSettings(container) { const state = AppState.getState(); let mappingHtml = Object.entries(state.columnMapping).map(([sheet,map])=>`<div><strong>📄 ${sheet}</strong>  Data: ${map.dateCol||'❌'}  •  Matéria: ${map.disciplineCol||'❌'}  •  Tempo: ${map.timeCol||'❌'}</div>`).join(''); container.innerHTML = `<div class="card"><div class="card-title"><i class="fas fa-sliders-h"></i> Mapeamento inteligente</div>${mappingHtml||'Nenhuma planilha carregada.'}<p class="chip mt-3">✨ O sistema entende colunas semânticas automaticamente.</p><button id="refreshSheetBtn" class="btn-outline mt-3"><i class="fas fa-sync-alt"></i> Recarregar planilha</button></div>`; document.getElementById('refreshSheetBtn')?.addEventListener('click', () => SheetService.loadSheetData()); }
+    renderSettings(container) { container.innerHTML = `<div class="card"><div class="card-title"><i class="fas fa-sliders-h"></i> Configurações & Mapeamento</div><p>O sistema detecta automaticamente colunas como Data, horas_estudadas, Meta, Sequencia, cumpriu_meta. Atualmente conectado à planilha com ${rawSheetData?.length||0} registros.</p><button id="refreshSheetBtn" class="btn-outline mt-3" style="background:#FF7B00"><i class="fas fa-sync-alt"></i> Recarregar dados</button></div>`; document.getElementById('refreshSheetBtn')?.addEventListener('click',()=>SheetService.carregarEProcessar().then(()=>UIRenderer.render())); }
 };
 
-// Eventos e inicialização automática
-window.addEventListener('completeReview', (e) => { showToast(`🎉 Revisão de ${e.detail.discipline} concluída! Continue firme`); });
-document.getElementById('fabFocusBtn')?.addEventListener('click', () => { activeTab = "focus"; document.querySelectorAll('.nav-item').forEach(btn => btn.classList.remove('active')); const focusNav = Array.from(document.querySelectorAll('.nav-item')).find(n => n.dataset.tab === "focus"); if(focusNav) focusNav.classList.add('active'); UIRenderer.render(); });
-const navItems = document.querySelectorAll('.nav-item');
-navItems.forEach(btn => { btn.addEventListener('click', () => { activeTab = btn.dataset.tab; navItems.forEach(b=>b.classList.remove('active')); btn.classList.add('active'); UIRenderer.render(); }); });
+// ====================== MODAL RELATÓRIO ======================
+function openReportModal() {
+    const modal = document.getElementById('reportModal');
+    if(!modal) return;
+    const container = modal.querySelector('.modal-content');
+    if(!rawSheetData || !rawSheetData.length) { container.innerHTML = `<h3><i class="fas fa-chart-line"></i> Histórico</h3><p>Nenhum dado disponível</p><button class="close-modal" id="closeModalBtn">Fechar</button>`; }
+    else {
+        let tableHtml = `<table class="report-table"><thead><tr><th>Data</th><th>Horas</th><th>Meta</th><th>Cumpriu?</th><th>Streak</th></thead><tbody>`;
+        const sorted = [...rawSheetData].sort((a,b)=> new Date(b.Data||b.data) - new Date(a.Data||a.data));
+        for(const row of sorted) {
+            tableHtml += `<tr><td>${row.Data||row.data||"—"}</td><td>${parseFloat(row.horas_estudadas??0).toFixed(1)}h</td><td>${parseFloat(row.Meta??0).toFixed(1)}h</td><td>${(row.cumpriu_meta??"").toLowerCase()==="sim"?"✅ Sim":"❌ Não"}</td><td>${row.Sequencia??row.sequencia??0}</td></tr>`;
+        }
+        tableHtml += `</tbody></table><button class="close-modal" id="closeModalBtn">Fechar</button>`;
+        container.innerHTML = `<h3><i class="fas fa-chart-line"></i> Relatório avançado</h3>${tableHtml}`;
+    }
+    modal.classList.add('active');
+    document.getElementById('closeModalBtn')?.addEventListener('click',()=>modal.classList.remove('active'));
+}
 
+// ====================== EVENTOS E INICIALIZAÇÃO ======================
+window.addEventListener('completeReview', (e) => showToast(`🎉 Revisão de ${e.detail.discipline} concluída!`));
+document.getElementById('fabFocusBtn')?.addEventListener('click',()=>{ activeTab="focus"; document.querySelectorAll('.nav-item').forEach(btn=>btn.classList.remove('active')); const focusNav=Array.from(document.querySelectorAll('.nav-item')).find(n=>n.dataset.tab==="focus"); if(focusNav) focusNav.classList.add('active'); UIRenderer.render(); });
+document.getElementById('reportHeaderBtn')?.addEventListener('click', openReportModal);
+const navItems = document.querySelectorAll('.nav-item');
+navItems.forEach(btn=>{ btn.addEventListener('click',()=>{ activeTab=btn.dataset.tab; navItems.forEach(b=>b.classList.remove('active')); btn.classList.add('active'); UIRenderer.render(); }); });
 TimerService.init();
-AppState.subscribe(() => UIRenderer.render());
-// Carrega automaticamente os dados da planilha ao iniciar
-SheetService.loadSheetData();
+AppState.subscribe(()=>UIRenderer.render());
+SheetService.carregarEProcessar().then(()=>UIRenderer.render());
 UIRenderer.render();
+
+const modalDiv = document.createElement('div');
+modalDiv.id = "reportModal";
+modalDiv.className = "modal-overlay";
+modalDiv.innerHTML = `<div class="modal-content"></div>`;
+document.body.appendChild(modalDiv);
+modalDiv.addEventListener('click', (e)=> { if(e.target === modalDiv) modalDiv.classList.remove('active'); });
 </script>
 </body>
 </html>
