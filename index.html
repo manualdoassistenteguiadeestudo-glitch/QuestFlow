@@ -3,108 +3,52 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover, user-scalable=yes">
-    <title>QuestFlow — Evolução Premium</title>
-    <!-- Google Fonts + Font Awesome 6 -->
+    <title>QuestFlow — Gestão Completa</title>
+    <!-- Fonts e Ícones -->
     <link href="https://fonts.googleapis.com/css2?family=Inter:opsz,wght@14..32,300;14..32,400;14..32,500;14..32,600;14..32,700;14..32,800&display=swap" rel="stylesheet">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
+    <!-- Chart.js -->
     <script src="https://cdn.jsdelivr.net/npm/chart.js@4.4.0/dist/chart.umd.min.js"></script>
     <style>
-        * {
-            margin: 0;
-            padding: 0;
-            box-sizing: border-box;
-        }
-
+        * { margin: 0; padding: 0; box-sizing: border-box; }
         body {
             font-family: 'Inter', sans-serif;
             background: radial-gradient(circle at 10% 20%, #0B1120, #0F172A);
             color: #F8FAFC;
             overflow-x: hidden;
-            min-height: 100vh;
         }
-
-        /* Animações globais */
-        @keyframes fadeSlideUp {
-            from { opacity: 0; transform: translateY(20px); }
-            to { opacity: 1; transform: translateY(0); }
-        }
-        @keyframes glowPulse {
-            0% { text-shadow: 0 0 0 #FF7B00; }
-            100% { text-shadow: 0 0 12px #FF7B00, 0 0 6px #FF7B00; }
-        }
-        @keyframes cardHover {
-            0% { transform: translateY(0); box-shadow: 0 8px 20px rgba(0,0,0,0.2); }
-            100% { transform: translateY(-6px); box-shadow: 0 20px 30px -10px rgba(255,123,0,0.2); }
-        }
-        .tab-content {
-            animation: fadeSlideUp 0.4s cubic-bezier(0.2, 0.9, 0.4, 1.1);
-        }
-        button, .nav-item, .fab-btn {
-            transition: all 0.2s cubic-bezier(0.2, 0.9, 0.4, 1.1);
-        }
-        button:active, .nav-item:active, .fab-btn:active {
-            transform: scale(0.96);
-        }
-        /* Layout principal */
-        .app-container {
-            max-width: 1300px;
-            margin: 0 auto;
-            padding: 20px 24px 90px;
-        }
-        /* Header premium */
+        @keyframes fadeSlideUp { from { opacity: 0; transform: translateY(20px); } to { opacity: 1; transform: translateY(0); } }
+        @keyframes glowPulse { 0% { text-shadow: 0 0 0 #FF7B00; } 100% { text-shadow: 0 0 12px #FF7B00; } }
+        .tab-content { animation: fadeSlideUp 0.4s cubic-bezier(0.2, 0.9, 0.4, 1.1); }
+        button, .nav-item, .fab-btn { transition: all 0.2s cubic-bezier(0.2, 0.9, 0.4, 1.1); }
+        button:active, .nav-item:active { transform: scale(0.96); }
+        .app-container { max-width: 1300px; margin: 0 auto; padding: 20px 24px 90px; }
         .header {
-            display: flex;
-            justify-content: space-between;
-            align-items: center;
-            flex-wrap: wrap;
-            gap: 16px;
-            margin-bottom: 32px;
-            padding: 12px 24px;
-            background: rgba(30, 41, 59, 0.6);
-            backdrop-filter: blur(12px);
-            border-radius: 48px;
-            border: 1px solid rgba(255, 123, 0, 0.2);
-            box-shadow: 0 8px 20px rgba(0,0,0,0.3);
+            display: flex; justify-content: space-between; align-items: center; flex-wrap: wrap; gap: 16px;
+            margin-bottom: 32px; padding: 12px 24px; background: rgba(30, 41, 59, 0.6); backdrop-filter: blur(12px);
+            border-radius: 48px; border: 1px solid rgba(255, 123, 0, 0.2); box-shadow: 0 8px 20px rgba(0,0,0,0.3);
         }
-        .logo {
-            display: flex;
-            align-items: center;
-            gap: 14px;
-        }
+        .logo { display: flex; align-items: center; gap: 14px; }
         .logo-icon {
-            font-size: 2.4rem;
-            color: #FF7B00;
-            filter: drop-shadow(0 0 6px rgba(255,123,0,0.6));
-            transition: transform 0.2s;
-        }
-        .logo:hover .logo-icon {
-            transform: scale(1.02);
-        }
-        .logo-text h1 {
-            font-size: 1.8rem;
-            font-weight: 800;
-            background: linear-gradient(135deg, #FF7B00, #FFB347);
-            -webkit-background-clip: text;
-            background-clip: text;
-            color: transparent;
-            letter-spacing: -0.5px;
-        }
-        .logo-text p {
-            font-size: 0.7rem;
-            color: #94A3B8;
-        }
-        .streak-badge {
-            background: linear-gradient(135deg, #2A2A35, #1E293B);
-            padding: 8px 20px;
-            border-radius: 60px;
+            width: 48px;
+            height: 48px;
+            border-radius: 50%;
+            background: rgba(255, 123, 0, 0.15);
             display: flex;
             align-items: center;
-            gap: 12px;
-            font-weight: 700;
-            color: #FACC15;
-            border: 1px solid rgba(250,204,21,0.3);
-            backdrop-filter: blur(4px);
+            justify-content: center;
+            box-shadow: 0 0 12px rgba(255, 123, 0, 0.5);
+            border: 1px solid rgba(255, 123, 0, 0.4);
         }
+        .logo-icon img {
+            width: 32px;
+            height: 32px;
+            object-fit: contain;
+            filter: drop-shadow(0 0 4px #FF7B00);
+        }
+        .logo-text h1 { font-size: 1.8rem; font-weight: 800; background: linear-gradient(135deg, #FF7B00, #FFB347); -webkit-background-clip: text; background-clip: text; color: transparent; }
+        .logo-text p { font-size: 0.7rem; color: #94A3B8; }
+        .streak-badge { background: linear-gradient(135deg, #2A2A35, #1E293B); padding: 8px 20px; border-radius: 60px; display: flex; align-items: center; gap: 12px; font-weight: 700; color: #FACC15; border: 1px solid rgba(250,204,21,0.3); }
         .report-btn-header {
             background: linear-gradient(95deg, #FF7B00, #6366F1);
             border: none;
@@ -116,277 +60,48 @@
             display: flex;
             align-items: center;
             gap: 10px;
-            font-size: 0.9rem;
             transition: 0.2s;
             box-shadow: 0 4px 12px rgba(255,123,0,0.3);
         }
-        .report-btn-header:hover {
-            transform: scale(1.02);
-            box-shadow: 0 8px 20px rgba(255,123,0,0.5);
-            background: linear-gradient(95deg, #FF8C1A, #7C6FF5);
+        .report-btn-header:hover { transform: scale(1.02); box-shadow: 0 8px 20px rgba(255,123,0,0.5); }
+        .report-btn-header img {
+            width: 20px;
+            height: 20px;
+            filter: brightness(0) invert(1);
         }
-        /* Bottom Navigation moderna */
-        .bottom-nav {
-            position: fixed;
-            bottom: 20px;
-            left: 50%;
-            transform: translateX(-50%);
-            width: auto;
-            background: rgba(30, 41, 59, 0.85);
-            backdrop-filter: blur(20px);
-            display: flex;
-            justify-content: center;
-            gap: 8px;
-            padding: 8px 20px;
-            border-radius: 60px;
-            border: 1px solid rgba(255,255,255,0.1);
-            box-shadow: 0 8px 24px rgba(0,0,0,0.4);
-            z-index: 100;
-        }
-        .nav-item {
-            display: flex;
-            flex-direction: column;
-            align-items: center;
-            gap: 4px;
-            background: transparent;
-            border: none;
-            font-size: 0.7rem;
-            font-weight: 500;
-            color: #94A3B8;
-            cursor: pointer;
-            padding: 8px 16px;
-            border-radius: 40px;
-            transition: 0.2s;
-        }
-        .nav-item i {
-            font-size: 1.3rem;
-        }
-        .nav-item.active {
-            color: #FF7B00;
-            background: rgba(255, 123, 0, 0.15);
-            transform: translateY(-2px);
-        }
-        .fab-btn {
-            position: fixed;
-            bottom: 100px;
-            right: 24px;
-            background: linear-gradient(135deg, #FF7B00, #6366F1);
-            width: 56px;
-            height: 56px;
-            border-radius: 28px;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            box-shadow: 0 8px 20px rgba(255,123,0,0.5);
-            z-index: 110;
-            cursor: pointer;
-        }
-        .fab-btn i {
-            font-size: 1.8rem;
-            color: white;
-        }
-        /* Cards premium */
-        .dashboard-grid {
-            display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
-            gap: 28px;
-            margin-bottom: 40px;
-        }
-        .card {
-            background: #1E293B;
-            border-radius: 32px;
-            padding: 28px;
-            border: 1px solid rgba(255, 123, 0, 0.15);
-            box-shadow: 0 15px 35px -12px rgba(0,0,0,0.4);
-            transition: all 0.25s ease;
-            backdrop-filter: blur(2px);
-        }
-        .card:hover {
-            transform: translateY(-6px);
-            border-color: #FF7B00;
-            box-shadow: 0 25px 40px -15px rgba(255,123,0,0.25);
-        }
-        .card-title {
-            font-size: 1.2rem;
-            font-weight: 700;
-            margin-bottom: 20px;
-            display: flex;
-            align-items: center;
-            gap: 12px;
-            color: #FFB347;
-            letter-spacing: -0.2px;
-        }
-        .stat-number {
-            font-size: 2.8rem;
-            font-weight: 800;
-            background: linear-gradient(135deg, #FF7B00, #FFB347);
-            -webkit-background-clip: text;
-            background-clip: text;
-            color: transparent;
-            display: inline-block;
-        }
-        .progress-bar {
-            background: #0F172A;
-            border-radius: 40px;
-            height: 12px;
-            overflow: hidden;
-            margin: 16px 0;
-        }
-        .progress-fill {
-            background: linear-gradient(90deg, #FF7B00, #6366F1);
-            width: 0%;
-            height: 100%;
-            border-radius: 40px;
-            transition: width 0.7s cubic-bezier(0.2, 0.9, 0.4, 1.1);
-        }
-        .task-item {
-            display: flex;
-            justify-content: space-between;
-            align-items: center;
-            padding: 14px 0;
-            border-bottom: 1px solid rgba(255,255,255,0.08);
-        }
-        .chip {
-            background: rgba(255,123,0,0.2);
-            padding: 6px 14px;
-            border-radius: 40px;
-            font-size: 0.7rem;
-            font-weight: 500;
-            color: #FFB347;
-        }
-        .timer-display {
-            font-size: 3.5rem;
-            font-weight: 800;
-            font-family: monospace;
-            text-align: center;
-            background: #0F172A;
-            padding: 20px;
-            border-radius: 40px;
-            letter-spacing: 6px;
-            border: 1px solid #FF7B00;
-            box-shadow: inset 0 0 10px rgba(0,0,0,0.5);
-        }
-        .motivation-toast {
-            position: fixed;
-            bottom: 110px;
-            left: 50%;
-            transform: translateX(-50%);
-            background: #1E293B;
-            border-left: 4px solid #FF7B00;
-            color: white;
-            padding: 12px 24px;
-            border-radius: 60px;
-            font-weight: 500;
-            z-index: 1000;
-            animation: fadeSlideUp 0.2s ease;
-            backdrop-filter: blur(12px);
-        }
-        .loading-overlay {
-            position: fixed;
-            top:0;left:0;
-            width:100%;height:100%;
-            background: rgba(15,23,42,0.9);
-            backdrop-filter: blur(12px);
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            z-index: 1000;
-            visibility: hidden;
-            opacity: 0;
-            transition: 0.2s;
-        }
-        .loading-overlay.active {
-            visibility: visible;
-            opacity: 1;
-        }
-        .spinner {
-            width: 54px;
-            height: 54px;
-            border: 4px solid #2A2A35;
-            border-top: 4px solid #FF7B00;
-            border-radius: 50%;
-            animation: spin 0.8s linear infinite;
-        }
+        .bottom-nav { position: fixed; bottom: 20px; left: 50%; transform: translateX(-50%); background: rgba(30, 41, 59, 0.85); backdrop-filter: blur(20px); display: flex; gap: 8px; padding: 8px 20px; border-radius: 60px; border: 1px solid rgba(255,255,255,0.1); z-index: 100; }
+        .nav-item { display: flex; flex-direction: column; align-items: center; gap: 4px; background: transparent; border: none; font-size: 0.7rem; font-weight: 500; color: #94A3B8; cursor: pointer; padding: 8px 16px; border-radius: 40px; }
+        .nav-item i { font-size: 1.3rem; }
+        .nav-item.active { color: #FF7B00; background: rgba(255, 123, 0, 0.15); transform: translateY(-2px); }
+        .fab-btn { position: fixed; bottom: 100px; right: 24px; background: linear-gradient(135deg, #FF7B00, #6366F1); width: 56px; height: 56px; border-radius: 28px; display: flex; align-items: center; justify-content: center; box-shadow: 0 8px 20px rgba(255,123,0,0.5); z-index: 110; cursor: pointer; }
+        .card { background: #1E293B; border-radius: 32px; padding: 28px; border: 1px solid rgba(255, 123, 0, 0.15); box-shadow: 0 15px 35px -12px rgba(0,0,0,0.4); transition: all 0.25s ease; margin-bottom: 28px; }
+        .card:hover { transform: translateY(-4px); border-color: #FF7B00; }
+        .card-title { font-size: 1.3rem; font-weight: 700; margin-bottom: 20px; display: flex; align-items: center; gap: 12px; color: #FFB347; }
+        .form-group { margin-bottom: 20px; }
+        label { display: block; margin-bottom: 8px; font-weight: 500; color: #CBD5E1; }
+        input, select, textarea { width: 100%; padding: 12px 16px; background: #0F172A; border: 1px solid #334155; border-radius: 24px; color: white; font-family: inherit; transition: 0.2s; }
+        input:focus, select:focus { outline: none; border-color: #FF7B00; box-shadow: 0 0 0 2px rgba(255,123,0,0.2); }
+        button.primary-btn { background: linear-gradient(95deg, #FF7B00, #6366F1); border: none; padding: 12px 24px; border-radius: 40px; font-weight: 600; color: white; cursor: pointer; width: 100%; }
+        .data-table { width: 100%; overflow-x: auto; }
+        table { width: 100%; border-collapse: collapse; }
+        th, td { text-align: left; padding: 12px 8px; border-bottom: 1px solid #334155; }
+        th { color: #FFB347; }
+        .action-btn { background: none; border: none; color: #FF7B00; cursor: pointer; margin: 0 4px; font-size: 1rem; }
+        .sub-nav { display: flex; gap: 12px; margin-bottom: 24px; border-bottom: 1px solid #334155; padding-bottom: 12px; flex-wrap: wrap; }
+        .sub-nav-item { background: transparent; border: none; padding: 8px 20px; border-radius: 40px; color: #94A3B8; cursor: pointer; }
+        .sub-nav-item.active { background: #FF7B00; color: white; }
+        .toast { position: fixed; bottom: 100px; left: 50%; transform: translateX(-50%); background: #1E293B; border-left: 4px solid #FF7B00; padding: 12px 24px; border-radius: 60px; z-index: 1000; animation: fadeSlideUp 0.2s ease; }
+        .loading-overlay { position: fixed; top:0;left:0;width:100%;height:100%;background: rgba(15,23,42,0.9);backdrop-filter: blur(12px);display: flex;align-items: center;justify-content: center;z-index: 1000;visibility: hidden;opacity: 0;transition: 0.2s; }
+        .loading-overlay.active { visibility: visible; opacity: 1; }
+        .spinner { width: 48px; height: 48px; border: 4px solid #2A2A35; border-top: 4px solid #FF7B00; border-radius: 50%; animation: spin 0.8s linear infinite; }
         @keyframes spin { to { transform: rotate(360deg); } }
-        .status-success, .status-warning {
-            border-radius: 40px;
-            padding: 6px 16px;
-            display: inline-flex;
-            align-items: center;
-            gap: 8px;
-            font-weight: 600;
-        }
-        .status-success { background: rgba(34,197,94,0.15); color: #4ADE80; }
-        .status-warning { background: rgba(239,68,68,0.15); color: #F87171; }
-        /* Modal Relatório */
-        .modal-overlay {
-            position: fixed;
-            top:0;left:0;
-            width:100%;height:100%;
-            background: rgba(0,0,0,0.8);
-            backdrop-filter: blur(12px);
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            z-index: 1000;
-            visibility: hidden;
-            opacity: 0;
-            transition: 0.2s;
-        }
-        .modal-overlay.active {
-            visibility: visible;
-            opacity: 1;
-        }
-        .modal-content {
-            background: #1E293B;
-            border-radius: 40px;
-            width: 90%;
-            max-width: 600px;
-            max-height: 80vh;
-            overflow-y: auto;
-            padding: 28px;
-            border: 1px solid #FF7B00;
-            box-shadow: 0 30px 40px rgba(0,0,0,0.5);
-        }
-        .modal-content h3 {
-            font-size: 1.6rem;
-            margin-bottom: 20px;
-            color: #FF7B00;
-        }
-        .report-table {
-            width: 100%;
-            border-collapse: collapse;
-        }
-        .report-table th, .report-table td {
-            text-align: left;
-            padding: 14px 8px;
-            border-bottom: 1px solid #334155;
-        }
-        .report-table th { color: #FFB347; }
-        .close-modal {
-            background: linear-gradient(95deg, #FF7B00, #6366F1);
-            border: none;
-            padding: 12px 20px;
-            border-radius: 40px;
-            font-weight: 600;
-            margin-top: 24px;
-            cursor: pointer;
-            width: 100%;
-            color: white;
-        }
-        footer {
-            margin-top: 48px;
-            text-align: center;
-            font-size: 0.7rem;
-            color: #475569;
-        }
-        @media (max-width: 680px) {
-            .app-container { padding: 16px 16px 100px; }
-            .header { flex-direction: column; align-items: stretch; text-align: center; }
-            .bottom-nav { gap: 4px; padding: 6px 12px; }
-            .nav-item { padding: 6px 10px; }
-            .stat-number { font-size: 2rem; }
-        }
+        .task-item, .progress-bar { margin-bottom: 16px; }
+        .task-item { display: flex; justify-content: space-between; align-items: center; padding: 8px 0; border-bottom: 1px dashed #334155; }
+        .progress-bar { height: 12px; background: #0F172A; border-radius: 20px; overflow: hidden; }
+        .progress-fill { height: 100%; background: linear-gradient(90deg, #FF7B00, #FFB347); border-radius: 20px; width: 0%; }
+        .timer-display { font-size: 4rem; font-weight: 800; text-align: center; font-variant-numeric: tabular-nums; }
+        .chip { background: #2A2A35; padding: 4px 12px; border-radius: 40px; font-size: 0.8rem; }
+        @media (max-width: 680px) { .app-container { padding: 16px; } .bottom-nav { gap: 4px; padding: 6px 12px; } .nav-item { padding: 6px 10px; } }
     </style>
 </head>
 <body>
@@ -394,312 +109,497 @@
 <div class="app-container" id="app">
     <div class="header">
         <div class="logo">
-            <i class="fas fa-helmet-battle logo-icon"></i>
+            <div class="logo-icon">
+                <!-- Ícone do capacete (Flaticon) -->
+                <img src="https://cdn-icons-png.flaticon.com/512/2276/2276592.png" alt="Capacete guerreiro" style="width: 32px; height: 32px;">
+            </div>
             <div class="logo-text">
                 <h1>QuestFlow</h1>
                 <p>performance & evolução</p>
             </div>
         </div>
-        <div class="streak-badge" id="streakElement">
-            <i class="fas fa-fire"></i> <span id="streakValue">0</span> dias em sequência
-        </div>
-        <button id="reportHeaderBtn" class="report-btn-header"><i class="fas fa-chart-simple"></i> Relatórios</button>
+        <div class="streak-badge"><i class="fas fa-fire"></i> <span id="streakValue">0</span> dias</div>
+        <button id="reportHeaderBtn" class="report-btn-header">
+            <!-- Ícone de relatório (Flaticon) -->
+            <img src="https://cdn-icons-png.flaticon.com/512/8328/8328461.png" alt="Relatório" style="width: 20px; height: 20px;">
+            Relatórios
+        </button>
     </div>
-    <div id="authStatus" class="status-badge" style="margin-bottom: 20px; background: #1E293B;"><i class="fas fa-check-circle"></i> ✅ Planilha sincronizada</div>
     <div id="tabContent" class="tab-content"></div>
-    <footer>⚡ Dados em tempo real • Gamificação inteligente</footer>
+    <footer style="text-align:center; margin-top:40px; font-size:0.7rem; color:#475569;">⚡ Gestão completa • CRUD integrado com SheetDB</footer>
 </div>
 <div class="bottom-nav" id="bottomNav">
     <button class="nav-item active" data-tab="dashboard"><i class="fas fa-chart-line"></i><span>Visão</span></button>
     <button class="nav-item" data-tab="planner"><i class="fas fa-calendar-week"></i><span>Plano</span></button>
-    <button class="nav-item" data-tab="content"><i class="fas fa-book-open"></i><span>Conteúdo</span></button>
-    <button class="nav-item" data-tab="reviews"><i class="fas fa-rotate-right"></i><span>Revisões</span></button>
-    <button class="nav-item" data-tab="questions"><i class="fas fa-question-circle"></i><span>Questões</span></button>
+    <button class="nav-item" data-tab="gestao"><i class="fas fa-database"></i><span>Gestão</span></button>
     <button class="nav-item" data-tab="reports"><i class="fas fa-chart-simple"></i><span>Relatórios</span></button>
     <button class="nav-item" data-tab="focus"><i class="fas fa-clock"></i><span>Foco</span></button>
-    <button class="nav-item" data-tab="settings"><i class="fas fa-sliders-h"></i><span>Ajustes</span></button>
 </div>
 <div class="fab-btn" id="fabFocusBtn"><i class="fas fa-play"></i></div>
 
 <script>
-// ====================== CONEXÃO SHEETDB ======================
-const SHEETDB_API_URL = "https://sheetdb.io/api/v1/7o3coa2jghj2r";
-let rawSheetData = [];
-let lastRecord = null;
+// ====================== CONFIGURAÇÃO SHEETDB ======================
+const BASE_API = "https://sheetdb.io/api/v1/yzz4a1hv8hm9w"; // Nova URL fornecida
 
-const showToast = (msg, type='info') => {
-    const toast = document.createElement('div');
-    toast.className = 'motivation-toast';
-    toast.innerHTML = `<i class="fas ${type==='error'?'fa-exclamation-triangle':'fa-face-smile'}"></i> ${msg}`;
-    document.body.appendChild(toast);
-    setTimeout(() => toast.remove(), 2800);
-};
-const showLoading = (show) => {
-    const overlay = document.getElementById('loadingOverlay');
-    if(overlay) show ? overlay.classList.add('active') : overlay.classList.remove('active');
-};
+// Estados globais para cada tabela (todas as abas)
+let resumo = [];
+let disciplinas = [];
+let planoDiario = [];
+let revisoes = [];
+let questoes = [];
+let planoEstudo = [];
+let conteudos = [];
+let estatisticas = [];
+let sessoes = [];
+let notificacoes = [];
 
-// ====================== ESTADO GLOBAL ======================
-const AppState = {
-    _data: { rawSheets: [], columnMapping: {}, disciplines: new Map(), sessions: [], reviewQueue: [], questionsData: { history: [], accuracy: 0 }, stats: { totalHours: 0 }, notifications: [] },
-    _listeners: [],
-    getState() { return this._data; },
-    setState(updater) { const newState = typeof updater === 'function' ? updater(this._data) : updater; Object.assign(this._data, newState); this._listeners.forEach(fn=>fn(this._data)); },
-    updateSpecific(key,val) { this._data[key]=val; this._listeners.forEach(fn=>fn(this._data)); },
-    subscribe(fn) { this._listeners.push(fn); return ()=> this._listeners=this._listeners.filter(l=>l!==fn); }
-};
+let activeTab = "dashboard";
+let activeSubTab = "conteudo"; // dentro da gestão
 
-// ====================== SERVIÇO DE PLANILHA ======================
-const SheetService = {
-    async carregarDados() {
-        const resp = await fetch(SHEETDB_API_URL);
-        if(!resp.ok) throw new Error(`HTTP ${resp.status}`);
-        return await resp.json();
-    },
-    async carregarEProcessar() {
-        showLoading(true);
-        try {
-            const rows = await this.carregarDados();
-            if(!rows || !rows.length) throw new Error("Nenhum dado encontrado");
-            rawSheetData = rows;
-            const sorted = [...rows].sort((a,b)=> new Date(b.Data || b.data) - new Date(a.Data || a.data));
-            lastRecord = sorted[0] || null;
-            const headers = Object.keys(rows[0]);
-            const dataRows = rows.map(row => { let obj = {}; headers.forEach(h => { obj[h] = row[h] || ''; }); return obj; });
-            const sheetData = { name: "Principal", headers, data: dataRows };
-            AppState.updateSpecific('rawSheets', [sheetData]);
-            this.intelligentMappingAndBuildState(sheetData);
-            document.getElementById('authStatus').innerHTML = `<i class="fas fa-check-circle"></i> ✅ Planilha carregada • ${rows.length} registros`;
-            showToast("Dados sincronizados! 🚀");
-            return rows;
-        } catch(err) {
-            console.error(err);
-            showToast("Erro ao carregar planilha: "+err.message, "error");
-            document.getElementById('authStatus').innerHTML = `<i class="fas fa-exclamation-triangle"></i> ⚠️ Erro: ${err.message}`;
-        } finally { showLoading(false); }
-    },
-    intelligentMappingAndBuildState(sheet) {
-        const headers = sheet.headers.map(h=>h?.toLowerCase()||'');
-        let dateCol = headers.find(h=>/data|date|dia/i.test(h));
-        let timeCol = headers.find(h=>/horas|hora|tempo|estudadas/i.test(h));
-        let disciplineCol = headers.find(h=>/disciplina|matéria|assunto/i.test(h));
-        const disciplineSet = new Map();
-        let totalHours = 0, sessionsRaw = [];
-        for(const row of sheet.data) {
-            let discipline = disciplineCol ? (row[disciplineCol]||"Geral").trim() : "Geral";
-            let hours = 0;
-            let timeVal = timeCol ? row[timeCol] : null;
-            if(timeVal) { let m = String(timeVal).match(/(\d+(?:[.,]\d+)?)/); if(m) hours = parseFloat(m[1].replace(',','.')); }
-            let rawDate = dateCol ? row[dateCol] : null;
-            let dateObj = rawDate ? new Date(rawDate) : null;
-            if(dateObj && isNaN(dateObj)) dateObj = new Date();
-            if(hours>0) {
-                totalHours += hours;
-                sessionsRaw.push({ date: dateObj || new Date(), discipline, duration: hours, completed: true });
-            }
-            if(!disciplineSet.has(discipline)) disciplineSet.set(discipline, { totalHours:0, topics:[] });
-            disciplineSet.get(discipline).totalHours += hours;
-        }
-        AppState.setState({ disciplines: disciplineSet, sessions: sessionsRaw, stats: { totalHours } });
-        this.generateSmartReviews();
-        this.updateNotifications();
-    },
-    generateSmartReviews() {
-        const data = AppState.getState();
-        const now = new Date();
-        const reviewMap = new Map();
-        for(const sess of data.sessions) {
-            if(!sess.date) continue;
-            const daysDiff = Math.floor((now - sess.date)/(1000*3600*24));
-            if(daysDiff>=1 && daysDiff<=7) reviewMap.set(sess.discipline, { discipline: sess.discipline, dueDays: daysDiff });
-        }
-        let queue = Array.from(reviewMap.values()).slice(0,3);
-        if(queue.length===0 && data.disciplines.size) queue = Array.from(data.disciplines.keys()).slice(0,2).map(d=>({ discipline: d, dueDays: 2 }));
-        AppState.updateSpecific('reviewQueue', queue);
-    },
-    updateNotifications() {
-        const data = AppState.getState();
-        let notifs = [];
-        if(data.stats.totalHours === 0) notifs.push("🔥 Comece registrando horas!");
-        if(data.reviewQueue.length) notifs.push(`🔄 ${data.reviewQueue.length} revisões pendentes`);
-        AppState.updateSpecific('notifications', notifs);
-    },
-    generateStudyPlan() {
-        const data = AppState.getState();
-        let list = Array.from(data.disciplines.entries()).map(([n,d])=>({ name: n, hours: d.totalHours })).sort((a,b)=>a.hours-b.hours);
-        return list.slice(0,4).map(d=>({ discipline: d.name, suggestedHours: 1.5, reason: "prioridade" }));
-    },
-    generateDailyTasks() {
-        const data = AppState.getState();
-        let tasks = [];
-        for(let [disc, discData] of data.disciplines.entries()) {
-            if(discData.totalHours < 2) tasks.push({ discipline: disc, priority: "recomendado" });
-        }
-        if(!tasks.length && data.disciplines.size) tasks = [{ discipline: Array.from(data.disciplines.keys())[0], priority: "foco" }];
-        return tasks.slice(0,3);
+// Helper toast e loading
+function showToast(msg, type='info') {
+    const toast = document.createElement('div'); 
+    toast.className = 'toast'; 
+    toast.innerHTML = `<i class="fas ${type==='error'?'fa-exclamation-triangle':'fa-check-circle'}"></i> ${msg}`;
+    document.body.appendChild(toast); 
+    setTimeout(()=>toast.remove(), 3000);
+}
+function showLoading(show) { 
+    const el = document.getElementById('loadingOverlay'); 
+    if(el) show ? el.classList.add('active') : el.classList.remove('active'); 
+}
+
+// ====================== FUNÇÕES CRUD GENÉRICAS ======================
+async function fetchSheet(sheetName) {
+    const url = `${BASE_API}?sheet=${sheetName}`;
+    const resp = await fetch(url);
+    if(!resp.ok) throw new Error(`Erro ao buscar ${sheetName}`);
+    const data = await resp.json();
+    return data;
+}
+
+async function addRow(sheetName, rowData) {
+    const url = `${BASE_API}?sheet=${sheetName}`;
+    const resp = await fetch(url, {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify({ data: [rowData] }) // SheetDB espera array
+    });
+    if(!resp.ok) throw new Error(`Erro ao adicionar em ${sheetName}`);
+    return await resp.json();
+}
+
+async function updateRow(sheetName, rowId, updatedData) {
+    const url = `${BASE_API}/id/${rowId}?sheet=${sheetName}`;
+    const resp = await fetch(url, {
+        method: "PUT",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify({ data: updatedData })
+    });
+    if(!resp.ok) throw new Error(`Erro ao atualizar ${sheetName}`);
+    return await resp.json();
+}
+
+async function deleteRow(sheetName, rowId) {
+    const url = `${BASE_API}/id/${rowId}?sheet=${sheetName}`;
+    const resp = await fetch(url, { method: "DELETE" });
+    if(!resp.ok) throw new Error(`Erro ao deletar de ${sheetName}`);
+    return await resp.json();
+}
+
+// ====================== CARREGAR TODOS OS DADOS ======================
+async function loadAllData() {
+    showLoading(true);
+    try {
+        const [
+            r, d, pd, rev, q, pe, c, e, s, n
+        ] = await Promise.all([
+            fetchSheet("RESUMO").catch(()=>[]),
+            fetchSheet("DISCIPLINAS").catch(()=>[]),
+            fetchSheet("PLANO_DIARIO").catch(()=>[]),
+            fetchSheet("REVISOES").catch(()=>[]),
+            fetchSheet("QUESTOES").catch(()=>[]),
+            fetchSheet("PLANO_ESTUDO").catch(()=>[]),
+            fetchSheet("CONTEUDO").catch(()=>[]),
+            fetchSheet("ESTATISTICAS").catch(()=>[]),
+            fetchSheet("SESSOES").catch(()=>[]),
+            fetchSheet("NOTIFICACOES").catch(()=>[])
+        ]);
+        resumo = r;
+        disciplinas = d;
+        planoDiario = pd;
+        revisoes = rev;
+        questoes = q;
+        planoEstudo = pe;
+        conteudos = c;
+        estatisticas = e;
+        sessoes = s;
+        notificacoes = n;
+
+        updateStreakFromSessoes();
+        renderCurrentTab();
+    } catch(err) { 
+        showToast("Erro ao carregar dados: "+err.message, "error"); 
+    } finally { 
+        showLoading(false); 
     }
-};
+}
 
-// ====================== TIMER ======================
-const TimerService = {
-    _elapsed:0, _running:false, _interval:null, _listeners:[],
-    init() { const saved = localStorage.getItem('questflow_timer'); if(saved) try { const d=JSON.parse(saved); this._elapsed=d.elapsed||0; this._running=d.running||false; if(this._running) this.start(); } catch(e){} window.addEventListener('beforeunload',()=>this.persist()); },
-    persist() { localStorage.setItem('questflow_timer', JSON.stringify({ elapsed: this._elapsed, running: this._running })); },
-    getElapsed() { return this._elapsed; },
-    start() { if(this._interval) return; this._running=true; this._interval=setInterval(()=>{ if(this._running){ this._elapsed++; this._listeners.forEach(fn=>fn(this._elapsed)); this.persist(); } },1000); this.persist(); },
-    pause() { this._running=false; if(this._interval) clearInterval(this._interval); this._interval=null; this.persist(); },
-    reset() { this.pause(); this._elapsed=0; this._listeners.forEach(fn=>fn(this._elapsed)); this.persist(); },
-    subscribe(fn) { this._listeners.push(fn); return ()=> this._listeners=this._listeners.filter(l=>l!==fn); }
-};
+function updateStreakFromSessoes() {
+    if(!sessoes.length) return;
+    const dates = [...new Set(sessoes.map(s => s.Data ? new Date(s.Data).toDateString() : null).filter(d=>d))];
+    let streak = 0; 
+    let current = new Date();
+    // Contagem de dias consecutivos
+    while(true) { 
+        if(dates.includes(current.toDateString())) streak++; 
+        else break; 
+        current.setDate(current.getDate()-1); 
+    }
+    document.getElementById('streakValue').innerText = streak;
+}
 
 // ====================== UI RENDER ======================
-let activeTab = "dashboard";
-let currentCharts = {};
-
-function renderPlanilhaCard() {
-    if(!lastRecord) return '<div class="card">Nenhum dado disponível</div>';
-    const dataStr = lastRecord.Data || lastRecord.data || "—";
-    const horas = parseFloat(lastRecord.horas_estudadas ?? 0);
-    const meta = parseFloat(lastRecord.Meta ?? 0);
-    const sequencia = parseInt(lastRecord.Sequencia ?? lastRecord.sequencia ?? 0, 10);
-    const cumpriu = (lastRecord.cumpriu_meta ?? "").toString().toLowerCase();
-    const cumpriuMeta = (cumpriu === "sim" || cumpriu === "true");
-    const statusClass = cumpriuMeta ? "status-success" : "status-warning";
-    const statusIcon = cumpriuMeta ? "fa-check-circle" : "fa-exclamation-circle";
-    const statusText = cumpriuMeta ? "Meta cumprida! 🎯" : "Meta não cumprida ⚠️";
-    return `
-        <div class="card">
-            <div class="card-title"><i class="fas fa-crown"></i> Último registro</div>
-            <div class="task-item"><span>📅 Data</span><strong style="color:#FFB347">${dataStr}</strong></div>
-            <div class="task-item"><span>⏱ Horas estudadas</span><strong class="stat-number" style="font-size:1.8rem">${horas.toFixed(1)}h</strong></div>
-            <div class="task-item"><span>🎯 Meta diária</span><strong>${meta.toFixed(1)}h</strong></div>
-            <div class="task-item"><span>🔥 Sequência (streak)</span><strong class="stat-number" style="font-size:1.5rem">${sequencia} dias</strong></div>
-            <div class="task-item"><span>✅ Status</span><div class="${statusClass}"><i class="fas ${statusIcon}"></i> ${statusText}</div></div>
-        </div>
-    `;
+function renderCurrentTab() {
+    const container = document.getElementById('tabContent');
+    if(!container) return;
+    if(activeTab === 'gestao') UIRenderer.renderGestao(container);
+    else if(activeTab === 'dashboard') UIRenderer.renderDashboard(container);
+    else if(activeTab === 'planner') UIRenderer.renderPlanner(container);
+    else if(activeTab === 'reports') UIRenderer.renderReports(container);
+    else if(activeTab === 'focus') UIRenderer.renderFocusMode(container);
+    else UIRenderer.renderDashboard(container);
 }
 
 const UIRenderer = {
-    render() {
-        const container = document.getElementById('tabContent');
-        if(!container) return;
-        switch(activeTab) {
-            case "dashboard": this.renderDashboard(container); break;
-            case "planner": this.renderPlanner(container); break;
-            case "content": this.renderContent(container); break;
-            case "reviews": this.renderReviews(container); break;
-            case "questions": this.renderQuestions(container); break;
-            case "reports": this.renderReports(container); break;
-            case "focus": this.renderFocusMode(container); break;
-            case "settings": this.renderSettings(container); break;
-            default: this.renderDashboard(container);
-        }
-    },
     renderDashboard(container) {
-        const state = AppState.getState();
-        const dailyTasks = SheetService.generateDailyTasks();
-        const totalHours = state.stats.totalHours;
-        const progressPerc = Math.min(100, (totalHours/50)*100);
-        const planilhaCard = renderPlanilhaCard();
+        let totalHoras = sessoes.reduce((acc,s)=> acc + (parseFloat(s.Duracao_Min||0)/60 || 0), 0);
+        let totalQuestoes = questoes.length;
+        let progresso = Math.min(100, (totalHoras/50)*100);
         container.innerHTML = `
-            <div class="dashboard-grid">
-                ${planilhaCard}
-                <div class="card"><div class="card-title"><i class="fas fa-hourglass-half"></i> Total acumulado</div><div class="stat-number">${totalHours.toFixed(1)}h</div><div class="progress-bar"><div class="progress-fill" style="width:${progressPerc}%"></div></div><div>⚡ meta mensal 50h</div></div>
-                <div class="card"><div class="card-title"><i class="fas fa-list-check"></i> Tarefas do dia</div><div id="dailyTasksList"></div></div>
-                <div class="card"><div class="card-title"><i class="fas fa-bell"></i> Notificações</div><div id="notifList"></div></div>
+            <div class="card"><div class="card-title"><i class="fas fa-chart-line"></i> Visão Geral</div>
+            <div class="task-item"><span>⏱ Total Horas</span><strong style="font-size:2rem">${totalHoras.toFixed(1)}h</strong></div>
+            <div class="progress-bar mt-2"><div class="progress-fill" style="width:${progresso}%"></div></div>
+            <div class="task-item"><span>📚 Conteúdos cadastrados</span><strong>${conteudos.length}</strong></div>
+            <div class="task-item"><span>🎯 Sessões realizadas</span><strong>${sessoes.length}</strong></div>
+            <div class="task-item"><span>📋 Questões respondidas</span><strong>${totalQuestoes}</strong></div>
             </div>
-            <div class="card"><div class="card-title"><i class="fas fa-chart-line"></i> Distribuição por disciplina</div><canvas id="disciplinesChart" height="120"></canvas></div>
+            <div class="card"><div class="card-title"><i class="fas fa-history"></i> Últimas Sessões</div><div id="ultimasSessoes"></div></div>
         `;
-        document.getElementById('dailyTasksList').innerHTML = dailyTasks.map(t=>`<div class="task-item"><span>📖 ${t.discipline}</span><span class="chip">${t.priority}</span></div>`).join('');
-        document.getElementById('notifList').innerHTML = state.notifications.length ? state.notifications.map(n=>`<div>✨ ${n}</div>`).join('') : "<div>🏆 Tudo em dia!</div>";
+        let ultimas = [...sessoes].sort((a,b)=> new Date(b.Data) - new Date(a.Data)).slice(0,5);
+        document.getElementById('ultimasSessoes').innerHTML = ultimas.map(s=>`<div class="task-item"><span>${s.Data||'—'}</span><span>${s.Disciplina||'?'}</span><span>${s.Duracao_Min||0}min</span></div>`).join('');
+    },
+    renderPlanner(container) {
+        // Utiliza PLANO_ESTUDO e PLANO_DIARIO para exibir planejamento
+        let planos = planoEstudo.length ? planoEstudo : planoDiario;
+        container.innerHTML = `<div class="card"><div class="card-title"><i class="fas fa-calendar-alt"></i> Plano de Estudos</div><div id="planList"></div></div>`;
+        let html = '';
+        if (planos.length) {
+            planos.slice(0,10).forEach(p => {
+                html += `<div class="task-item"><span>📖 ${p.Disciplina || p.Tipo || 'Estudo'}</span><span class="chip">${p.Tempo_Min || p.Tempo_Planejado || '?'} min</span></div>`;
+            });
+        } else {
+            html = '<p>Nenhum plano cadastrado. Use a aba Gestão para adicionar.</p>';
+        }
+        document.getElementById('planList').innerHTML = html;
+    },
+    renderReports(container) {
+        if(!sessoes.length) { container.innerHTML = `<div class="card">Nenhuma sessão registrada.</div>`; return; }
+        let horasPorDia = sessoes.reduce((acc,s)=>{ let data = s.Data; if(data) acc[data] = (acc[data]||0) + (parseFloat(s.Duracao_Min||0)/60); return acc; },{});
+        let labels = Object.keys(horasPorDia).slice(-7);
+        let data = labels.map(l=>horasPorDia[l]);
+        container.innerHTML = `<div class="card"><div class="card-title"><i class="fas fa-chart-line"></i> Evolução (últimos 7 dias)</div><canvas id="evolucaoChart" height="150"></canvas></div>`;
         setTimeout(()=>{
-            const ctx = document.getElementById('disciplinesChart')?.getContext('2d');
-            if(ctx) {
-                if(currentCharts.disciplinesChart) currentCharts.disciplinesChart.destroy();
-                let labels = Array.from(state.disciplines.keys()).slice(0,5);
-                let data = labels.map(d=>state.disciplines.get(d)?.totalHours||0);
-                currentCharts.disciplinesChart = new Chart(ctx, { type:'bar', data:{ labels, datasets:[{ label:'Horas', data, backgroundColor: '#FF7B00', borderRadius: 12 }] }, options:{ responsive: true, plugins: { legend: { labels: { color: '#94A3B8' } } } } });
-            }
+            const ctx = document.getElementById('evolucaoChart')?.getContext('2d');
+            if(ctx) new Chart(ctx, { type:'line', data:{ labels, datasets:[{ label:'Horas', data, borderColor:'#FF7B00', tension:0.3 }] } });
         },50);
     },
-    renderPlanner(container) { let plan = SheetService.generateStudyPlan(); container.innerHTML = `<div class="card"><div class="card-title"><i class="fas fa-calendar-alt"></i> Plano de estudos inteligente</div><div id="planList"></div></div>`; document.getElementById('planList').innerHTML = plan.map(p=>`<div class="task-item"><span>🎯 ${p.discipline}</span><span>${p.suggestedHours}h</span><span class="chip">${p.reason}</span></div>`).join(''); },
-    renderContent(container) { const state = AppState.getState(); let html=""; for(let [disc,d] of state.disciplines.entries()) html += `<div class="task-item"><strong><i class="fas fa-graduation-cap"></i> ${disc}</strong> <span>${d.totalHours.toFixed(1)}h</span> ${d.topics.length?`<span class="chip">${d.topics.slice(0,2).join(', ')}</span>`:''}</div>`; container.innerHTML = `<div class="card"><div class="card-title"><i class="fas fa-layer-group"></i> Conteúdos registrados</div>${html||'<p>Nenhum tópico específico.</p>'}</div>`; },
-    renderReviews(container) { const revs = AppState.getState().reviewQueue; container.innerHTML = `<div class="card"><div class="card-title"><i class="fas fa-rotate-right"></i> Revisões estratégicas</div><div id="reviewList"></div></div>`; document.getElementById('reviewList').innerHTML = revs.length? revs.map(r=>`<div class="task-item"><span>📅 ${r.discipline}</span><span>vencimento ${r.dueDays}d</span><button class="chip" onclick="window.dispatchEvent(new CustomEvent('completeReview',{detail:{discipline:'${r.discipline}'}}))">✅ Revisar</button></div>`).join('') : "<p>🎉 Nenhuma revisão pendente!</p>"; },
-    renderQuestions(container) { const state = AppState.getState(); container.innerHTML = `<div class="card"><div class="card-title"><i class="fas fa-square-check"></i> Banco de questões</div><div>Desempenho: <strong class="stat-number">${state.questionsData.accuracy.toFixed(1)}%</strong></div><div class="progress-bar mt-2"><div class="progress-fill" style="width:${state.questionsData.accuracy}%; background:#22C55E;"></div></div><div id="questionHistory"></div><button id="addManualQuestionBtn" class="btn-outline mt-3"><i class="fas fa-plus-circle"></i> Registrar manual</button></div>`; document.getElementById('questionHistory').innerHTML = state.questionsData.history.slice(-5).map(q=>`<div>📊 ${q.discipline}: ${q.right}/${q.total}</div>`).join(''); document.getElementById('addManualQuestionBtn')?.addEventListener('click',()=>{ let disc=prompt("Disciplina"), right=parseInt(prompt("Acertos")), total=parseInt(prompt("Total")); if(!isNaN(right)&&!isNaN(total)&&total>0){ const newHist=[...state.questionsData.history,{right,total,discipline:disc||"Manual"}]; let totalR=newHist.reduce((a,b)=>a+b.right,0), totalT=newHist.reduce((a,b)=>a+b.total,0); AppState.setState({questionsData:{history:newHist, accuracy:totalT?(totalR/totalT)*100:0}}); UIRenderer.renderQuestions(container); showToast("Questão registrada!"); } }); },
-    renderReports(container) { 
-        if(!rawSheetData || !rawSheetData.length) { container.innerHTML = `<div class="card">Nenhum dado para exibir no relatório.</div>`; return; }
-        let tableHtml = `<table class="report-table"><thead><tr><th>Data</th><th>Horas</th><th>Meta</th><th>Cumpriu?</th><th>Streak</th></thead><tbody>`;
-        const sorted = [...rawSheetData].sort((a,b)=> new Date(b.Data||b.data) - new Date(a.Data||a.data));
-        for(const row of sorted) {
-            tableHtml += `<tr><td>${row.Data||row.data||"—"}</td><td>${parseFloat(row.horas_estudadas??0).toFixed(1)}h</td><td>${parseFloat(row.Meta??0).toFixed(1)}h</td><td>${(row.cumpriu_meta??"").toLowerCase()==="sim"?"✅ Sim":"❌ Não"}</td><td>${row.Sequencia??row.sequencia??0}</td></tr>`;
-        }
-        tableHtml += `</tbody></table>`;
-        container.innerHTML = `<div class="card"><div class="card-title"><i class="fas fa-chart-simple"></i> Relatório completo de estudos</div>${tableHtml}</div>`;
-    },
     renderFocusMode(container) {
-        container.innerHTML = `<div class="card"><div class="card-title"><i class="fas fa-stopwatch"></i> Modo Foco Profundo</div><div class="timer-display" id="focusTimer">00:00:00</div><div style="display:flex; gap:12px; margin:24px 0;"><button id="startFocusBtn" style="background:#FF7B00"><i class="fas fa-play"></i> Iniciar</button><button id="pauseFocusBtn" style="background:#6366F1"><i class="fas fa-pause"></i> Pausar</button><button id="saveFocusBtn" style="background:#22C55E"><i class="fas fa-save"></i> Salvar</button></div><div><label><i class="fas fa-tag"></i> Disciplina: <input id="focusDiscipline" placeholder="Ex: Direito Constitucional" style="background:#0F172A; border:1px solid #FF7B00; padding:8px; border-radius:40px; width:100%; color:white;"></label></div></div>`;
-        const updateDisplay = (sec)=>{ const el=document.getElementById('focusTimer'); if(el) el.innerText = new Date(sec*1000).toISOString().substr(11,8); };
-        const unsub = TimerService.subscribe(updateDisplay); updateDisplay(TimerService.getElapsed());
-        document.getElementById('startFocusBtn')?.addEventListener('click',()=>TimerService.start());
-        document.getElementById('pauseFocusBtn')?.addEventListener('click',()=>TimerService.pause());
-        document.getElementById('saveFocusBtn')?.addEventListener('click', async ()=>{
-            let disc = document.getElementById('focusDiscipline').value.trim() || "Foco";
-            let hours = TimerService.getElapsed()/3600;
-            if(hours>0){
-                const state = AppState.getState();
-                const newSession = { date: new Date(), discipline: disc, duration: hours, completed: true };
-                const updatedSessions = [...state.sessions, newSession];
-                let totalHours = state.stats.totalHours + hours;
-                let discMap = new Map(state.disciplines);
-                if(!discMap.has(disc)) discMap.set(disc,{totalHours:0,topics:[]});
-                discMap.get(disc).totalHours += hours;
-                AppState.setState({ sessions: updatedSessions, disciplines: discMap, stats: { ...state.stats, totalHours } });
-                SheetService.generateSmartReviews(); SheetService.updateNotifications();
-                try { await fetch(SHEETDB_API_URL, { method:"POST", headers:{"Content-Type":"application/json"}, body: JSON.stringify({ data: { Data: new Date().toISOString().slice(0,10), Disciplina: disc, Horas: hours, Status:"Concluído" } }) }); showToast("Sessão salva na planilha! ✅"); } catch(e) { showToast("Sessão salva localmente", "error"); }
-                TimerService.reset(); showToast(`🔥 Sessão de ${hours.toFixed(1)}h registrada!`);
-                UIRenderer.render();
-            } else showToast("Estude ao menos alguns segundos","error");
-        });
+        container.innerHTML = `
+            <div class="card">
+                <div class="card-title"><i class="fas fa-stopwatch"></i> Modo Foco</div>
+                <div class="timer-display" id="focusTimer">00:00:00</div>
+                <div style="display:flex; gap:12px; margin:24px 0;">
+                    <button id="startFocusBtn" class="primary-btn" style="width:auto">Iniciar</button>
+                    <button id="pauseFocusBtn" class="primary-btn" style="width:auto">Pausar</button>
+                    <button id="saveFocusBtn" class="primary-btn" style="width:auto">Salvar Sessão</button>
+                </div>
+                <div><input id="focusDiscipline" placeholder="Disciplina" value="Foco"></div>
+            </div>`;
+        let timerSec = 0, interval=null, running=false;
+        const updateDisplay = () => { const el=document.getElementById('focusTimer'); if(el) el.innerText = new Date(timerSec*1000).toISOString().substr(11,8); };
+        document.getElementById('startFocusBtn').onclick = () => { if(!running) { running=true; interval=setInterval(()=>{ timerSec++; updateDisplay(); },1000); } };
+        document.getElementById('pauseFocusBtn').onclick = () => { running=false; if(interval) clearInterval(interval); };
+        document.getElementById('saveFocusBtn').onclick = async () => {
+            let disc = document.getElementById('focusDiscipline').value.trim() || "Geral";
+            let duracao = Math.round(timerSec/60);
+            if(duracao<=0) { showToast("Estude ao menos 1 minuto"); return; }
+            try {
+                await addRow("SESSOES", { 
+                    Data: new Date().toISOString().slice(0,10), 
+                    Hora_Inicio: "", Hora_Fim: "", 
+                    Duracao_Min: duracao, 
+                    Disciplina: disc, 
+                    Tipo: "Foco", 
+                    Status: "Concluído" 
+                });
+                showToast("Sessão salva!");
+                timerSec=0; updateDisplay(); running=false; if(interval) clearInterval(interval);
+                await loadAllData();
+            } catch(e) { showToast("Erro ao salvar", "error"); }
+        };
     },
-    renderSettings(container) { container.innerHTML = `<div class="card"><div class="card-title"><i class="fas fa-sliders-h"></i> Configurações & Mapeamento</div><p>O sistema detecta automaticamente colunas como Data, horas_estudadas, Meta, Sequencia, cumpriu_meta. Atualmente conectado à planilha com ${rawSheetData?.length||0} registros.</p><button id="refreshSheetBtn" class="btn-outline mt-3" style="background:#FF7B00"><i class="fas fa-sync-alt"></i> Recarregar dados</button></div>`; document.getElementById('refreshSheetBtn')?.addEventListener('click',()=>SheetService.carregarEProcessar().then(()=>UIRenderer.render())); }
+    renderGestao(container) {
+        container.innerHTML = `
+            <div class="sub-nav" id="subNav">
+                <button class="sub-nav-item ${activeSubTab==='conteudo'?'active':''}" data-sub="conteudo">📚 Conteúdo</button>
+                <button class="sub-nav-item ${activeSubTab==='sessoes'?'active':''}" data-sub="sessoes">⏱ Sessões</button>
+                <button class="sub-nav-item ${activeSubTab==='plano'?'active':''}" data-sub="plano">📅 Plano</button>
+                <button class="sub-nav-item ${activeSubTab==='questoes'?'active':''}" data-sub="questoes">❓ Questões</button>
+                <button class="sub-nav-item ${activeSubTab==='disciplinas'?'active':''}" data-sub="disciplinas">🏷 Disciplinas</button>
+            </div>
+            <div id="subContent"></div>
+        `;
+        document.querySelectorAll('.sub-nav-item').forEach(btn => {
+            btn.onclick = () => { activeSubTab = btn.dataset.sub; this.renderGestao(container); };
+        });
+        const subContainer = document.getElementById('subContent');
+        if(activeSubTab === 'conteudo') this.renderConteudo(subContainer);
+        else if(activeSubTab === 'sessoes') this.renderSessoes(subContainer);
+        else if(activeSubTab === 'plano') this.renderPlanoEstudo(subContainer);
+        else if(activeSubTab === 'questoes') this.renderQuestoes(subContainer);
+        else if(activeSubTab === 'disciplinas') this.renderDisciplinas(subContainer);
+    },
+    renderConteudo(container) {
+        container.innerHTML = `
+            <div class="card">
+                <div class="card-title">➕ Novo Conteúdo</div>
+                <form id="formConteudo">
+                    <div class="form-group"><label>Disciplina</label><input id="disc" required></div>
+                    <div class="form-group"><label>Assunto</label><input id="assunto" required></div>
+                    <div class="form-group"><label>Subassunto</label><input id="subassunto"></div>
+                    <div class="form-group"><label>Peso</label><input id="peso" type="number" step="0.1"></div>
+                    <button type="submit" class="primary-btn">Adicionar</button>
+                </form>
+            </div>
+            <div class="card"><div class="card-title">📋 Lista de Conteúdos</div><div id="listaConteudos"></div></div>
+        `;
+        const renderList = () => {
+            const listDiv = document.getElementById('listaConteudos');
+            if(!listDiv) return;
+            listDiv.innerHTML = `<div class="data-table"><table><thead><tr><th>Disciplina</th><th>Assunto</th><th>Peso</th><th>Ações</th></tr></thead><tbody>
+                ${conteudos.map(c => `<tr><td>${c.Disciplina||''}</td><td>${c.Assunto||''}</td><td>${c.Peso||''}</td><td><button class="action-btn" data-id="${c._id}" data-action="delete"><i class="fas fa-trash"></i></button></td></tr>`).join('')}
+            </tbody></table></div>`;
+            document.querySelectorAll('[data-action="delete"]').forEach(btn => {
+                btn.onclick = async () => { if(confirm("Remover?")) { await deleteRow("CONTEUDO", btn.dataset.id); await loadAllData(); } };
+            });
+        };
+        document.getElementById('formConteudo').onsubmit = async (e) => {
+            e.preventDefault();
+            const newItem = {
+                Disciplina: document.getElementById('disc').value,
+                Assunto: document.getElementById('assunto').value,
+                Subassunto: document.getElementById('subassunto').value,
+                Peso: parseFloat(document.getElementById('peso').value) || 0,
+                Status: "Pendente"
+            };
+            try { await addRow("CONTEUDO", newItem); showToast("Conteúdo adicionado!"); document.getElementById('formConteudo').reset(); await loadAllData(); } catch(err) { showToast("Erro: "+err.message,"error"); }
+        };
+        renderList();
+    },
+    renderSessoes(container) {
+        container.innerHTML = `
+            <div class="card">
+                <div class="card-title">➕ Registrar Sessão</div>
+                <form id="formSessao">
+                    <div class="form-group"><label>Data</label><input id="dataSessao" type="date" required></div>
+                    <div class="form-group"><label>Hora Início</label><input id="horaInicio" type="time"></div>
+                    <div class="form-group"><label>Hora Fim</label><input id="horaFim" type="time"></div>
+                    <div class="form-group"><label>Duração (min)</label><input id="duracao" type="number" required></div>
+                    <div class="form-group"><label>Disciplina</label><input id="disciplinaSessao" required></div>
+                    <div class="form-group"><label>Tipo</label><select id="tipoSessao"><option>Teoria</option><option>Questões</option><option>Revisão</option></select></div>
+                    <button type="submit" class="primary-btn">Salvar</button>
+                </form>
+            </div>
+            <div class="card"><div class="card-title">📋 Histórico de Sessões</div><div id="listaSessoes"></div></div>
+        `;
+        const renderList = () => {
+            const div = document.getElementById('listaSessoes');
+            if(!div) return;
+            div.innerHTML = `<div class="data-table"><table><thead><tr><th>Data</th><th>Disciplina</th><th>Duração (min)</th><th>Tipo</th><th>Ações</th></tr></thead><tbody>
+                ${sessoes.map(s => `<tr><td>${s.Data||''}</td><td>${s.Disciplina||''}</td><td>${s.Duracao_Min||0}</td><td>${s.Tipo||''}</td><td><button class="action-btn" data-id="${s._id}" data-action="deleteSessao"><i class="fas fa-trash"></i></button></td></tr>`).join('')}
+            </tbody></table></div>`;
+            document.querySelectorAll('[data-action="deleteSessao"]').forEach(btn => {
+                btn.onclick = async () => { if(confirm("Remover sessão?")) { await deleteRow("SESSOES", btn.dataset.id); await loadAllData(); } };
+            });
+        };
+        document.getElementById('formSessao').onsubmit = async (e) => {
+            e.preventDefault();
+            const duracao = parseInt(document.getElementById('duracao').value);
+            if(duracao<=0) { showToast("Duração inválida","error"); return; }
+            const newSessao = {
+                Data: document.getElementById('dataSessao').value,
+                Hora_Inicio: document.getElementById('horaInicio').value,
+                Hora_Fim: document.getElementById('horaFim').value,
+                Duracao_Min: duracao,
+                Disciplina: document.getElementById('disciplinaSessao').value,
+                Tipo: document.getElementById('tipoSessao').value,
+                Status: "Concluído"
+            };
+            try { await addRow("SESSOES", newSessao); showToast("Sessão registrada!"); document.getElementById('formSessao').reset(); await loadAllData(); } catch(err) { showToast("Erro: "+err.message,"error"); }
+        };
+        renderList();
+    },
+    renderPlanoEstudo(container) {
+        container.innerHTML = `
+            <div class="card">
+                <div class="card-title">➕ Adicionar Plano</div>
+                <form id="formPlano">
+                    <div class="form-group"><label>Data</label><input id="planoData" type="date" required></div>
+                    <div class="form-group"><label>Disciplina</label><input id="planoDisc" required></div>
+                    <div class="form-group"><label>Tipo</label><input id="planoTipo" placeholder="Novo/Revisão"></div>
+                    <div class="form-group"><label>Tempo (min)</label><input id="planoTempo" type="number" required></div>
+                    <div class="form-group"><label>Prioridade</label><input id="planoPrioridade" value="Média"></div>
+                    <button type="submit" class="primary-btn">Salvar</button>
+                </form>
+            </div>
+            <div class="card"><div class="card-title">📋 Planos de Estudo</div><div id="listaPlanos"></div></div>
+        `;
+        const renderList = () => {
+            const div = document.getElementById('listaPlanos');
+            if(!div) return;
+            let planos = planoEstudo.length ? planoEstudo : planoDiario;
+            div.innerHTML = `<div class="data-table"><table><thead><tr><th>Data</th><th>Disciplina</th><th>Tipo</th><th>Tempo</th><th>Ações</th></tr></thead><tbody>
+                ${planos.map(p => `<tr><td>${p.Data||''}</td><td>${p.Disciplina||''}</td><td>${p.Tipo||''}</td><td>${p.Tempo_Min || p.Tempo_Planejado || ''}</td><td><button class="action-btn" data-id="${p._id}" data-action="deletePlano"><i class="fas fa-trash"></i></button></td></tr>`).join('')}
+            </tbody></table></div>`;
+            document.querySelectorAll('[data-action="deletePlano"]').forEach(btn => {
+                btn.onclick = async () => { 
+                    let sheet = planoEstudo.length ? "PLANO_ESTUDO" : "PLANO_DIARIO";
+                    if(confirm("Remover plano?")) { await deleteRow(sheet, btn.dataset.id); await loadAllData(); } 
+                };
+            });
+        };
+        document.getElementById('formPlano').onsubmit = async (e) => {
+            e.preventDefault();
+            const newPlano = {
+                Data: document.getElementById('planoData').value,
+                Disciplina: document.getElementById('planoDisc').value,
+                Tipo: document.getElementById('planoTipo').value,
+                Tempo_Min: parseInt(document.getElementById('planoTempo').value),
+                Prioridade: document.getElementById('planoPrioridade').value,
+                Status: "Pendente"
+            };
+            try { await addRow("PLANO_ESTUDO", newPlano); showToast("Plano adicionado!"); document.getElementById('formPlano').reset(); await loadAllData(); } catch(err) { showToast("Erro: "+err.message,"error"); }
+        };
+        renderList();
+    },
+    renderQuestoes(container) {
+        container.innerHTML = `
+            <div class="card">
+                <div class="card-title">➕ Registrar Questão</div>
+                <form id="formQuestao">
+                    <div class="form-group"><label>Data</label><input id="qData" type="date" required></div>
+                    <div class="form-group"><label>Disciplina</label><input id="qDisc" required></div>
+                    <div class="form-group"><label>Assunto</label><input id="qAssunto"></div>
+                    <div class="form-group"><label>Acerto (1/0)</label><input id="qAcerto" type="number" min="0" max="1" step="1"></div>
+                    <div class="form-group"><label>Tempo (min)</label><input id="qTempo" type="number"></div>
+                    <div class="form-group"><label>Banca</label><input id="qBanca"></div>
+                    <button type="submit" class="primary-btn">Salvar</button>
+                </form>
+            </div>
+            <div class="card"><div class="card-title">📋 Histórico de Questões</div><div id="listaQuestoes"></div></div>
+        `;
+        const renderList = () => {
+            const div = document.getElementById('listaQuestoes');
+            if(!div) return;
+            div.innerHTML = `<div class="data-table"><table><thead><tr><th>Data</th><th>Disciplina</th><th>Assunto</th><th>Acerto</th><th>Ações</th></tr></thead><tbody>
+                ${questoes.map(q => `<tr><td>${q.Data||''}</td><td>${q.Disciplina||''}</td><td>${q.Assunto||''}</td><td>${q['Acerto (1/0)']||q.Acerto||''}</td><td><button class="action-btn" data-id="${q._id}" data-action="deleteQuestao"><i class="fas fa-trash"></i></button></td></tr>`).join('')}
+            </tbody></table></div>`;
+            document.querySelectorAll('[data-action="deleteQuestao"]').forEach(btn => {
+                btn.onclick = async () => { if(confirm("Remover questão?")) { await deleteRow("QUESTOES", btn.dataset.id); await loadAllData(); } };
+            });
+        };
+        document.getElementById('formQuestao').onsubmit = async (e) => {
+            e.preventDefault();
+            const newQ = {
+                Data: document.getElementById('qData').value,
+                Disciplina: document.getElementById('qDisc').value,
+                Assunto: document.getElementById('qAssunto').value,
+                'Acerto (1/0)': parseInt(document.getElementById('qAcerto').value) || 0,
+                Tempo: document.getElementById('qTempo').value,
+                Banca: document.getElementById('qBanca').value
+            };
+            try { await addRow("QUESTOES", newQ); showToast("Questão registrada!"); document.getElementById('formQuestao').reset(); await loadAllData(); } catch(err) { showToast("Erro: "+err.message,"error"); }
+        };
+        renderList();
+    },
+    renderDisciplinas(container) {
+        let disciplinasSet = [...new Set(conteudos.map(c=>c.Disciplina).filter(Boolean))];
+        container.innerHTML = `
+            <div class="card">
+                <div class="card-title">➕ Nova Disciplina</div>
+                <form id="formDisciplina">
+                    <div class="form-group"><label>Nome</label><input id="nomeDisc" required></div>
+                    <div class="form-group"><label>Total Tópicos</label><input id="totalTopicos" type="number"></div>
+                    <div class="form-group"><label>Tópicos Concluídos</label><input id="concluidos" type="number"></div>
+                    <div class="form-group"><label>Horas</label><input id="horasDisc" type="number"></div>
+                    <button type="submit" class="primary-btn">Salvar</button>
+                </form>
+            </div>
+            <div class="card"><div class="card-title">🏷 Disciplinas</div><div id="listaDisciplinas"></div></div>
+        `;
+        const renderList = () => {
+            const div = document.getElementById('listaDisciplinas');
+            if(!div) return;
+            div.innerHTML = `<div class="data-table"><table><thead><tr><th>Disciplina</th><th>Total Tópicos</th><th>Concluídos</th><th>Horas</th><th>Ações</th></tr></thead><tbody>
+                ${disciplinas.map(d => `<tr><td>${d.Disciplina||''}</td><td>${d['Total Tópicos']||''}</td><td>${d['Tópicos Concluídos']||''}</td><td>${d.Horas||''}</td><td><button class="action-btn" data-id="${d._id}" data-action="deleteDisciplina"><i class="fas fa-trash"></i></button></td></tr>`).join('')}
+            </tbody></table></div>`;
+            document.querySelectorAll('[data-action="deleteDisciplina"]').forEach(btn => {
+                btn.onclick = async () => { if(confirm("Remover disciplina?")) { await deleteRow("DISCIPLINAS", btn.dataset.id); await loadAllData(); } };
+            });
+        };
+        document.getElementById('formDisciplina').onsubmit = async (e) => {
+            e.preventDefault();
+            const newDisc = {
+                Disciplina: document.getElementById('nomeDisc').value,
+                'Total Tópicos': document.getElementById('totalTopicos').value,
+                'Tópicos Concluídos': document.getElementById('concluidos').value,
+                Horas: document.getElementById('horasDisc').value,
+                Acertos: '', Erros: '', '%': ''
+            };
+            try { await addRow("DISCIPLINAS", newDisc); showToast("Disciplina adicionada!"); document.getElementById('formDisciplina').reset(); await loadAllData(); } catch(err) { showToast("Erro: "+err.message,"error"); }
+        };
+        renderList();
+    }
 };
 
-// ====================== MODAL RELATÓRIO ======================
-function openReportModal() {
-    const modal = document.getElementById('reportModal');
-    if(!modal) return;
-    const container = modal.querySelector('.modal-content');
-    if(!rawSheetData || !rawSheetData.length) { container.innerHTML = `<h3><i class="fas fa-chart-line"></i> Histórico</h3><p>Nenhum dado disponível</p><button class="close-modal" id="closeModalBtn">Fechar</button>`; }
-    else {
-        let tableHtml = `<table class="report-table"><thead><tr><th>Data</th><th>Horas</th><th>Meta</th><th>Cumpriu?</th><th>Streak</th></thead><tbody>`;
-        const sorted = [...rawSheetData].sort((a,b)=> new Date(b.Data||b.data) - new Date(a.Data||a.data));
-        for(const row of sorted) {
-            tableHtml += `<tr><td>${row.Data||row.data||"—"}</td><td>${parseFloat(row.horas_estudadas??0).toFixed(1)}h</td><td>${parseFloat(row.Meta??0).toFixed(1)}h</td><td>${(row.cumpriu_meta??"").toLowerCase()==="sim"?"✅ Sim":"❌ Não"}</td><td>${row.Sequencia??row.sequencia??0}</td></tr>`;
-        }
-        tableHtml += `</tbody></table><button class="close-modal" id="closeModalBtn">Fechar</button>`;
-        container.innerHTML = `<h3><i class="fas fa-chart-line"></i> Relatório avançado</h3>${tableHtml}`;
-    }
-    modal.classList.add('active');
-    document.getElementById('closeModalBtn')?.addEventListener('click',()=>modal.classList.remove('active'));
+// ====================== NAVEGAÇÃO ======================
+function initNavigation() {
+    document.querySelectorAll('.nav-item').forEach(btn => {
+        btn.addEventListener('click', () => {
+            activeTab = btn.dataset.tab;
+            document.querySelectorAll('.nav-item').forEach(b=>b.classList.remove('active'));
+            btn.classList.add('active');
+            renderCurrentTab();
+        });
+    });
+    document.getElementById('fabFocusBtn').addEventListener('click', () => {
+        activeTab = 'focus';
+        document.querySelectorAll('.nav-item').forEach(b=>b.classList.remove('active'));
+        document.querySelector('[data-tab="focus"]').classList.add('active');
+        renderCurrentTab();
+    });
+    document.getElementById('reportHeaderBtn').addEventListener('click', () => {
+        activeTab = 'reports';
+        document.querySelectorAll('.nav-item').forEach(b=>b.classList.remove('active'));
+        document.querySelector('[data-tab="reports"]').classList.add('active');
+        renderCurrentTab();
+    });
 }
 
-// ====================== EVENTOS E INICIALIZAÇÃO ======================
-window.addEventListener('completeReview', (e) => showToast(`🎉 Revisão de ${e.detail.discipline} concluída!`));
-document.getElementById('fabFocusBtn')?.addEventListener('click',()=>{ activeTab="focus"; document.querySelectorAll('.nav-item').forEach(btn=>btn.classList.remove('active')); const focusNav=Array.from(document.querySelectorAll('.nav-item')).find(n=>n.dataset.tab==="focus"); if(focusNav) focusNav.classList.add('active'); UIRenderer.render(); });
-document.getElementById('reportHeaderBtn')?.addEventListener('click', openReportModal);
-const navItems = document.querySelectorAll('.nav-item');
-navItems.forEach(btn=>{ btn.addEventListener('click',()=>{ activeTab=btn.dataset.tab; navItems.forEach(b=>b.classList.remove('active')); btn.classList.add('active'); UIRenderer.render(); }); });
-TimerService.init();
-AppState.subscribe(()=>UIRenderer.render());
-SheetService.carregarEProcessar().then(()=>UIRenderer.render());
-UIRenderer.render();
-
-const modalDiv = document.createElement('div');
-modalDiv.id = "reportModal";
-modalDiv.className = "modal-overlay";
-modalDiv.innerHTML = `<div class="modal-content"></div>`;
-document.body.appendChild(modalDiv);
-modalDiv.addEventListener('click', (e)=> { if(e.target === modalDiv) modalDiv.classList.remove('active'); });
+// ====================== INICIALIZAÇÃO ======================
+loadAllData();
+initNavigation();
 </script>
 </body>
 </html>
