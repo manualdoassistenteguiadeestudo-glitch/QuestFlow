@@ -4,11 +4,10 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover, user-scalable=yes">
     <title>QuestFlow — Estudos que fluem</title>
-    <!-- Google Fonts + Font Awesome 6 (ícones ricos) -->
+    <!-- Google Fonts + Font Awesome 6 -->
     <link href="https://fonts.googleapis.com/css2?family=Inter:opsz,wght@14..32,300;14..32,400;14..32,500;14..32,600;14..32,700;14..32,800&display=swap" rel="stylesheet">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
     <script src="https://cdn.jsdelivr.net/npm/chart.js@4.4.0/dist/chart.umd.min.js"></script>
-    <script src="https://apis.google.com/js/api.js"></script>
     <style>
         * {
             margin: 0;
@@ -23,7 +22,7 @@
             overflow-x: hidden;
         }
 
-        /* Animations & micro-interactions */
+        /* Animações */
         @keyframes fadeUp {
             from { opacity: 0; transform: translateY(12px); }
             to { opacity: 1; transform: translateY(0); }
@@ -43,11 +42,25 @@
         .tab-content {
             animation: fadeUp 0.3s cubic-bezier(0.2, 0.9, 0.4, 1.1);
         }
-        button, .card, .tab-btn, .fab-btn {
+
+        /* Transições e hover (botões) */
+        button, .tab-btn, .fab-btn, .nav-item {
             transition: all 0.2s ease;
         }
-        button:active, .tab-btn:active, .fab-btn:active {
+        button:active, .tab-btn:active, .fab-btn:active, .nav-item:active {
             transform: scale(0.96);
+        }
+        /* Efeito hover obrigatório: fundo branco, texto primário */
+        button:hover, .fab-btn:hover, .btn-outline:hover {
+            background: white !important;
+            color: #4F46E5 !important;
+            transform: scale(1.05);
+            border: 1px solid #4F46E5;
+        }
+        .nav-item:hover {
+            background: #EEF2FF;
+            color: #4F46E5;
+            transform: translateY(-2px);
         }
         .card {
             transition: transform 0.2s, box-shadow 0.2s;
@@ -64,7 +77,7 @@
             padding: 20px 24px 90px;
         }
 
-        /* Header moderno */
+        /* Header com logo capacete */
         .header {
             display: flex;
             justify-content: space-between;
@@ -76,6 +89,15 @@
             padding: 16px 24px;
             border-radius: 32px;
             box-shadow: 0 6px 14px rgba(0, 0, 0, 0.02), 0 2px 4px rgba(0, 0, 0, 0.03);
+        }
+        .logo {
+            display: flex;
+            align-items: center;
+            gap: 12px;
+        }
+        .logo-icon {
+            font-size: 2.2rem;
+            color: #4F46E5;
         }
         .logo h1 {
             font-size: 1.7rem;
@@ -112,17 +134,18 @@
             display: flex;
             gap: 10px;
             align-items: center;
+            flex-wrap: wrap;
         }
-        .sheet-id-input {
+        .sheet-url-input {
             background: white;
             border: 1px solid #E2E8F0;
             padding: 8px 14px;
             border-radius: 40px;
             font-size: 0.8rem;
-            width: 240px;
+            width: 320px;
             transition: 0.2s;
         }
-        .sheet-id-input:focus {
+        .sheet-url-input:focus {
             border-color: #4F46E5;
             outline: none;
             box-shadow: 0 0 0 2px #C7D2FE;
@@ -140,17 +163,10 @@
             gap: 8px;
             font-size: 0.85rem;
         }
-        button:hover {
-            background: #4338CA;
-            transform: translateY(-2px);
-        }
         .btn-outline {
             background: white;
             border: 1px solid #4F46E5;
             color: #4F46E5;
-        }
-        .btn-outline:hover {
-            background: #EEF2FF;
         }
         .status-badge {
             font-size: 0.7rem;
@@ -163,7 +179,7 @@
             color: #1E293B;
         }
 
-        /* Bottom Navigation (moderno) */
+        /* Bottom Navigation */
         .bottom-nav {
             position: fixed;
             bottom: 0;
@@ -188,7 +204,6 @@
             font-size: 0.7rem;
             font-weight: 500;
             color: #64748B;
-            transition: 0.2s;
             cursor: pointer;
             padding: 6px 12px;
             border-radius: 40px;
@@ -214,19 +229,19 @@
             box-shadow: 0 8px 20px rgba(79, 70, 229, 0.4);
             z-index: 110;
             cursor: pointer;
-            transition: 0.2s;
         }
         .fab-btn i {
             font-size: 1.8rem;
             color: white;
         }
-        .fab-btn:active {
-            transform: scale(0.92);
+        .fab-btn:hover i {
+            color: #4F46E5;
         }
         @media (max-width: 680px) {
             .app-container { padding: 16px 16px 90px; }
             .header { flex-direction: column; align-items: stretch; }
             .auth-card { justify-content: space-between; }
+            .sheet-url-input { width: 100%; }
         }
         /* Cards */
         .dashboard-grid {
@@ -348,26 +363,27 @@
 <div class="app-container" id="app">
     <div class="header">
         <div class="logo">
-            <h1><i class="fas fa-bolt" style="color:#FACC15;"></i> QuestFlow</h1>
-            <p>seu ritmo, sua aprovação</p>
+            <i class="fas fa-helmet-battle logo-icon"></i>
+            <div>
+                <h1>QuestFlow</h1>
+                <p>seu ritmo, sua aprovação</p>
+            </div>
         </div>
         <div class="streak-badge" id="streakElement">
             <i class="fas fa-fire"></i> <span id="streakValue">0</span> dias em sequência
         </div>
         <div class="auth-card">
-            <input type="text" id="sheetIdInput" class="sheet-id-input" placeholder="ID da planilha Google" value="1AriYjRBy8hQqLp1H-0ZvMQJ3b7yVgWxN5zEfG9hJkLm">
-            <button id="loadSheetBtn"><i class="fas fa-cloud-upload-alt"></i> Conectar</button>
-            <button id="authBtn" class="btn-outline"><i class="fab fa-google"></i> Login</button>
+            <input type="text" id="sheetApiUrl" class="sheet-url-input" placeholder="URL da API SheetDB (ex: https://sheetdb.io/api/v1/xxxxx)" value="">
+            <button id="loadSheetBtn"><i class="fas fa-cloud-upload-alt"></i> Conectar Planilha</button>
         </div>
     </div>
-    <div id="authStatus" class="status-badge"><i class="fas fa-shield-alt"></i> Aguardando autenticação</div>
+    <div id="authStatus" class="status-badge"><i class="fas fa-database"></i> Aguardando conexão com a planilha</div>
 
-    <!-- conteúdo dinâmico -->
     <div id="tabContent" class="tab-content"></div>
-    <footer>⚡ Adaptação inteligente • gamificação • foco nos seus resultados</footer>
+    <footer>⚡ Dados via SheetDB • Gamificação ativa • Sem necessidade de login</footer>
 </div>
 
-<!-- Bottom Navigation (moderno) + FAB -->
+<!-- Bottom Navigation + FAB -->
 <div class="bottom-nav" id="bottomNav">
     <button class="nav-item" data-tab="dashboard"><i class="fas fa-chart-line"></i><span>Visão</span></button>
     <button class="nav-item" data-tab="planner"><i class="fas fa-calendar-week"></i><span>Plano</span></button>
@@ -383,288 +399,369 @@
 </div>
 
 <script>
-// ========================= MANTER TODA LÓGICA ORIGINAL + GAMIFICAÇÃO (STREAK) =========================
-// Adiciona streak baseado nas sessões salvas e micro-animações.
-(function(){
-    // ---------- UTILS (mantido) ----------
-    const showToast = (message, type = 'info') => {
-        const toast = document.createElement('div');
-        toast.className = 'motivation-toast';
-        toast.innerHTML = `<i class="fas ${type === 'error' ? 'fa-exclamation-triangle' : 'fa-face-smile'}"></i> ${message}`;
-        document.body.appendChild(toast);
-        setTimeout(() => toast.remove(), 2800);
+// ====================== NOVA INTEGRAÇÃO COM SHEETDB (sem login Google) ======================
+// Toda a lógica de negócio original permanece, apenas substituímos a camada de API.
+
+// Utilitários
+const showToast = (message, type = 'info') => {
+    const toast = document.createElement('div');
+    toast.className = 'motivation-toast';
+    toast.innerHTML = `<i class="fas ${type === 'error' ? 'fa-exclamation-triangle' : 'fa-face-smile'}"></i> ${message}`;
+    document.body.appendChild(toast);
+    setTimeout(() => toast.remove(), 2800);
+};
+const showLoading = (show) => {
+    const overlay = document.getElementById('loadingOverlay');
+    if (overlay) show ? overlay.classList.add('active') : overlay.classList.remove('active');
+};
+const debounce = (fn, delay) => {
+    let timer;
+    return function(...args) {
+        clearTimeout(timer);
+        timer = setTimeout(() => fn.apply(this, args), delay);
     };
-    const showLoading = (show) => {
-        const overlay = document.getElementById('loadingOverlay');
-        if (overlay) show ? overlay.classList.add('active') : overlay.classList.remove('active');
-    };
-    const debounce = (fn, delay) => {
-        let timer;
-        return function(...args) {
-            clearTimeout(timer);
-            timer = setTimeout(() => fn.apply(this, args), delay);
+};
+
+// Cálculo de streak (gamificação)
+function calculateStreak(sessions) {
+    if (!sessions.length) return 0;
+    const uniqueDates = [...new Set(sessions.map(s => s.date ? new Date(s.date).toDateString() : null).filter(d => d))];
+    uniqueDates.sort((a,b) => new Date(a) - new Date(b));
+    let streak = 0;
+    let current = new Date();
+    while (true) {
+        let dateStr = current.toDateString();
+        if (uniqueDates.includes(dateStr)) streak++;
+        else break;
+        current.setDate(current.getDate() - 1);
+    }
+    return streak;
+}
+function updateStreakUI(state) {
+    const streak = calculateStreak(state.sessions);
+    const streakSpan = document.getElementById('streakValue');
+    if (streakSpan) streakSpan.innerText = streak;
+    const streakDiv = document.getElementById('streakElement');
+    if (streak > 0) streakDiv.style.animation = 'streakPulse 0.6s ease';
+    setTimeout(() => { if(streakDiv) streakDiv.style.animation = ''; }, 600);
+}
+
+// ---------- STATE MANAGER (mantido) ----------
+const AppState = {
+    _data: {
+        rawSheets: [],      // adaptado: vamos armazenar os dados da planilha como se fosse uma única aba
+        columnMapping: {},
+        disciplines: new Map(),
+        sessions: [],
+        reviewQueue: [],
+        questionsData: { history: [], accuracy: 0 },
+        stats: { totalHours: 0, weeklyGoal: 10, completedTasks: 0 },
+        notifications: []
+    },
+    _listeners: [],
+    getState() { return this._data; },
+    setState(updater) {
+        const newState = typeof updater === 'function' ? updater(this._data) : updater;
+        Object.assign(this._data, newState);
+        this._listeners.forEach(fn => fn(this._data));
+        updateStreakUI(this._data);
+    },
+    updateSpecific(key, value) {
+        this._data[key] = value;
+        this._listeners.forEach(fn => fn(this._data));
+        updateStreakUI(this._data);
+    },
+    subscribe(fn) { this._listeners.push(fn); return () => { this._listeners = this._listeners.filter(l => l !== fn); }; }
+};
+
+// ---------- TIMER PERSISTENTE (mantido) ----------
+const TimerService = {
+    _elapsed: 0, _running: false, _interval: null, _listeners: [],
+    init() {
+        const saved = localStorage.getItem('questflow_timer');
+        if (saved) { try { const data = JSON.parse(saved); this._elapsed = data.elapsed || 0; this._running = data.running || false; if (this._running) this.start(); } catch(e) {} }
+        window.addEventListener('beforeunload', () => this.persist());
+    },
+    persist() { localStorage.setItem('questflow_timer', JSON.stringify({ elapsed: this._elapsed, running: this._running })); },
+    getElapsed() { return this._elapsed; },
+    start() { if (this._interval) return; this._running = true; this._interval = setInterval(() => { if (this._running) { this._elapsed++; this._listeners.forEach(fn => fn(this._elapsed)); this.persist(); } }, 1000); this.persist(); },
+    pause() { this._running = false; if (this._interval) clearInterval(this._interval); this._interval = null; this.persist(); },
+    reset() { this.pause(); this._elapsed = 0; this._listeners.forEach(fn => fn(this._elapsed)); this.persist(); },
+    subscribe(fn) { this._listeners.push(fn); return () => { this._listeners = this._listeners.filter(l => l !== fn); }; }
+};
+
+// ====================== NOVO SHEET SERVICE (SheetDB REST API) ======================
+let currentApiUrl = "";
+
+const SheetService = {
+    // Configura a URL da API (SheetDB)
+    setApiUrl(url) { currentApiUrl = url; },
+    
+    // Lê os dados da planilha via GET
+    async carregarDados() {
+        if (!currentApiUrl) throw new Error("URL da API não configurada");
+        const resposta = await fetch(currentApiUrl);
+        if (!resposta.ok) throw new Error(`HTTP ${resposta.status}`);
+        const dados = await resposta.json();
+        return dados; // Espera-se um array de objetos (linhas)
+    },
+    
+    // Salva/Atualiza dados na planilha via POST (SheetDB aceita POST para adicionar linhas)
+    // Aqui usamos um método simplificado: enviar nova sessão como uma linha separada
+    async salvarSessao(novaSessao) {
+        if (!currentApiUrl) throw new Error("URL não configurada");
+        // SheetDB espera um objeto com os dados da linha
+        const payload = {
+            data: {
+                Data: novaSessao.date?.toISOString().slice(0,10) || new Date().toISOString().slice(0,10),
+                Disciplina: novaSessao.discipline,
+                Horas: novaSessao.duration,
+                Status: "Concluído"
+            }
         };
-    };
-    // STREAK CALC (gamificação) baseado em datas das sessões
-    function calculateStreak(sessions) {
-        if (!sessions.length) return 0;
-        const uniqueDates = [...new Set(sessions.map(s => s.date ? new Date(s.date).toDateString() : null).filter(d => d))];
-        uniqueDates.sort((a,b) => new Date(a) - new Date(b));
-        let streak = 0;
-        let today = new Date().toDateString();
-        let yesterday = new Date(Date.now() - 86400000).toDateString();
-        if (!uniqueDates.includes(today) && !uniqueDates.includes(yesterday)) return 0;
-        let current = new Date();
-        while (true) {
-            let dateStr = current.toDateString();
-            if (uniqueDates.includes(dateStr)) streak++;
-            else break;
-            current.setDate(current.getDate() - 1);
-        }
-        return streak;
-    }
-    function updateStreakUI(state) {
-        const streak = calculateStreak(state.sessions);
-        const streakSpan = document.getElementById('streakValue');
-        if (streakSpan) streakSpan.innerText = streak;
-        const streakDiv = document.getElementById('streakElement');
-        if (streak > 0) streakDiv.style.animation = 'streakPulse 0.6s ease';
-        setTimeout(() => { if(streakDiv) streakDiv.style.animation = ''; }, 600);
-        return streak;
-    }
-    // ---------- STATE MANAGER (original otimizado) ----------
-    const AppState = {
-        _data: {
-            rawSheets: [],
-            columnMapping: {},
-            disciplines: new Map(),
-            sessions: [],
-            reviewQueue: [],
-            questionsData: { history: [], accuracy: 0 },
-            stats: { totalHours: 0, weeklyGoal: 10, completedTasks: 0 },
-            notifications: []
-        },
-        _listeners: [],
-        getState() { return this._data; },
-        setState(updater) {
-            const newState = typeof updater === 'function' ? updater(this._data) : updater;
-            Object.assign(this._data, newState);
-            this._listeners.forEach(fn => fn(this._data));
-            updateStreakUI(this._data); // gamificação atualizada
-        },
-        updateSpecific(key, value) {
-            this._data[key] = value;
-            this._listeners.forEach(fn => fn(this._data));
-            updateStreakUI(this._data);
-        },
-        subscribe(fn) { this._listeners.push(fn); return () => { this._listeners = this._listeners.filter(l => l !== fn); }; }
-    };
-    // ---------- TIMER (persistente) ----------
-    const TimerService = {
-        _elapsed: 0, _running: false, _interval: null, _listeners: [],
-        init() {
-            const saved = localStorage.getItem('questflow_timer');
-            if (saved) { try { const data = JSON.parse(saved); this._elapsed = data.elapsed || 0; this._running = data.running || false; if (this._running) this.start(); } catch(e) {} }
-            window.addEventListener('beforeunload', () => this.persist());
-        },
-        persist() { localStorage.setItem('questflow_timer', JSON.stringify({ elapsed: this._elapsed, running: this._running })); },
-        getElapsed() { return this._elapsed; },
-        start() { if (this._interval) return; this._running = true; this._interval = setInterval(() => { if (this._running) { this._elapsed++; this._listeners.forEach(fn => fn(this._elapsed)); this.persist(); } }, 1000); this.persist(); },
-        pause() { this._running = false; if (this._interval) clearInterval(this._interval); this._interval = null; this.persist(); },
-        reset() { this.pause(); this._elapsed = 0; this._listeners.forEach(fn => fn(this._elapsed)); this.persist(); },
-        subscribe(fn) { this._listeners.push(fn); return () => { this._listeners = this._listeners.filter(l => l !== fn); }; }
-    };
-    // ---------- SHEET SERVICE (sem alterações lógicas) ----------
-    let gapiReady = false, tokenClient = null, accessToken = null, isAuthenticated = false, currentSheetId = "";
-    const SheetService = {
-        async initGapi() { return new Promise((resolve) => { gapi.load('client', async () => { await gapi.client.init({ apiKey: '', discoveryDocs: ['https://sheets.googleapis.com/$discovery/rest?version=v4'] }); gapiReady = true; resolve(); }); }); },
-        async authenticate() {
-            if (!window.google?.accounts?.oauth2) { showToast("Biblioteca OAuth não carregada", "error"); return false; }
-            tokenClient = google.accounts.oauth2.initTokenClient({
-                client_id: 'YOUR_GOOGLE_CLIENT_ID.apps.googleusercontent.com',
-                scope: 'https://www.googleapis.com/auth/spreadsheets',
-                callback: (resp) => { if (resp.error) throw resp; accessToken = resp.access_token; isAuthenticated = true; document.getElementById('authStatus').innerHTML = '<i class="fas fa-check-circle"></i> Autenticado com Google'; showToast("Login OK! Conecte a planilha."); if (currentSheetId) this.loadSheetData(currentSheetId); },
+        const resposta = await fetch(currentApiUrl, {
+            method: "POST",
+            headers: { "Content-Type": "application/json" },
+            body: JSON.stringify(payload)
+        });
+        if (!resposta.ok) throw new Error("Erro ao salvar sessão");
+        return await resposta.json();
+    },
+    
+    // Carrega e processa os dados da planilha, fazendo o mapeamento inteligente
+    async loadSheetData(apiUrl) {
+        this.setApiUrl(apiUrl);
+        showLoading(true);
+        try {
+            const rows = await this.carregarDados();
+            if (!rows || !rows.length) throw new Error("Nenhum dado encontrado na planilha");
+            
+            // Converte o array de objetos em uma estrutura similar à anterior (rawSheets com uma aba)
+            const headers = Object.keys(rows[0]);
+            const dataRows = rows.map(row => {
+                let obj = {};
+                headers.forEach(h => { obj[h] = row[h] || ''; });
+                return obj;
             });
-            tokenClient.requestAccessToken(); return true;
-        },
-        async loadSheetData(sheetId) {
-            if (!isAuthenticated) { showToast("Faça login primeiro", "error"); return false; }
-            showLoading(true);
-            try {
-                const metadata = await gapi.client.sheets.spreadsheets.get({ spreadsheetId: sheetId });
-                const sheets = metadata.result.sheets;
-                const allSheetsData = [];
-                for (const sheet of sheets) {
-                    const sheetName = sheet.properties.title;
-                    const response = await gapi.client.sheets.spreadsheets.values.get({ spreadsheetId: sheetId, range: `${sheetName}!A1:ZZ` });
-                    const rows = response.result.values || [];
-                    if (rows.length === 0) continue;
-                    const headers = rows[0];
-                    const dataRows = rows.slice(1).map(row => { let obj = {}; headers.forEach((h, idx) => { obj[h] = row[idx] || ''; }); return obj; });
-                    allSheetsData.push({ name: sheetName, headers, data: dataRows, rawRows: rows });
-                }
-                if (allSheetsData.length === 0) throw new Error("Nenhuma aba");
-                AppState.updateSpecific('rawSheets', allSheetsData);
-                this.intelligentMappingAndBuildState();
-                document.getElementById('authStatus').innerHTML = `<i class="fas fa-database"></i> Planilha carregada • ${allSheetsData.length} aba(s)`;
-                showToast("Dados sincronizados! 🚀");
-            } catch (err) { showToast("Erro: " + err.message, "error"); } finally { showLoading(false); }
-        },
-        intelligentMappingAndBuildState() {
-            const data = AppState.getState();
-            const sheets = data.rawSheets;
-            const disciplineSet = new Map();
-            let totalHours = 0, sessionsRaw = [], questionRecords = [];
-            const columnMapping = {};
-            for (const sheet of sheets) {
-                const headers = sheet.headers.map(h => h?.toLowerCase() || '');
-                let dateCol = headers.find(h => /data|date|dia|quando/i.test(h));
-                let disciplineCol = headers.find(h => /disciplina|matéria|assunto|conteudo/i.test(h));
-                let timeCol = headers.find(h => /tempo|horas|hora|duração|minutos/i.test(h));
-                let statusCol = headers.find(h => /status|concluído|progresso|feito/i.test(h));
-                let rightCol = headers.find(h => /acertos|certos|corretas/i.test(h));
-                let totalCol = headers.find(h => /total|questões|qtd/i.test(h));
-                columnMapping[sheet.name] = { dateCol, disciplineCol, timeCol, statusCol, rightCol, totalCol };
-                for (const row of sheet.data) {
-                    let discipline = disciplineCol ? (row[disciplineCol] || "Geral").trim() : "Geral";
-                    let timeValue = timeCol ? row[timeCol] : null, hours = 0;
-                    if (timeValue) { let match = String(timeValue).match(/(\d+(?:[.,]\d+)?)/); if (match) hours = parseFloat(match[1].replace(',', '.')); }
-                    let rawDate = dateCol ? row[dateCol] : null, dateObj = null;
-                    if (rawDate) { let parsed = new Date(rawDate); if (!isNaN(parsed)) dateObj = parsed; }
-                    let statusRaw = statusCol ? (row[statusCol] || '').toLowerCase() : '';
-                    let completed = /concluído|feito|sim|ok/i.test(statusRaw);
-                    if (hours > 0) { totalHours += hours; sessionsRaw.push({ date: dateObj || new Date(), discipline, duration: hours, completed }); }
-                    if (!disciplineSet.has(discipline)) disciplineSet.set(discipline, { totalHours: 0, topics: [] });
-                    let discData = disciplineSet.get(discipline);
-                    discData.totalHours += hours;
-                    if (row["Tópico"] || row["topico"]) discData.topics.push(row["Tópico"] || row["topico"]);
-                    if (rightCol || totalCol) {
-                        let right = rightCol ? parseInt(row[rightCol]) : 0, total = totalCol ? parseInt(row[totalCol]) : 0;
-                        if (!isNaN(right) && !isNaN(total) && total > 0) questionRecords.push({ right, total, discipline });
-                    }
+            const sheetData = { name: "Principal", headers, data: dataRows };
+            AppState.updateSpecific('rawSheets', [sheetData]);
+            
+            // Mapeamento inteligente (mesma lógica original)
+            this.intelligentMappingAndBuildState(sheetData);
+            document.getElementById('authStatus').innerHTML = `<i class="fas fa-check-circle"></i> Planilha conectada • ${rows.length} registros carregados`;
+            showToast("Dados sincronizados com sucesso! 🚀");
+        } catch (err) {
+            console.error(err);
+            showToast("Erro ao carregar planilha: " + err.message, "error");
+            document.getElementById('authStatus').innerHTML = `<i class="fas fa-exclamation-triangle"></i> Erro: ${err.message}`;
+        } finally {
+            showLoading(false);
+        }
+    },
+    
+    intelligentMappingAndBuildState(sheet) {
+        const headers = sheet.headers.map(h => h?.toLowerCase() || '');
+        let dateCol = headers.find(h => /data|date|dia|quando/i.test(h));
+        let disciplineCol = headers.find(h => /disciplina|mat[eé]ria|assunto|conteudo|matéria/i.test(h));
+        let timeCol = headers.find(h => /tempo|horas|hora|dura[cç][aã]o|minutos/i.test(h));
+        let statusCol = headers.find(h => /status|conclu[ií]do|progresso|feito|estado/i.test(h));
+        let rightCol = headers.find(h => /acertos|certos|corretas/i.test(h));
+        let totalCol = headers.find(h => /total|questões|qtd/i.test(h));
+        
+        const disciplineSet = new Map();
+        let totalHours = 0;
+        let sessionsRaw = [];
+        let questionRecords = [];
+        
+        for (const row of sheet.data) {
+            let discipline = disciplineCol ? (row[disciplineCol] || "Geral").trim() : "Geral";
+            let timeValue = timeCol ? row[timeCol] : null;
+            let hours = 0;
+            if (timeValue) {
+                let match = String(timeValue).match(/(\d+(?:[.,]\d+)?)/);
+                if (match) hours = parseFloat(match[1].replace(',', '.'));
+            }
+            let rawDate = dateCol ? row[dateCol] : null;
+            let dateObj = null;
+            if (rawDate) {
+                let parsed = new Date(rawDate);
+                if (!isNaN(parsed)) dateObj = parsed;
+            }
+            let statusRaw = statusCol ? (row[statusCol] || '').toLowerCase() : '';
+            let completed = /concluído|feito|sim|ok/i.test(statusRaw);
+            
+            if (hours > 0) {
+                totalHours += hours;
+                sessionsRaw.push({ date: dateObj || new Date(), discipline, duration: hours, completed });
+            }
+            if (!disciplineSet.has(discipline)) disciplineSet.set(discipline, { totalHours: 0, topics: [] });
+            let discData = disciplineSet.get(discipline);
+            discData.totalHours += hours;
+            if (row["Tópico"] || row["topico"]) discData.topics.push(row["Tópico"] || row["topico"]);
+            
+            if (rightCol && totalCol) {
+                let right = rightCol ? parseInt(row[rightCol]) : 0;
+                let total = totalCol ? parseInt(row[totalCol]) : 0;
+                if (!isNaN(right) && !isNaN(total) && total > 0) {
+                    questionRecords.push({ right, total, discipline });
                 }
             }
-            let accuracy = 0;
-            if (questionRecords.length) {
-                let totalRight = questionRecords.reduce((a,b)=>a+b.right,0);
-                let totalTotal = questionRecords.reduce((a,b)=>a+b.total,0);
-                accuracy = totalTotal ? (totalRight/totalTotal)*100 : 0;
-            }
-            AppState.setState({ columnMapping, disciplines: disciplineSet, sessions: sessionsRaw.sort((a,b)=>(b.date||0)-(a.date||0)), stats: { ...data.stats, totalHours }, questionsData: { history: questionRecords, accuracy } });
-            this.generateSmartReviews(); this.updateNotifications();
-        },
-        generateSmartReviews() {
-            const data = AppState.getState(); const now = new Date(); const reviewMap = new Map();
-            for (const sess of data.sessions) {
-                if (!sess.date) continue;
-                const daysDiff = Math.floor((now - sess.date) / (1000*3600*24));
-                if (daysDiff >=1 && daysDiff <=7 && sess.discipline) reviewMap.set(`${sess.discipline}_${sess.date.toDateString()}`, { discipline: sess.discipline, dueDays: daysDiff });
-            }
-            let reviewQueue = Array.from(reviewMap.values()).sort((a,b)=>a.dueDays-b.dueDays);
-            if (reviewQueue.length===0 && data.disciplines.size) reviewQueue = Array.from(data.disciplines.keys()).slice(0,3).map(d=>({ discipline:d, dueDays:2 }));
-            AppState.updateSpecific('reviewQueue', reviewQueue);
-        },
-        updateNotifications() {
-            const data = AppState.getState(); let notifs = [];
-            if (data.stats.totalHours === 0) notifs.push("🔥 Comece registrando horas!");
-            if (data.reviewQueue.length) notifs.push(`🔄 ${data.reviewQueue.length} revisões aguardando`);
-            AppState.updateSpecific('notifications', notifs);
-        },
-        generateStudyPlan() {
-            const data = AppState.getState();
-            let list = Array.from(data.disciplines.entries()).map(([name, d])=>({ name, hours: d.totalHours })).sort((a,b)=>a.hours-b.hours);
-            return list.slice(0,4).map(d=>({ discipline: d.name, suggestedHours: 1.5, reason: "prioridade máxima" }));
-        },
-        generateDailyTasks() {
-            const data = AppState.getState();
-            let tasks = [];
-            for (let [disc, discData] of data.disciplines.entries()) if (discData.totalHours < 2 || Math.random()>0.6) tasks.push({ discipline: disc, priority: "recomendado" });
-            if (!tasks.length && data.disciplines.size) tasks = [{ discipline: Array.from(data.disciplines.keys())[0], priority: "foco hoje" }];
-            return tasks.slice(0,3);
         }
-    };
-    // ---------- UI RENDER (com visual moderno, mantendo lógica) ----------
-    let activeTab = "dashboard";
-    let currentCharts = {};
-    const UIRenderer = {
-        render() {
-            const container = document.getElementById('tabContent');
-            if (!container) return;
-            switch(activeTab) {
-                case "dashboard": this.renderDashboard(container); break;
-                case "planner": this.renderPlanner(container); break;
-                case "content": this.renderContent(container); break;
-                case "reviews": this.renderReviews(container); break;
-                case "questions": this.renderQuestions(container); break;
-                case "reports": this.renderReports(container); break;
-                case "focus": this.renderFocusMode(container); break;
-                case "settings": this.renderSettings(container); break;
-                default: this.renderDashboard(container);
+        
+        let accuracy = 0;
+        if (questionRecords.length) {
+            let totalRight = questionRecords.reduce((a,b)=>a+b.right,0);
+            let totalTotal = questionRecords.reduce((a,b)=>a+b.total,0);
+            accuracy = totalTotal ? (totalRight/totalTotal)*100 : 0;
+        }
+        
+        const columnMapping = { [sheet.name]: { dateCol, disciplineCol, timeCol, statusCol, rightCol, totalCol } };
+        AppState.setState({
+            columnMapping,
+            disciplines: disciplineSet,
+            sessions: sessionsRaw.sort((a,b)=>(b.date||0)-(a.date||0)),
+            stats: { ...AppState.getState().stats, totalHours },
+            questionsData: { history: questionRecords, accuracy }
+        });
+        this.generateSmartReviews();
+        this.updateNotifications();
+    },
+    
+    generateSmartReviews() {
+        const data = AppState.getState();
+        const now = new Date();
+        const reviewMap = new Map();
+        for (const sess of data.sessions) {
+            if (!sess.date) continue;
+            const daysDiff = Math.floor((now - sess.date) / (1000*3600*24));
+            if (daysDiff >=1 && daysDiff <=7 && sess.discipline) {
+                reviewMap.set(`${sess.discipline}_${sess.date.toDateString()}`, { discipline: sess.discipline, dueDays: daysDiff });
             }
-        },
-        renderDashboard(container) {
-            const state = AppState.getState();
-            let dailyTasks = SheetService.generateDailyTasks();
-            let totalHours = state.stats.totalHours, progressPerc = Math.min(100, (totalHours / 50) * 100);
-            container.innerHTML = `
-                <div class="dashboard-grid">
-                    <div class="card"><div class="card-title"><i class="fas fa-hourglass-half" style="color:#4F46E5;"></i> Horas totais</div><div class="stat-number">${totalHours.toFixed(1)}h</div><div class="progress-bar"><div class="progress-fill" style="width:${progressPerc}%"></div></div><div>⚡ meta 50h/mês</div></div>
-                    <div class="card"><div class="card-title"><i class="fas fa-chart-simple"></i> Desempenho</div><div class="stat-number">${state.questionsData.accuracy.toFixed(0)}%</div><div>acertos em questões</div></div>
-                    <div class="card"><div class="card-title"><i class="fas fa-list-check"></i> Tarefas do dia</div><div id="dailyTasksList"></div></div>
-                    <div class="card"><div class="card-title"><i class="fas fa-bell"></i> Notificações</div><div id="notifList"></div></div>
-                </div>
-                <div class="card"><div class="card-title"><i class="fas fa-chart-line"></i> Disciplinas (horas)</div><canvas id="disciplinesChart" height="120"></canvas></div>
-            `;
-            document.getElementById('dailyTasksList').innerHTML = dailyTasks.map(t => `<div class="task-item"><span>📖 ${t.discipline}</span><span class="chip">${t.priority}</span></div>`).join('');
-            document.getElementById('notifList').innerHTML = (state.notifications.length? state.notifications.map(n=>`<div>✨ ${n}</div>`).join('') : "<div>🏆 Tudo em dia!</div>");
-            setTimeout(() => {
-                const ctx = document.getElementById('disciplinesChart')?.getContext('2d');
-                if (ctx) { if (currentCharts.disciplinesChart) currentCharts.disciplinesChart.destroy();
-                    let labels = Array.from(state.disciplines.keys()).slice(0,5);
-                    let data = labels.map(d => state.disciplines.get(d)?.totalHours || 0);
-                    currentCharts.disciplinesChart = new Chart(ctx, { type: 'bar', data: { labels, datasets: [{ label: 'Horas', data, backgroundColor: '#4F46E5', borderRadius: 12 }] }, options: { responsive: true } }); }
-            }, 50);
-        },
-        renderPlanner(container) { let plan = SheetService.generateStudyPlan(); container.innerHTML = `<div class="card"><div class="card-title"><i class="fas fa-calendar-alt"></i> Plano inteligente</div><div id="planList"></div></div>`; document.getElementById('planList').innerHTML = plan.map(p=>`<div class="task-item"><span>🎯 ${p.discipline}</span><span>${p.suggestedHours}h recomendadas</span><span class="chip">${p.reason}</span></div>`).join(''); },
-        renderContent(container) { const state = AppState.getState(); let html = ""; for (let [disc, d] of state.disciplines.entries()) html += `<div class="task-item"><strong><i class="fas fa-graduation-cap"></i> ${disc}</strong> <span>${d.totalHours.toFixed(1)}h</span> ${d.topics.length? `<span class="chip">${d.topics.slice(0,2).join(', ')}</span>` : ''}</div>`; container.innerHTML = `<div class="card"><div class="card-title"><i class="fas fa-layer-group"></i> Conteúdos</div>${html || '<p>Nenhum tópico específico. Adicione coluna "Conteúdo" na planilha.</p>'}</div>`; },
-        renderReviews(container) { const revs = AppState.getState().reviewQueue; container.innerHTML = `<div class="card"><div class="card-title"><i class="fas fa-rotate-right"></i> Revisões estratégicas</div><div id="reviewList"></div></div>`; document.getElementById('reviewList').innerHTML = revs.length? revs.map(r=>`<div class="task-item"><span>📅 ${r.discipline}</span><span>vencimento ${r.dueDays}d</span><button class="chip" onclick="window.dispatchEvent(new CustomEvent('completeReview',{detail:{discipline:'${r.discipline}'}}))">✅ Revisar</button></div>`).join('') : "<p>🎉 Nenhuma revisão pendente!</p>"; },
-        renderQuestions(container) { const state = AppState.getState(); let acc = state.questionsData.accuracy; container.innerHTML = `<div class="card"><div class="card-title"><i class="fas fa-square-check"></i> Questões</div><div>Acertos: ${acc.toFixed(1)}%</div><div class="progress-bar mt-2"><div class="progress-fill" style="width:${acc}%; background:#22C55E;"></div></div><div id="questionHistory"></div><button id="addManualQuestionBtn" class="btn-outline mt-3"><i class="fas fa-plus-circle"></i> Registrar manual</button></div>`; document.getElementById('questionHistory').innerHTML = state.questionsData.history.slice(-5).map(q=>`<div>📊 ${q.discipline}: ${q.right}/${q.total}</div>`).join(''); document.getElementById('addManualQuestionBtn')?.addEventListener('click', () => { let disc = prompt("Disciplina"), right = parseInt(prompt("Acertos")), total = parseInt(prompt("Total")); if(!isNaN(right) && !isNaN(total) && total>0){ const newHist = [...state.questionsData.history, {right,total,discipline:disc||"Manual"}]; let totalR = newHist.reduce((a,b)=>a+b.right,0), totalT = newHist.reduce((a,b)=>a+b.total,0); AppState.setState({ questionsData: { history: newHist, accuracy: totalT ? (totalR/totalT)*100 : 0 } }); UIRenderer.renderQuestions(container); showToast("Questão registrada! Continue assim 💪"); } }); },
-        renderReports(container) { const state = AppState.getState(); container.innerHTML = `<div class="card"><div class="card-title"><i class="fas fa-chart-pie"></i> Evolução</div><canvas id="hoursEvolutionChart" height="150"></canvas><div class="mt-4"><strong>Total sessões:</strong> ${state.sessions.length} • <strong>Disciplinas:</strong> ${state.disciplines.size}</div></div>`; setTimeout(()=>{ const ctx = document.getElementById('hoursEvolutionChart')?.getContext('2d'); if(ctx){ let last7=[]; for(let i=6;i>=0;i--){ let d=new Date(); d.setDate(d.getDate()-i); last7.push(d.toLocaleDateString()); } let hoursPerDay = last7.map(day=>state.sessions.filter(s=> s.date && s.date.toLocaleDateString()===day).reduce((a,b)=>a+b.duration,0)); new Chart(ctx, { type: 'line', data: { labels: last7, datasets: [{ label: 'Horas/dia', data: hoursPerDay, borderColor: '#FACC15', tension: 0.3, fill: true }] } }); } }, 50); },
-        renderFocusMode(container) {
-            container.innerHTML = `<div class="card"><div class="card-title"><i class="fas fa-stopwatch"></i> Modo Foco</div><div class="timer-display" id="focusTimer">00:00:00</div><div class="flex-between" style="gap:12px; margin:20px 0;"><button id="startFocusBtn"><i class="fas fa-play"></i> Iniciar</button><button id="pauseFocusBtn"><i class="fas fa-pause"></i> Pausar</button><button id="saveFocusBtn"><i class="fas fa-save"></i> Salvar</button></div><div><label><i class="fas fa-tag"></i> Disciplina: <input id="focusDiscipline" placeholder="Direito, Português..."></label></div></div>`;
-            const updateDisplay = (sec) => { const el = document.getElementById('focusTimer'); if(el) el.innerText = new Date(sec * 1000).toISOString().substr(11,8); };
-            const unsub = TimerService.subscribe(updateDisplay); updateDisplay(TimerService.getElapsed());
-            document.getElementById('startFocusBtn')?.addEventListener('click', () => TimerService.start());
-            document.getElementById('pauseFocusBtn')?.addEventListener('click', () => TimerService.pause());
-            document.getElementById('saveFocusBtn')?.addEventListener('click', () => {
-                let disc = document.getElementById('focusDiscipline').value.trim() || "Foco";
-                let hours = TimerService.getElapsed() / 3600;
-                if (hours > 0) {
-                    const state = AppState.getState();
-                    const newSession = { date: new Date(), discipline: disc, duration: hours, completed: true };
-                    const updatedSessions = [...state.sessions, newSession];
-                    let totalHours = state.stats.totalHours + hours;
-                    let discMap = new Map(state.disciplines);
-                    if (!discMap.has(disc)) discMap.set(disc, { totalHours: 0, topics: [] });
-                    discMap.get(disc).totalHours += hours;
-                    AppState.setState({ sessions: updatedSessions, disciplines: discMap, stats: { ...state.stats, totalHours } });
-                    SheetService.generateSmartReviews(); SheetService.updateNotifications();
-                    TimerService.reset(); showToast(`🔥 Sessão de ${hours.toFixed(1)}h registrada! +${Math.floor(hours)} pontos de foco`);
-                    UIRenderer.render();
-                } else showToast("Estude ao menos alguns segundos", "error");
-            });
-        },
-        renderSettings(container) { const state = AppState.getState(); let mappingHtml = Object.entries(state.columnMapping).map(([sheet,map])=>`<div><strong>📄 ${sheet}</strong>  Data: ${map.dateCol||'❌'}  •  Matéria: ${map.disciplineCol||'❌'}  •  Tempo: ${map.timeCol||'❌'}</div>`).join(''); container.innerHTML = `<div class="card"><div class="card-title"><i class="fas fa-sliders-h"></i> Mapeamento inteligente</div>${mappingHtml||'Nenhuma planilha carregada.'}<p class="chip mt-3">✨ O sistema entende colunas semânticas automaticamente.</p><button id="syncSheetsBtn"><i class="fas fa-cloud-upload-alt"></i> Exportar sessões p/ planilha</button></div>`; document.getElementById('syncSheetsBtn')?.addEventListener('click', async () => { if (!isAuthenticated || !currentSheetId) showToast("Autentique e carregue planilha", "error"); else { try { await SheetService.exportSessionsToSheet?.(currentSheetId, AppState.getState().sessions) || showToast("Função disponível em breve"); } catch(e) { showToast("Erro", "error"); } } }); }
-    };
-    // Eventos globais + bottom nav
-    window.addEventListener('completeReview', (e) => { showToast(`🎉 Revisão de ${e.detail.discipline} concluída! Continue firme`); });
-    document.getElementById('loadSheetBtn')?.addEventListener('click', debounce(() => { let id = document.getElementById('sheetIdInput').value.trim(); if(id) { currentSheetId = id; if(isAuthenticated) SheetService.loadSheetData(currentSheetId); else showToast("Faça login Google primeiro", "error"); } else showToast("ID inválido", "error"); }, 300));
-    document.getElementById('authBtn')?.addEventListener('click', async () => { if (!gapiReady) await SheetService.initGapi(); SheetService.authenticate(); });
-    document.getElementById('fabFocusBtn')?.addEventListener('click', () => { activeTab = "focus"; document.querySelectorAll('.nav-item').forEach(btn => btn.classList.remove('active')); const focusNav = Array.from(document.querySelectorAll('.nav-item')).find(n => n.dataset.tab === "focus"); if(focusNav) focusNav.classList.add('active'); UIRenderer.render(); });
-    const navItems = document.querySelectorAll('.nav-item');
-    navItems.forEach(btn => { btn.addEventListener('click', () => { activeTab = btn.dataset.tab; navItems.forEach(b=>b.classList.remove('active')); btn.classList.add('active'); UIRenderer.render(); }); });
-    SheetService.initGapi().catch(console.warn); TimerService.init(); AppState.subscribe(() => UIRenderer.render()); UIRenderer.render();
-})();
+        }
+        let reviewQueue = Array.from(reviewMap.values()).sort((a,b)=>a.dueDays-b.dueDays);
+        if (reviewQueue.length===0 && data.disciplines.size) {
+            reviewQueue = Array.from(data.disciplines.keys()).slice(0,3).map(d => ({ discipline: d, dueDays: 2 }));
+        }
+        AppState.updateSpecific('reviewQueue', reviewQueue);
+    },
+    
+    updateNotifications() {
+        const data = AppState.getState();
+        let notifs = [];
+        if (data.stats.totalHours === 0) notifs.push("🔥 Comece registrando horas!");
+        if (data.reviewQueue.length) notifs.push(`🔄 ${data.reviewQueue.length} revisões aguardando`);
+        AppState.updateSpecific('notifications', notifs);
+    },
+    
+    generateStudyPlan() {
+        const data = AppState.getState();
+        let list = Array.from(data.disciplines.entries()).map(([name, d])=>({ name, hours: d.totalHours })).sort((a,b)=>a.hours-b.hours);
+        return list.slice(0,4).map(d => ({ discipline: d.name, suggestedHours: 1.5, reason: "prioridade máxima" }));
+    },
+    
+    generateDailyTasks() {
+        const data = AppState.getState();
+        let tasks = [];
+        for (let [disc, discData] of data.disciplines.entries()) {
+            if (discData.totalHours < 2 || Math.random()>0.6) tasks.push({ discipline: disc, priority: "recomendado" });
+        }
+        if (!tasks.length && data.disciplines.size) tasks = [{ discipline: Array.from(data.disciplines.keys())[0], priority: "foco hoje" }];
+        return tasks.slice(0,3);
+    }
+};
+
+// ====================== UI RENDER (mantido, apenas referências ao SheetService) ======================
+let activeTab = "dashboard";
+let currentCharts = {};
+
+const UIRenderer = {
+    render() {
+        const container = document.getElementById('tabContent');
+        if (!container) return;
+        switch(activeTab) {
+            case "dashboard": this.renderDashboard(container); break;
+            case "planner": this.renderPlanner(container); break;
+            case "content": this.renderContent(container); break;
+            case "reviews": this.renderReviews(container); break;
+            case "questions": this.renderQuestions(container); break;
+            case "reports": this.renderReports(container); break;
+            case "focus": this.renderFocusMode(container); break;
+            case "settings": this.renderSettings(container); break;
+            default: this.renderDashboard(container);
+        }
+    },
+    renderDashboard(container) {
+        const state = AppState.getState();
+        let dailyTasks = SheetService.generateDailyTasks();
+        let totalHours = state.stats.totalHours, progressPerc = Math.min(100, (totalHours / 50) * 100);
+        container.innerHTML = `
+            <div class="dashboard-grid">
+                <div class="card"><div class="card-title"><i class="fas fa-hourglass-half" style="color:#4F46E5;"></i> Horas totais</div><div class="stat-number">${totalHours.toFixed(1)}h</div><div class="progress-bar"><div class="progress-fill" style="width:${progressPerc}%"></div></div><div>⚡ meta 50h/mês</div></div>
+                <div class="card"><div class="card-title"><i class="fas fa-chart-simple"></i> Desempenho</div><div class="stat-number">${state.questionsData.accuracy.toFixed(0)}%</div><div>acertos em questões</div></div>
+                <div class="card"><div class="card-title"><i class="fas fa-list-check"></i> Tarefas do dia</div><div id="dailyTasksList"></div></div>
+                <div class="card"><div class="card-title"><i class="fas fa-bell"></i> Notificações</div><div id="notifList"></div></div>
+            </div>
+            <div class="card"><div class="card-title"><i class="fas fa-chart-line"></i> Disciplinas (horas)</div><canvas id="disciplinesChart" height="120"></canvas></div>
+        `;
+        document.getElementById('dailyTasksList').innerHTML = dailyTasks.map(t => `<div class="task-item"><span>📖 ${t.discipline}</span><span class="chip">${t.priority}</span></div>`).join('');
+        document.getElementById('notifList').innerHTML = (state.notifications.length? state.notifications.map(n=>`<div>✨ ${n}</div>`).join('') : "<div>🏆 Tudo em dia!</div>");
+        setTimeout(() => {
+            const ctx = document.getElementById('disciplinesChart')?.getContext('2d');
+            if (ctx) { if (currentCharts.disciplinesChart) currentCharts.disciplinesChart.destroy();
+                let labels = Array.from(state.disciplines.keys()).slice(0,5);
+                let data = labels.map(d => state.disciplines.get(d)?.totalHours || 0);
+                currentCharts.disciplinesChart = new Chart(ctx, { type: 'bar', data: { labels, datasets: [{ label: 'Horas', data, backgroundColor: '#4F46E5', borderRadius: 12 }] }, options: { responsive: true } }); }
+        }, 50);
+    },
+    renderPlanner(container) { let plan = SheetService.generateStudyPlan(); container.innerHTML = `<div class="card"><div class="card-title"><i class="fas fa-calendar-alt"></i> Plano inteligente</div><div id="planList"></div></div>`; document.getElementById('planList').innerHTML = plan.map(p=>`<div class="task-item"><span>🎯 ${p.discipline}</span><span>${p.suggestedHours}h recomendadas</span><span class="chip">${p.reason}</span></div>`).join(''); },
+    renderContent(container) { const state = AppState.getState(); let html = ""; for (let [disc, d] of state.disciplines.entries()) html += `<div class="task-item"><strong><i class="fas fa-graduation-cap"></i> ${disc}</strong> <span>${d.totalHours.toFixed(1)}h</span> ${d.topics.length? `<span class="chip">${d.topics.slice(0,2).join(', ')}</span>` : ''}</div>`; container.innerHTML = `<div class="card"><div class="card-title"><i class="fas fa-layer-group"></i> Conteúdos</div>${html || '<p>Nenhum tópico específico. Adicione coluna "Conteúdo" na planilha.</p>'}</div>`; },
+    renderReviews(container) { const revs = AppState.getState().reviewQueue; container.innerHTML = `<div class="card"><div class="card-title"><i class="fas fa-rotate-right"></i> Revisões estratégicas</div><div id="reviewList"></div></div>`; document.getElementById('reviewList').innerHTML = revs.length? revs.map(r=>`<div class="task-item"><span>📅 ${r.discipline}</span><span>vencimento ${r.dueDays}d</span><button class="chip" onclick="window.dispatchEvent(new CustomEvent('completeReview',{detail:{discipline:'${r.discipline}'}}))">✅ Revisar</button></div>`).join('') : "<p>🎉 Nenhuma revisão pendente!</p>"; },
+    renderQuestions(container) { const state = AppState.getState(); let acc = state.questionsData.accuracy; container.innerHTML = `<div class="card"><div class="card-title"><i class="fas fa-square-check"></i> Questões</div><div>Acertos: ${acc.toFixed(1)}%</div><div class="progress-bar mt-2"><div class="progress-fill" style="width:${acc}%; background:#22C55E;"></div></div><div id="questionHistory"></div><button id="addManualQuestionBtn" class="btn-outline mt-3"><i class="fas fa-plus-circle"></i> Registrar manual</button></div>`; document.getElementById('questionHistory').innerHTML = state.questionsData.history.slice(-5).map(q=>`<div>📊 ${q.discipline}: ${q.right}/${q.total}</div>`).join(''); document.getElementById('addManualQuestionBtn')?.addEventListener('click', () => { let disc = prompt("Disciplina"), right = parseInt(prompt("Acertos")), total = parseInt(prompt("Total")); if(!isNaN(right) && !isNaN(total) && total>0){ const newHist = [...state.questionsData.history, {right,total,discipline:disc||"Manual"}]; let totalR = newHist.reduce((a,b)=>a+b.right,0), totalT = newHist.reduce((a,b)=>a+b.total,0); AppState.setState({ questionsData: { history: newHist, accuracy: totalT ? (totalR/totalT)*100 : 0 } }); UIRenderer.renderQuestions(container); showToast("Questão registrada! Continue assim 💪"); } }); },
+    renderReports(container) { const state = AppState.getState(); container.innerHTML = `<div class="card"><div class="card-title"><i class="fas fa-chart-pie"></i> Evolução</div><canvas id="hoursEvolutionChart" height="150"></canvas><div class="mt-4"><strong>Total sessões:</strong> ${state.sessions.length} • <strong>Disciplinas:</strong> ${state.disciplines.size}</div></div>`; setTimeout(()=>{ const ctx = document.getElementById('hoursEvolutionChart')?.getContext('2d'); if(ctx){ let last7=[]; for(let i=6;i>=0;i--){ let d=new Date(); d.setDate(d.getDate()-i); last7.push(d.toLocaleDateString()); } let hoursPerDay = last7.map(day=>state.sessions.filter(s=> s.date && s.date.toLocaleDateString()===day).reduce((a,b)=>a+b.duration,0)); new Chart(ctx, { type: 'line', data: { labels: last7, datasets: [{ label: 'Horas/dia', data: hoursPerDay, borderColor: '#FACC15', tension: 0.3, fill: true }] } }); } }, 50); },
+    renderFocusMode(container) {
+        container.innerHTML = `<div class="card"><div class="card-title"><i class="fas fa-stopwatch"></i> Modo Foco</div><div class="timer-display" id="focusTimer">00:00:00</div><div class="flex-between" style="gap:12px; margin:20px 0;"><button id="startFocusBtn"><i class="fas fa-play"></i> Iniciar</button><button id="pauseFocusBtn"><i class="fas fa-pause"></i> Pausar</button><button id="saveFocusBtn"><i class="fas fa-save"></i> Salvar</button></div><div><label><i class="fas fa-tag"></i> Disciplina: <input id="focusDiscipline" placeholder="Direito, Português..."></label></div></div>`;
+        const updateDisplay = (sec) => { const el = document.getElementById('focusTimer'); if(el) el.innerText = new Date(sec * 1000).toISOString().substr(11,8); };
+        const unsub = TimerService.subscribe(updateDisplay); updateDisplay(TimerService.getElapsed());
+        document.getElementById('startFocusBtn')?.addEventListener('click', () => TimerService.start());
+        document.getElementById('pauseFocusBtn')?.addEventListener('click', () => TimerService.pause());
+        document.getElementById('saveFocusBtn')?.addEventListener('click', async () => {
+            let disc = document.getElementById('focusDiscipline').value.trim() || "Foco";
+            let hours = TimerService.getElapsed() / 3600;
+            if (hours > 0) {
+                const state = AppState.getState();
+                const newSession = { date: new Date(), discipline: disc, duration: hours, completed: true };
+                const updatedSessions = [...state.sessions, newSession];
+                let totalHours = state.stats.totalHours + hours;
+                let discMap = new Map(state.disciplines);
+                if (!discMap.has(disc)) discMap.set(disc, { totalHours: 0, topics: [] });
+                discMap.get(disc).totalHours += hours;
+                AppState.setState({ sessions: updatedSessions, disciplines: discMap, stats: { ...state.stats, totalHours } });
+                SheetService.generateSmartReviews(); SheetService.updateNotifications();
+                // Tenta salvar na planilha via API (SheetDB) se configurada
+                if (currentApiUrl) {
+                    try { await SheetService.salvarSessao(newSession); showToast("Sessão salva na planilha!"); } catch(e) { console.warn("Não foi possível salvar na planilha:", e); }
+                }
+                TimerService.reset(); showToast(`🔥 Sessão de ${hours.toFixed(1)}h registrada! +${Math.floor(hours)} pontos de foco`);
+                UIRenderer.render();
+            } else showToast("Estude ao menos alguns segundos", "error");
+        });
+    },
+    renderSettings(container) { const state = AppState.getState(); let mappingHtml = Object.entries(state.columnMapping).map(([sheet,map])=>`<div><strong>📄 ${sheet}</strong>  Data: ${map.dateCol||'❌'}  •  Matéria: ${map.disciplineCol||'❌'}  •  Tempo: ${map.timeCol||'❌'}</div>`).join(''); container.innerHTML = `<div class="card"><div class="card-title"><i class="fas fa-sliders-h"></i> Mapeamento inteligente</div>${mappingHtml||'Nenhuma planilha carregada.'}<p class="chip mt-3">✨ O sistema entende colunas semânticas automaticamente.</p></div>`; }
+};
+
+// Eventos e inicialização
+window.addEventListener('completeReview', (e) => { showToast(`🎉 Revisão de ${e.detail.discipline} concluída! Continue firme`); });
+document.getElementById('loadSheetBtn')?.addEventListener('click', debounce(async () => {
+    const url = document.getElementById('sheetApiUrl').value.trim();
+    if (!url) { showToast("Informe a URL da API SheetDB", "error"); return; }
+    await SheetService.loadSheetData(url);
+}, 300));
+document.getElementById('fabFocusBtn')?.addEventListener('click', () => { activeTab = "focus"; document.querySelectorAll('.nav-item').forEach(btn => btn.classList.remove('active')); const focusNav = Array.from(document.querySelectorAll('.nav-item')).find(n => n.dataset.tab === "focus"); if(focusNav) focusNav.classList.add('active'); UIRenderer.render(); });
+const navItems = document.querySelectorAll('.nav-item');
+navItems.forEach(btn => { btn.addEventListener('click', () => { activeTab = btn.dataset.tab; navItems.forEach(b=>b.classList.remove('active')); btn.classList.add('active'); UIRenderer.render(); }); });
+TimerService.init();
+AppState.subscribe(() => UIRenderer.render());
+UIRenderer.render();
 </script>
 </body>
 </html>
