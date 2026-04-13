@@ -36,14 +36,11 @@
             0% { transform: scale(1); text-shadow: 0 0 0 #FACC15; }
             100% { transform: scale(1.08); text-shadow: 0 0 8px #FACC15; }
         }
-        .animate-pop {
-            animation: pop 0.25s ease-out;
-        }
         .tab-content {
             animation: fadeUp 0.3s cubic-bezier(0.2, 0.9, 0.4, 1.1);
         }
 
-        /* Transições e hover (botões) */
+        /* Transições e hover (botões com efeito branco) */
         button, .tab-btn, .fab-btn, .nav-item {
             transition: all 0.2s ease;
         }
@@ -77,7 +74,7 @@
             padding: 20px 24px 90px;
         }
 
-        /* Header com logo capacete */
+        /* Header com logo tipo guerreiro (ícone capacete) */
         .header {
             display: flex;
             justify-content: space-between;
@@ -96,8 +93,9 @@
             gap: 12px;
         }
         .logo-icon {
-            font-size: 2.2rem;
+            font-size: 2.4rem;
             color: #4F46E5;
+            filter: drop-shadow(0 2px 4px rgba(79,70,229,0.3));
         }
         .logo h1 {
             font-size: 1.7rem;
@@ -127,28 +125,18 @@
             font-size: 1.3rem;
             color: #F59E0B;
         }
-        .auth-card {
+        .sheet-status {
             background: #F1F5F9;
-            padding: 8px 16px;
+            padding: 8px 20px;
             border-radius: 48px;
             display: flex;
-            gap: 10px;
             align-items: center;
-            flex-wrap: wrap;
+            gap: 10px;
+            font-size: 0.85rem;
+            font-weight: 500;
         }
-        .sheet-url-input {
-            background: white;
-            border: 1px solid #E2E8F0;
-            padding: 8px 14px;
-            border-radius: 40px;
-            font-size: 0.8rem;
-            width: 320px;
-            transition: 0.2s;
-        }
-        .sheet-url-input:focus {
-            border-color: #4F46E5;
-            outline: none;
-            box-shadow: 0 0 0 2px #C7D2FE;
+        .sheet-status i {
+            color: #22C55E;
         }
         button {
             background: #4F46E5;
@@ -240,8 +228,6 @@
         @media (max-width: 680px) {
             .app-container { padding: 16px 16px 90px; }
             .header { flex-direction: column; align-items: stretch; }
-            .auth-card { justify-content: space-between; }
-            .sheet-url-input { width: 100%; }
         }
         /* Cards */
         .dashboard-grid {
@@ -356,6 +342,9 @@
             animation: spin 0.8s linear infinite;
         }
         @keyframes spin { to { transform: rotate(360deg); } }
+        .report-btn-icon {
+            margin-right: 4px;
+        }
     </style>
 </head>
 <body>
@@ -363,6 +352,7 @@
 <div class="app-container" id="app">
     <div class="header">
         <div class="logo">
+            <!-- Ícone de capacete guerreiro (representação fiel ao solicitado) -->
             <i class="fas fa-helmet-battle logo-icon"></i>
             <div>
                 <h1>QuestFlow</h1>
@@ -372,15 +362,14 @@
         <div class="streak-badge" id="streakElement">
             <i class="fas fa-fire"></i> <span id="streakValue">0</span> dias em sequência
         </div>
-        <div class="auth-card">
-            <input type="text" id="sheetApiUrl" class="sheet-url-input" placeholder="URL da API SheetDB (ex: https://sheetdb.io/api/v1/xxxxx)" value="">
-            <button id="loadSheetBtn"><i class="fas fa-cloud-upload-alt"></i> Conectar Planilha</button>
+        <div class="sheet-status">
+            <i class="fas fa-database"></i> Planilha: <strong id="sheetStatusText">Conectada via SheetDB</strong>
         </div>
     </div>
-    <div id="authStatus" class="status-badge"><i class="fas fa-database"></i> Aguardando conexão com a planilha</div>
+    <div id="authStatus" class="status-badge"><i class="fas fa-check-circle"></i> ✅ Integração ativa com sua planilha</div>
 
     <div id="tabContent" class="tab-content"></div>
-    <footer>⚡ Dados via SheetDB • Gamificação ativa • Sem necessidade de login</footer>
+    <footer>⚡ Dados sincronizados com SheetDB • Gamificação inteligente • Foco total</footer>
 </div>
 
 <!-- Bottom Navigation + FAB -->
@@ -390,7 +379,8 @@
     <button class="nav-item" data-tab="content"><i class="fas fa-book-open"></i><span>Conteúdo</span></button>
     <button class="nav-item" data-tab="reviews"><i class="fas fa-rotate-right"></i><span>Revisões</span></button>
     <button class="nav-item" data-tab="questions"><i class="fas fa-question-circle"></i><span>Questões</span></button>
-    <button class="nav-item" data-tab="reports"><i class="fas fa-chart-simple"></i><span>Relatórios</span></button>
+    <!-- Botão Relatórios com ícone de análise de dados -->
+    <button class="nav-item" data-tab="reports"><i class="fas fa-chart-simple report-btn-icon"></i><span>Relatórios</span></button>
     <button class="nav-item" data-tab="focus"><i class="fas fa-clock"></i><span>Foco</span></button>
     <button class="nav-item" data-tab="settings"><i class="fas fa-sliders-h"></i><span>Ajustes</span></button>
 </div>
@@ -399,8 +389,8 @@
 </div>
 
 <script>
-// ====================== NOVA INTEGRAÇÃO COM SHEETDB (sem login Google) ======================
-// Toda a lógica de negócio original permanece, apenas substituímos a camada de API.
+// ====================== CONEXÃO DIRETA COM A PLANILHA SHEETDB FORNECIDA ======================
+const SHEETDB_API_URL = "https://sheetdb.io/api/v1/7o3coa2jghj2r";
 
 // Utilitários
 const showToast = (message, type = 'info') => {
@@ -413,13 +403,6 @@ const showToast = (message, type = 'info') => {
 const showLoading = (show) => {
     const overlay = document.getElementById('loadingOverlay');
     if (overlay) show ? overlay.classList.add('active') : overlay.classList.remove('active');
-};
-const debounce = (fn, delay) => {
-    let timer;
-    return function(...args) {
-        clearTimeout(timer);
-        timer = setTimeout(() => fn.apply(this, args), delay);
-    };
 };
 
 // Cálculo de streak (gamificação)
@@ -446,10 +429,10 @@ function updateStreakUI(state) {
     setTimeout(() => { if(streakDiv) streakDiv.style.animation = ''; }, 600);
 }
 
-// ---------- STATE MANAGER (mantido) ----------
+// ---------- STATE MANAGER (central) ----------
 const AppState = {
     _data: {
-        rawSheets: [],      // adaptado: vamos armazenar os dados da planilha como se fosse uma única aba
+        rawSheets: [],
         columnMapping: {},
         disciplines: new Map(),
         sessions: [],
@@ -474,7 +457,7 @@ const AppState = {
     subscribe(fn) { this._listeners.push(fn); return () => { this._listeners = this._listeners.filter(l => l !== fn); }; }
 };
 
-// ---------- TIMER PERSISTENTE (mantido) ----------
+// ---------- TIMER PERSISTENTE (localStorage) ----------
 const TimerService = {
     _elapsed: 0, _running: false, _interval: null, _listeners: [],
     init() {
@@ -490,27 +473,16 @@ const TimerService = {
     subscribe(fn) { this._listeners.push(fn); return () => { this._listeners = this._listeners.filter(l => l !== fn); }; }
 };
 
-// ====================== NOVO SHEET SERVICE (SheetDB REST API) ======================
-let currentApiUrl = "";
-
+// ====================== SERVIÇO DE PLANILHA (SheetDB) ======================
 const SheetService = {
-    // Configura a URL da API (SheetDB)
-    setApiUrl(url) { currentApiUrl = url; },
-    
-    // Lê os dados da planilha via GET
     async carregarDados() {
-        if (!currentApiUrl) throw new Error("URL da API não configurada");
-        const resposta = await fetch(currentApiUrl);
+        const resposta = await fetch(SHEETDB_API_URL);
         if (!resposta.ok) throw new Error(`HTTP ${resposta.status}`);
         const dados = await resposta.json();
-        return dados; // Espera-se um array de objetos (linhas)
+        return dados; // array de objetos (linhas)
     },
     
-    // Salva/Atualiza dados na planilha via POST (SheetDB aceita POST para adicionar linhas)
-    // Aqui usamos um método simplificado: enviar nova sessão como uma linha separada
     async salvarSessao(novaSessao) {
-        if (!currentApiUrl) throw new Error("URL não configurada");
-        // SheetDB espera um objeto com os dados da linha
         const payload = {
             data: {
                 Data: novaSessao.date?.toISOString().slice(0,10) || new Date().toISOString().slice(0,10),
@@ -519,24 +491,21 @@ const SheetService = {
                 Status: "Concluído"
             }
         };
-        const resposta = await fetch(currentApiUrl, {
+        const resposta = await fetch(SHEETDB_API_URL, {
             method: "POST",
             headers: { "Content-Type": "application/json" },
             body: JSON.stringify(payload)
         });
-        if (!resposta.ok) throw new Error("Erro ao salvar sessão");
+        if (!resposta.ok) throw new Error("Erro ao salvar sessão na planilha");
         return await resposta.json();
     },
     
-    // Carrega e processa os dados da planilha, fazendo o mapeamento inteligente
-    async loadSheetData(apiUrl) {
-        this.setApiUrl(apiUrl);
+    async loadSheetData() {
         showLoading(true);
         try {
             const rows = await this.carregarDados();
             if (!rows || !rows.length) throw new Error("Nenhum dado encontrado na planilha");
             
-            // Converte o array de objetos em uma estrutura similar à anterior (rawSheets com uma aba)
             const headers = Object.keys(rows[0]);
             const dataRows = rows.map(row => {
                 let obj = {};
@@ -546,14 +515,13 @@ const SheetService = {
             const sheetData = { name: "Principal", headers, data: dataRows };
             AppState.updateSpecific('rawSheets', [sheetData]);
             
-            // Mapeamento inteligente (mesma lógica original)
             this.intelligentMappingAndBuildState(sheetData);
-            document.getElementById('authStatus').innerHTML = `<i class="fas fa-check-circle"></i> Planilha conectada • ${rows.length} registros carregados`;
-            showToast("Dados sincronizados com sucesso! 🚀");
+            document.getElementById('authStatus').innerHTML = `<i class="fas fa-check-circle"></i> ✅ Planilha carregada • ${rows.length} registros sincronizados`;
+            showToast("Dados carregados com sucesso! 🚀");
         } catch (err) {
             console.error(err);
             showToast("Erro ao carregar planilha: " + err.message, "error");
-            document.getElementById('authStatus').innerHTML = `<i class="fas fa-exclamation-triangle"></i> Erro: ${err.message}`;
+            document.getElementById('authStatus').innerHTML = `<i class="fas fa-exclamation-triangle"></i> ⚠️ Erro: ${err.message}`;
         } finally {
             showLoading(false);
         }
@@ -670,7 +638,7 @@ const SheetService = {
     }
 };
 
-// ====================== UI RENDER (mantido, apenas referências ao SheetService) ======================
+// ====================== UI RENDER ======================
 let activeTab = "dashboard";
 let currentCharts = {};
 
@@ -717,7 +685,7 @@ const UIRenderer = {
     renderContent(container) { const state = AppState.getState(); let html = ""; for (let [disc, d] of state.disciplines.entries()) html += `<div class="task-item"><strong><i class="fas fa-graduation-cap"></i> ${disc}</strong> <span>${d.totalHours.toFixed(1)}h</span> ${d.topics.length? `<span class="chip">${d.topics.slice(0,2).join(', ')}</span>` : ''}</div>`; container.innerHTML = `<div class="card"><div class="card-title"><i class="fas fa-layer-group"></i> Conteúdos</div>${html || '<p>Nenhum tópico específico. Adicione coluna "Conteúdo" na planilha.</p>'}</div>`; },
     renderReviews(container) { const revs = AppState.getState().reviewQueue; container.innerHTML = `<div class="card"><div class="card-title"><i class="fas fa-rotate-right"></i> Revisões estratégicas</div><div id="reviewList"></div></div>`; document.getElementById('reviewList').innerHTML = revs.length? revs.map(r=>`<div class="task-item"><span>📅 ${r.discipline}</span><span>vencimento ${r.dueDays}d</span><button class="chip" onclick="window.dispatchEvent(new CustomEvent('completeReview',{detail:{discipline:'${r.discipline}'}}))">✅ Revisar</button></div>`).join('') : "<p>🎉 Nenhuma revisão pendente!</p>"; },
     renderQuestions(container) { const state = AppState.getState(); let acc = state.questionsData.accuracy; container.innerHTML = `<div class="card"><div class="card-title"><i class="fas fa-square-check"></i> Questões</div><div>Acertos: ${acc.toFixed(1)}%</div><div class="progress-bar mt-2"><div class="progress-fill" style="width:${acc}%; background:#22C55E;"></div></div><div id="questionHistory"></div><button id="addManualQuestionBtn" class="btn-outline mt-3"><i class="fas fa-plus-circle"></i> Registrar manual</button></div>`; document.getElementById('questionHistory').innerHTML = state.questionsData.history.slice(-5).map(q=>`<div>📊 ${q.discipline}: ${q.right}/${q.total}</div>`).join(''); document.getElementById('addManualQuestionBtn')?.addEventListener('click', () => { let disc = prompt("Disciplina"), right = parseInt(prompt("Acertos")), total = parseInt(prompt("Total")); if(!isNaN(right) && !isNaN(total) && total>0){ const newHist = [...state.questionsData.history, {right,total,discipline:disc||"Manual"}]; let totalR = newHist.reduce((a,b)=>a+b.right,0), totalT = newHist.reduce((a,b)=>a+b.total,0); AppState.setState({ questionsData: { history: newHist, accuracy: totalT ? (totalR/totalT)*100 : 0 } }); UIRenderer.renderQuestions(container); showToast("Questão registrada! Continue assim 💪"); } }); },
-    renderReports(container) { const state = AppState.getState(); container.innerHTML = `<div class="card"><div class="card-title"><i class="fas fa-chart-pie"></i> Evolução</div><canvas id="hoursEvolutionChart" height="150"></canvas><div class="mt-4"><strong>Total sessões:</strong> ${state.sessions.length} • <strong>Disciplinas:</strong> ${state.disciplines.size}</div></div>`; setTimeout(()=>{ const ctx = document.getElementById('hoursEvolutionChart')?.getContext('2d'); if(ctx){ let last7=[]; for(let i=6;i>=0;i--){ let d=new Date(); d.setDate(d.getDate()-i); last7.push(d.toLocaleDateString()); } let hoursPerDay = last7.map(day=>state.sessions.filter(s=> s.date && s.date.toLocaleDateString()===day).reduce((a,b)=>a+b.duration,0)); new Chart(ctx, { type: 'line', data: { labels: last7, datasets: [{ label: 'Horas/dia', data: hoursPerDay, borderColor: '#FACC15', tension: 0.3, fill: true }] } }); } }, 50); },
+    renderReports(container) { const state = AppState.getState(); container.innerHTML = `<div class="card"><div class="card-title"><i class="fas fa-chart-pie"></i> Evolução de Estudos</div><canvas id="hoursEvolutionChart" height="150"></canvas><div class="mt-4"><strong>Total sessões:</strong> ${state.sessions.length} • <strong>Disciplinas:</strong> ${state.disciplines.size}</div></div>`; setTimeout(()=>{ const ctx = document.getElementById('hoursEvolutionChart')?.getContext('2d'); if(ctx){ let last7=[]; for(let i=6;i>=0;i--){ let d=new Date(); d.setDate(d.getDate()-i); last7.push(d.toLocaleDateString()); } let hoursPerDay = last7.map(day=>state.sessions.filter(s=> s.date && s.date.toLocaleDateString()===day).reduce((a,b)=>a+b.duration,0)); new Chart(ctx, { type: 'line', data: { labels: last7, datasets: [{ label: 'Horas/dia', data: hoursPerDay, borderColor: '#FACC15', tension: 0.3, fill: true }] } }); } }, 50); },
     renderFocusMode(container) {
         container.innerHTML = `<div class="card"><div class="card-title"><i class="fas fa-stopwatch"></i> Modo Foco</div><div class="timer-display" id="focusTimer">00:00:00</div><div class="flex-between" style="gap:12px; margin:20px 0;"><button id="startFocusBtn"><i class="fas fa-play"></i> Iniciar</button><button id="pauseFocusBtn"><i class="fas fa-pause"></i> Pausar</button><button id="saveFocusBtn"><i class="fas fa-save"></i> Salvar</button></div><div><label><i class="fas fa-tag"></i> Disciplina: <input id="focusDiscipline" placeholder="Direito, Português..."></label></div></div>`;
         const updateDisplay = (sec) => { const el = document.getElementById('focusTimer'); if(el) el.innerText = new Date(sec * 1000).toISOString().substr(11,8); };
@@ -737,30 +705,29 @@ const UIRenderer = {
                 discMap.get(disc).totalHours += hours;
                 AppState.setState({ sessions: updatedSessions, disciplines: discMap, stats: { ...state.stats, totalHours } });
                 SheetService.generateSmartReviews(); SheetService.updateNotifications();
-                // Tenta salvar na planilha via API (SheetDB) se configurada
-                if (currentApiUrl) {
-                    try { await SheetService.salvarSessao(newSession); showToast("Sessão salva na planilha!"); } catch(e) { console.warn("Não foi possível salvar na planilha:", e); }
-                }
+                // Salvar na planilha SheetDB
+                try {
+                    await SheetService.salvarSessao(newSession);
+                    showToast("Sessão salva na planilha! ✅");
+                } catch(e) { console.warn("Erro ao salvar na planilha:", e); showToast("Sessão salva localmente, mas não na planilha", "error"); }
                 TimerService.reset(); showToast(`🔥 Sessão de ${hours.toFixed(1)}h registrada! +${Math.floor(hours)} pontos de foco`);
                 UIRenderer.render();
             } else showToast("Estude ao menos alguns segundos", "error");
         });
     },
-    renderSettings(container) { const state = AppState.getState(); let mappingHtml = Object.entries(state.columnMapping).map(([sheet,map])=>`<div><strong>📄 ${sheet}</strong>  Data: ${map.dateCol||'❌'}  •  Matéria: ${map.disciplineCol||'❌'}  •  Tempo: ${map.timeCol||'❌'}</div>`).join(''); container.innerHTML = `<div class="card"><div class="card-title"><i class="fas fa-sliders-h"></i> Mapeamento inteligente</div>${mappingHtml||'Nenhuma planilha carregada.'}<p class="chip mt-3">✨ O sistema entende colunas semânticas automaticamente.</p></div>`; }
+    renderSettings(container) { const state = AppState.getState(); let mappingHtml = Object.entries(state.columnMapping).map(([sheet,map])=>`<div><strong>📄 ${sheet}</strong>  Data: ${map.dateCol||'❌'}  •  Matéria: ${map.disciplineCol||'❌'}  •  Tempo: ${map.timeCol||'❌'}</div>`).join(''); container.innerHTML = `<div class="card"><div class="card-title"><i class="fas fa-sliders-h"></i> Mapeamento inteligente</div>${mappingHtml||'Nenhuma planilha carregada.'}<p class="chip mt-3">✨ O sistema entende colunas semânticas automaticamente.</p><button id="refreshSheetBtn" class="btn-outline mt-3"><i class="fas fa-sync-alt"></i> Recarregar planilha</button></div>`; document.getElementById('refreshSheetBtn')?.addEventListener('click', () => SheetService.loadSheetData()); }
 };
 
-// Eventos e inicialização
+// Eventos e inicialização automática
 window.addEventListener('completeReview', (e) => { showToast(`🎉 Revisão de ${e.detail.discipline} concluída! Continue firme`); });
-document.getElementById('loadSheetBtn')?.addEventListener('click', debounce(async () => {
-    const url = document.getElementById('sheetApiUrl').value.trim();
-    if (!url) { showToast("Informe a URL da API SheetDB", "error"); return; }
-    await SheetService.loadSheetData(url);
-}, 300));
 document.getElementById('fabFocusBtn')?.addEventListener('click', () => { activeTab = "focus"; document.querySelectorAll('.nav-item').forEach(btn => btn.classList.remove('active')); const focusNav = Array.from(document.querySelectorAll('.nav-item')).find(n => n.dataset.tab === "focus"); if(focusNav) focusNav.classList.add('active'); UIRenderer.render(); });
 const navItems = document.querySelectorAll('.nav-item');
 navItems.forEach(btn => { btn.addEventListener('click', () => { activeTab = btn.dataset.tab; navItems.forEach(b=>b.classList.remove('active')); btn.classList.add('active'); UIRenderer.render(); }); });
+
 TimerService.init();
 AppState.subscribe(() => UIRenderer.render());
+// Carrega automaticamente os dados da planilha ao iniciar
+SheetService.loadSheetData();
 UIRenderer.render();
 </script>
 </body>
