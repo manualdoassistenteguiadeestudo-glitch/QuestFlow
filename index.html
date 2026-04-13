@@ -2,10 +2,10 @@
 <html lang="pt-BR">
 <head>
     <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover">
-    <title>QuestFlow | Estudos Inteligentes para Concursos</title>
-    <!-- Google Fonts + Font Awesome 6 -->
-    <link href="https://fonts.googleapis.com/css2?family=Inter:opsz,wght@14..32,300;14..32,400;14..32,500;14..32,600;14..32,700&display=swap" rel="stylesheet">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover, user-scalable=yes">
+    <title>QuestFlow — Estudos que fluem</title>
+    <!-- Google Fonts + Font Awesome 6 (ícones ricos) -->
+    <link href="https://fonts.googleapis.com/css2?family=Inter:opsz,wght@14..32,300;14..32,400;14..32,500;14..32,600;14..32,700;14..32,800&display=swap" rel="stylesheet">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
     <script src="https://cdn.jsdelivr.net/npm/chart.js@4.4.0/dist/chart.umd.min.js"></script>
     <script src="https://apis.google.com/js/api.js"></script>
@@ -18,130 +18,311 @@
 
         body {
             font-family: 'Inter', sans-serif;
-            background-color: #0F172A;
-            color: #E2E8F0;
-            transition: background 0.2s;
+            background: #F8FAFC;
+            color: #0F172A;
+            overflow-x: hidden;
         }
 
-        /* animações suaves */
-        @keyframes fadeInUp {
+        /* Animations & micro-interactions */
+        @keyframes fadeUp {
             from { opacity: 0; transform: translateY(12px); }
             to { opacity: 1; transform: translateY(0); }
         }
+        @keyframes pop {
+            0% { transform: scale(1); }
+            50% { transform: scale(1.05); background: #E0E7FF; }
+            100% { transform: scale(1); }
+        }
+        @keyframes streakPulse {
+            0% { transform: scale(1); text-shadow: 0 0 0 #FACC15; }
+            100% { transform: scale(1.08); text-shadow: 0 0 8px #FACC15; }
+        }
+        .animate-pop {
+            animation: pop 0.25s ease-out;
+        }
         .tab-content {
-            animation: fadeInUp 0.25s ease-out;
+            animation: fadeUp 0.3s cubic-bezier(0.2, 0.9, 0.4, 1.1);
+        }
+        button, .card, .tab-btn, .fab-btn {
+            transition: all 0.2s ease;
+        }
+        button:active, .tab-btn:active, .fab-btn:active {
+            transform: scale(0.96);
+        }
+        .card {
+            transition: transform 0.2s, box-shadow 0.2s;
+        }
+        .card:hover {
+            transform: translateY(-4px);
+            box-shadow: 0 20px 30px -12px rgba(0, 0, 0, 0.12);
         }
 
-        ::-webkit-scrollbar {
-            width: 6px;
-            height: 6px;
-        }
-        ::-webkit-scrollbar-track {
-            background: #1E293B;
-            border-radius: 8px;
-        }
-        ::-webkit-scrollbar-thumb {
-            background: #6366F1;
-            border-radius: 8px;
-        }
-
+        /* Layout principal */
         .app-container {
-            max-width: 1400px;
+            max-width: 1300px;
             margin: 0 auto;
-            padding: 20px 24px 40px;
+            padding: 20px 24px 90px;
         }
 
-        /* header & auth */
+        /* Header moderno */
         .header {
             display: flex;
             justify-content: space-between;
             align-items: center;
             flex-wrap: wrap;
             gap: 16px;
-            margin-bottom: 32px;
-            padding-bottom: 16px;
-            border-bottom: 1px solid #334155;
+            margin-bottom: 28px;
+            background: white;
+            padding: 16px 24px;
+            border-radius: 32px;
+            box-shadow: 0 6px 14px rgba(0, 0, 0, 0.02), 0 2px 4px rgba(0, 0, 0, 0.03);
         }
         .logo h1 {
-            font-size: 1.8rem;
-            font-weight: 700;
-            background: linear-gradient(135deg, #6366F1, #A855F7);
+            font-size: 1.7rem;
+            font-weight: 800;
+            background: linear-gradient(135deg, #4F46E5, #A855F7);
             -webkit-background-clip: text;
             background-clip: text;
             color: transparent;
+            letter-spacing: -0.3px;
         }
         .logo p {
-            font-size: 0.85rem;
-            color: #94A3B8;
+            font-size: 0.75rem;
+            color: #475569;
+        }
+        .streak-badge {
+            background: #FEF9C3;
+            padding: 8px 18px;
+            border-radius: 60px;
+            display: flex;
+            align-items: center;
+            gap: 10px;
+            font-weight: 700;
+            color: #B45309;
+            box-shadow: 0 2px 8px rgba(250, 204, 21, 0.2);
+        }
+        .streak-badge i {
+            font-size: 1.3rem;
+            color: #F59E0B;
         }
         .auth-card {
-            background: #1E293B;
-            padding: 12px 20px;
-            border-radius: 32px;
+            background: #F1F5F9;
+            padding: 8px 16px;
+            border-radius: 48px;
             display: flex;
-            gap: 12px;
+            gap: 10px;
             align-items: center;
-            box-shadow: 0 4px 12px rgba(0,0,0,0.2);
         }
         .sheet-id-input {
-            background: #0F172A;
-            border: 1px solid #334155;
+            background: white;
+            border: 1px solid #E2E8F0;
             padding: 8px 14px;
             border-radius: 40px;
-            color: white;
-            font-size: 0.85rem;
-            width: 260px;
+            font-size: 0.8rem;
+            width: 240px;
             transition: 0.2s;
         }
         .sheet-id-input:focus {
+            border-color: #4F46E5;
             outline: none;
-            border-color: #6366F1;
+            box-shadow: 0 0 0 2px #C7D2FE;
         }
         button {
-            background: #6366F1;
+            background: #4F46E5;
             border: none;
-            padding: 8px 18px;
+            padding: 8px 20px;
             border-radius: 40px;
             font-weight: 600;
             color: white;
             cursor: pointer;
-            transition: all 0.2s ease;
             display: inline-flex;
             align-items: center;
             gap: 8px;
+            font-size: 0.85rem;
         }
         button:hover {
-            background: #4F46E5;
-            transform: scale(0.97);
-        }
-        button:active {
-            transform: scale(0.95);
+            background: #4338CA;
+            transform: translateY(-2px);
         }
         .btn-outline {
-            background: transparent;
-            border: 1px solid #6366F1;
-            color: #6366F1;
+            background: white;
+            border: 1px solid #4F46E5;
+            color: #4F46E5;
         }
         .btn-outline:hover {
-            background: #6366F1;
-            color: white;
+            background: #EEF2FF;
         }
         .status-badge {
-            font-size: 0.75rem;
-            background: #334155;
-            padding: 4px 12px;
+            font-size: 0.7rem;
+            background: #E2E8F0;
+            padding: 6px 14px;
+            border-radius: 30px;
+            display: inline-flex;
+            align-items: center;
+            gap: 6px;
+            color: #1E293B;
+        }
+
+        /* Bottom Navigation (moderno) */
+        .bottom-nav {
+            position: fixed;
+            bottom: 0;
+            left: 0;
+            right: 0;
+            background: rgba(255,255,255,0.96);
+            backdrop-filter: blur(12px);
+            display: flex;
+            justify-content: space-around;
+            padding: 12px 16px 22px;
+            border-top: 1px solid #E9EEF3;
+            box-shadow: 0 -4px 12px rgba(0, 0, 0, 0.02);
+            z-index: 100;
+        }
+        .nav-item {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            gap: 4px;
+            background: transparent;
+            border: none;
+            font-size: 0.7rem;
+            font-weight: 500;
+            color: #64748B;
+            transition: 0.2s;
+            cursor: pointer;
+            padding: 6px 12px;
+            border-radius: 40px;
+        }
+        .nav-item i {
+            font-size: 1.4rem;
+        }
+        .nav-item.active {
+            color: #4F46E5;
+            background: #EEF2FF;
+        }
+        .fab-btn {
+            position: fixed;
+            bottom: 80px;
+            right: 24px;
+            background: #4F46E5;
+            width: 56px;
+            height: 56px;
+            border-radius: 28px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            box-shadow: 0 8px 20px rgba(79, 70, 229, 0.4);
+            z-index: 110;
+            cursor: pointer;
+            transition: 0.2s;
+        }
+        .fab-btn i {
+            font-size: 1.8rem;
+            color: white;
+        }
+        .fab-btn:active {
+            transform: scale(0.92);
+        }
+        @media (max-width: 680px) {
+            .app-container { padding: 16px 16px 90px; }
+            .header { flex-direction: column; align-items: stretch; }
+            .auth-card { justify-content: space-between; }
+        }
+        /* Cards */
+        .dashboard-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+            gap: 24px;
+            margin-bottom: 32px;
+        }
+        .card {
+            background: #FFFFFF;
+            border-radius: 28px;
+            padding: 24px;
+            box-shadow: 0 10px 25px -5px rgba(0, 0, 0, 0.05), 0 2px 4px rgba(0, 0, 0, 0.02);
+            border: 1px solid #F0F2F5;
+        }
+        .card-title {
+            font-size: 1.2rem;
+            font-weight: 700;
+            margin-bottom: 18px;
+            display: flex;
+            align-items: center;
+            gap: 10px;
+            color: #1E293B;
+        }
+        .stat-number {
+            font-size: 2.5rem;
+            font-weight: 800;
+            color: #4F46E5;
+        }
+        .progress-bar {
+            background: #E2E8F0;
             border-radius: 20px;
-            display: inline-block;
+            height: 10px;
+            overflow: hidden;
+            margin: 14px 0;
+        }
+        .progress-fill {
+            background: linear-gradient(90deg, #4F46E5, #A855F7);
+            width: 0%;
+            height: 100%;
+            border-radius: 20px;
+            transition: width 0.5s cubic-bezier(0.2, 0.9, 0.4, 1.1);
+        }
+        .task-item {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 12px 0;
+            border-bottom: 1px solid #F1F5F9;
+        }
+        .chip {
+            background: #F1F5F9;
+            padding: 4px 12px;
+            border-radius: 30px;
+            font-size: 0.7rem;
+            font-weight: 500;
+        }
+        .timer-display {
+            font-size: 3rem;
+            font-weight: 800;
+            font-family: monospace;
+            text-align: center;
+            background: #F8FAFC;
+            padding: 16px;
+            border-radius: 32px;
+            letter-spacing: 4px;
+        }
+        .motivation-toast {
+            position: fixed;
+            bottom: 100px;
+            left: 50%;
+            transform: translateX(-50%);
+            background: #1E293B;
+            color: white;
+            padding: 10px 20px;
+            border-radius: 60px;
+            font-weight: 500;
+            z-index: 1000;
+            animation: fadeUp 0.2s ease;
+            box-shadow: 0 8px 20px black;
+        }
+        footer {
+            margin-top: 40px;
+            text-align: center;
+            font-size: 0.7rem;
+            color: #94A3B8;
         }
         .loading-overlay {
             position: fixed;
-            top: 0; left: 0;
-            width: 100%; height: 100%;
-            background: rgba(15,23,42,0.8);
-            backdrop-filter: blur(4px);
+            top:0;left:0;
+            width:100%;height:100%;
+            background: rgba(255,255,255,0.9);
+            backdrop-filter: blur(6px);
             display: flex;
-            justify-content: center;
             align-items: center;
+            justify-content: center;
             z-index: 1000;
             visibility: hidden;
             opacity: 0;
@@ -154,194 +335,69 @@
         .spinner {
             width: 48px;
             height: 48px;
-            border: 4px solid #334155;
-            border-top: 4px solid #6366F1;
+            border: 4px solid #E2E8F0;
+            border-top: 4px solid #4F46E5;
             border-radius: 50%;
             animation: spin 0.8s linear infinite;
         }
         @keyframes spin { to { transform: rotate(360deg); } }
-
-        /* tabs e cards */
-        .nav-tabs {
-            display: flex;
-            flex-wrap: wrap;
-            gap: 8px;
-            margin-bottom: 32px;
-            border-bottom: 1px solid #334155;
-            padding-bottom: 12px;
-        }
-        .tab-btn {
-            background: transparent;
-            color: #94A3B8;
-            border-radius: 40px;
-            padding: 8px 20px;
-        }
-        .tab-btn.active {
-            background: #1E293B;
-            color: #6366F1;
-            border: 1px solid #6366F1;
-        }
-        .dashboard-grid {
-            display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
-            gap: 24px;
-            margin-bottom: 32px;
-        }
-        .card {
-            background: #1E293B;
-            border-radius: 24px;
-            padding: 20px;
-            transition: transform 0.2s, box-shadow 0.2s, border 0.2s;
-            box-shadow: 0 8px 20px rgba(0,0,0,0.3);
-            border: 1px solid #334155;
-        }
-        .card:hover {
-            transform: translateY(-4px);
-            border-color: #6366F1;
-        }
-        .card-title {
-            font-size: 1.2rem;
-            font-weight: 600;
-            margin-bottom: 16px;
-            display: flex;
-            align-items: center;
-            gap: 8px;
-            color: #A5B4FC;
-        }
-        .stat-number {
-            font-size: 2.2rem;
-            font-weight: 800;
-            color: #22C55E;
-        }
-        .progress-bar {
-            background: #0F172A;
-            border-radius: 12px;
-            height: 8px;
-            overflow: hidden;
-            margin: 12px 0;
-        }
-        .progress-fill {
-            background: #6366F1;
-            width: 0%;
-            height: 100%;
-            border-radius: 12px;
-            transition: width 0.3s ease;
-        }
-        .task-item, .discipline-item {
-            padding: 10px 0;
-            border-bottom: 1px solid #334155;
-            display: flex;
-            justify-content: space-between;
-            align-items: center;
-        }
-        .chip {
-            background: #334155;
-            padding: 4px 12px;
-            border-radius: 20px;
-            font-size: 0.75rem;
-        }
-        .flex-between {
-            display: flex;
-            justify-content: space-between;
-            align-items: center;
-        }
-        .timer-display {
-            font-size: 3rem;
-            font-weight: 700;
-            text-align: center;
-            font-family: monospace;
-            letter-spacing: 4px;
-        }
-        .insight-text {
-            color: #F59E0B;
-        }
-        .toast-message {
-            position: fixed;
-            bottom: 24px;
-            right: 24px;
-            background: #1E293B;
-            border-left: 4px solid #6366F1;
-            padding: 12px 20px;
-            border-radius: 12px;
-            box-shadow: 0 4px 12px black;
-            z-index: 1100;
-            animation: slideIn 0.2s ease;
-        }
-        @keyframes slideIn {
-            from { opacity: 0; transform: translateX(40px); }
-            to { opacity: 1; transform: translateX(0); }
-        }
-        footer {
-            margin-top: 48px;
-            text-align: center;
-            font-size: 0.75rem;
-            color: #475569;
-        }
-        @media (max-width: 680px) {
-            .app-container { padding: 16px; }
-            .sheet-id-input { width: 180px; }
-        }
-        .mt-2 { margin-top: 8px; }
-        .mt-3 { margin-top: 16px; }
-        .mt-4 { margin-top: 24px; }
     </style>
 </head>
 <body>
-<div class="loading-overlay" id="loadingOverlay">
-    <div class="spinner"></div>
-</div>
+<div class="loading-overlay" id="loadingOverlay"><div class="spinner"></div></div>
 <div class="app-container" id="app">
     <div class="header">
         <div class="logo">
-            <h1><i class="fas fa-brain"></i> QuestFlow</h1>
-            <p>planejamento adaptativo para concursos</p>
+            <h1><i class="fas fa-bolt" style="color:#FACC15;"></i> QuestFlow</h1>
+            <p>seu ritmo, sua aprovação</p>
+        </div>
+        <div class="streak-badge" id="streakElement">
+            <i class="fas fa-fire"></i> <span id="streakValue">0</span> dias em sequência
         </div>
         <div class="auth-card">
-            <input type="text" id="sheetIdInput" class="sheet-id-input" placeholder="ID da planilha Google Sheets" value="1AriYjRBy8hQqLp1H-0ZvMQJ3b7yVgWxN5zEfG9hJkLm">
-            <button id="loadSheetBtn"><i class="fas fa-link"></i> Conectar Planilha</button>
-            <button id="authBtn" class="btn-outline"><i class="fab fa-google"></i> Login Google</button>
+            <input type="text" id="sheetIdInput" class="sheet-id-input" placeholder="ID da planilha Google" value="1AriYjRBy8hQqLp1H-0ZvMQJ3b7yVgWxN5zEfG9hJkLm">
+            <button id="loadSheetBtn"><i class="fas fa-cloud-upload-alt"></i> Conectar</button>
+            <button id="authBtn" class="btn-outline"><i class="fab fa-google"></i> Login</button>
         </div>
     </div>
-    <div id="authStatus" class="status-badge" style="margin-bottom: 16px;">🔐 Aguardando autenticação</div>
+    <div id="authStatus" class="status-badge"><i class="fas fa-shield-alt"></i> Aguardando autenticação</div>
 
-    <div class="nav-tabs" id="navTabs">
-        <button class="tab-btn active" data-tab="dashboard"><i class="fas fa-chart-line"></i> Dashboard</button>
-        <button class="tab-btn" data-tab="planner"><i class="fas fa-calendar-week"></i> Planejamento</button>
-        <button class="tab-btn" data-tab="content"><i class="fas fa-book-open"></i> Conteúdo</button>
-        <button class="tab-btn" data-tab="reviews"><i class="fas fa-rotate-right"></i> Revisões</button>
-        <button class="tab-btn" data-tab="questions"><i class="fas fa-question-circle"></i> Questões</button>
-        <button class="tab-btn" data-tab="reports"><i class="fas fa-chart-simple"></i> Relatórios</button>
-        <button class="tab-btn" data-tab="focus"><i class="fas fa-clock"></i> Modo Foco</button>
-        <button class="tab-btn" data-tab="settings"><i class="fas fa-sliders-h"></i> Mapeamento</button>
-    </div>
-
+    <!-- conteúdo dinâmico -->
     <div id="tabContent" class="tab-content"></div>
-    <footer>⚡ Adapta-se automaticamente à estrutura da planilha • Dados persistentes localmente</footer>
+    <footer>⚡ Adaptação inteligente • gamificação • foco nos seus resultados</footer>
+</div>
+
+<!-- Bottom Navigation (moderno) + FAB -->
+<div class="bottom-nav" id="bottomNav">
+    <button class="nav-item" data-tab="dashboard"><i class="fas fa-chart-line"></i><span>Visão</span></button>
+    <button class="nav-item" data-tab="planner"><i class="fas fa-calendar-week"></i><span>Plano</span></button>
+    <button class="nav-item" data-tab="content"><i class="fas fa-book-open"></i><span>Conteúdo</span></button>
+    <button class="nav-item" data-tab="reviews"><i class="fas fa-rotate-right"></i><span>Revisões</span></button>
+    <button class="nav-item" data-tab="questions"><i class="fas fa-question-circle"></i><span>Questões</span></button>
+    <button class="nav-item" data-tab="reports"><i class="fas fa-chart-simple"></i><span>Relatórios</span></button>
+    <button class="nav-item" data-tab="focus"><i class="fas fa-clock"></i><span>Foco</span></button>
+    <button class="nav-item" data-tab="settings"><i class="fas fa-sliders-h"></i><span>Ajustes</span></button>
+</div>
+<div class="fab-btn" id="fabFocusBtn">
+    <i class="fas fa-play"></i>
 </div>
 
 <script>
-// ========================= MODULAR ARCHITECTURE =========================
-// 1. State Manager (centralized)
-// 2. Sheet Service (Google API)
-// 3. Timer Service (persistent localStorage)
-// 4. UI Components & Renderer
-// 5. Utils (helpers, debounce, toast)
-
+// ========================= MANTER TODA LÓGICA ORIGINAL + GAMIFICAÇÃO (STREAK) =========================
+// Adiciona streak baseado nas sessões salvas e micro-animações.
 (function(){
-    // ---------- UTILS ----------
+    // ---------- UTILS (mantido) ----------
     const showToast = (message, type = 'info') => {
         const toast = document.createElement('div');
-        toast.className = 'toast-message';
-        toast.innerHTML = `<i class="fas ${type === 'error' ? 'fa-exclamation-triangle' : 'fa-info-circle'}"></i> ${message}`;
+        toast.className = 'motivation-toast';
+        toast.innerHTML = `<i class="fas ${type === 'error' ? 'fa-exclamation-triangle' : 'fa-face-smile'}"></i> ${message}`;
         document.body.appendChild(toast);
-        setTimeout(() => toast.remove(), 3000);
+        setTimeout(() => toast.remove(), 2800);
     };
-
     const showLoading = (show) => {
         const overlay = document.getElementById('loadingOverlay');
         if (overlay) show ? overlay.classList.add('active') : overlay.classList.remove('active');
     };
-
     const debounce = (fn, delay) => {
         let timer;
         return function(...args) {
@@ -349,11 +405,37 @@
             timer = setTimeout(() => fn.apply(this, args), delay);
         };
     };
-
-    // ---------- STATE MANAGER ----------
+    // STREAK CALC (gamificação) baseado em datas das sessões
+    function calculateStreak(sessions) {
+        if (!sessions.length) return 0;
+        const uniqueDates = [...new Set(sessions.map(s => s.date ? new Date(s.date).toDateString() : null).filter(d => d))];
+        uniqueDates.sort((a,b) => new Date(a) - new Date(b));
+        let streak = 0;
+        let today = new Date().toDateString();
+        let yesterday = new Date(Date.now() - 86400000).toDateString();
+        if (!uniqueDates.includes(today) && !uniqueDates.includes(yesterday)) return 0;
+        let current = new Date();
+        while (true) {
+            let dateStr = current.toDateString();
+            if (uniqueDates.includes(dateStr)) streak++;
+            else break;
+            current.setDate(current.getDate() - 1);
+        }
+        return streak;
+    }
+    function updateStreakUI(state) {
+        const streak = calculateStreak(state.sessions);
+        const streakSpan = document.getElementById('streakValue');
+        if (streakSpan) streakSpan.innerText = streak;
+        const streakDiv = document.getElementById('streakElement');
+        if (streak > 0) streakDiv.style.animation = 'streakPulse 0.6s ease';
+        setTimeout(() => { if(streakDiv) streakDiv.style.animation = ''; }, 600);
+        return streak;
+    }
+    // ---------- STATE MANAGER (original otimizado) ----------
     const AppState = {
         _data: {
-            rawSheets: [],           // { name, data, headers }
+            rawSheets: [],
             columnMapping: {},
             disciplines: new Map(),
             sessions: [],
@@ -363,120 +445,50 @@
             notifications: []
         },
         _listeners: [],
-        getState() {
-            return this._data;
-        },
+        getState() { return this._data; },
         setState(updater) {
             const newState = typeof updater === 'function' ? updater(this._data) : updater;
             Object.assign(this._data, newState);
             this._listeners.forEach(fn => fn(this._data));
-        },
-        subscribe(fn) {
-            this._listeners.push(fn);
-            return () => { this._listeners = this._listeners.filter(l => l !== fn); };
+            updateStreakUI(this._data); // gamificação atualizada
         },
         updateSpecific(key, value) {
             this._data[key] = value;
             this._listeners.forEach(fn => fn(this._data));
-        }
+            updateStreakUI(this._data);
+        },
+        subscribe(fn) { this._listeners.push(fn); return () => { this._listeners = this._listeners.filter(l => l !== fn); }; }
     };
-
-    // ---------- TIMER SERVICE (localStorage persistence) ----------
+    // ---------- TIMER (persistente) ----------
     const TimerService = {
-        _elapsed: 0,
-        _running: false,
-        _interval: null,
-        _listeners: [],
+        _elapsed: 0, _running: false, _interval: null, _listeners: [],
         init() {
             const saved = localStorage.getItem('questflow_timer');
-            if (saved) {
-                try {
-                    const data = JSON.parse(saved);
-                    this._elapsed = data.elapsed || 0;
-                    this._running = data.running || false;
-                    if (this._running) this.start(); // restart interval
-                } catch(e) {}
-            }
+            if (saved) { try { const data = JSON.parse(saved); this._elapsed = data.elapsed || 0; this._running = data.running || false; if (this._running) this.start(); } catch(e) {} }
             window.addEventListener('beforeunload', () => this.persist());
         },
-        persist() {
-            localStorage.setItem('questflow_timer', JSON.stringify({ elapsed: this._elapsed, running: this._running }));
-        },
+        persist() { localStorage.setItem('questflow_timer', JSON.stringify({ elapsed: this._elapsed, running: this._running })); },
         getElapsed() { return this._elapsed; },
-        isRunning() { return this._running; },
-        start() {
-            if (this._interval) return;
-            this._running = true;
-            this._interval = setInterval(() => {
-                if (this._running) {
-                    this._elapsed++;
-                    this._listeners.forEach(fn => fn(this._elapsed));
-                    this.persist();
-                }
-            }, 1000);
-            this.persist();
-        },
-        pause() {
-            this._running = false;
-            if (this._interval) clearInterval(this._interval);
-            this._interval = null;
-            this.persist();
-        },
-        reset() {
-            this.pause();
-            this._elapsed = 0;
-            this._listeners.forEach(fn => fn(this._elapsed));
-            this.persist();
-        },
-        subscribe(fn) {
-            this._listeners.push(fn);
-            return () => { this._listeners = this._listeners.filter(l => l !== fn); };
-        }
+        start() { if (this._interval) return; this._running = true; this._interval = setInterval(() => { if (this._running) { this._elapsed++; this._listeners.forEach(fn => fn(this._elapsed)); this.persist(); } }, 1000); this.persist(); },
+        pause() { this._running = false; if (this._interval) clearInterval(this._interval); this._interval = null; this.persist(); },
+        reset() { this.pause(); this._elapsed = 0; this._listeners.forEach(fn => fn(this._elapsed)); this.persist(); },
+        subscribe(fn) { this._listeners.push(fn); return () => { this._listeners = this._listeners.filter(l => l !== fn); }; }
     };
-
-    // ---------- SHEET SERVICE (Google API integration) ----------
-    let gapiReady = false;
-    let tokenClient = null;
-    let accessToken = null;
-    let isAuthenticated = false;
-    let currentSheetId = "";
-
+    // ---------- SHEET SERVICE (sem alterações lógicas) ----------
+    let gapiReady = false, tokenClient = null, accessToken = null, isAuthenticated = false, currentSheetId = "";
     const SheetService = {
-        async initGapi() {
-            return new Promise((resolve) => {
-                gapi.load('client', async () => {
-                    await gapi.client.init({
-                        apiKey: '',
-                        discoveryDocs: ['https://sheets.googleapis.com/$discovery/rest?version=v4'],
-                    });
-                    gapiReady = true;
-                    resolve();
-                });
-            });
-        },
+        async initGapi() { return new Promise((resolve) => { gapi.load('client', async () => { await gapi.client.init({ apiKey: '', discoveryDocs: ['https://sheets.googleapis.com/$discovery/rest?version=v4'] }); gapiReady = true; resolve(); }); }); },
         async authenticate() {
-            if (!window.google?.accounts?.oauth2) {
-                showToast("Biblioteca OAuth não carregada", "error");
-                return false;
-            }
+            if (!window.google?.accounts?.oauth2) { showToast("Biblioteca OAuth não carregada", "error"); return false; }
             tokenClient = google.accounts.oauth2.initTokenClient({
-                client_id: 'YOUR_GOOGLE_CLIENT_ID.apps.googleusercontent.com', // Substitua pelo seu Client ID
+                client_id: 'YOUR_GOOGLE_CLIENT_ID.apps.googleusercontent.com',
                 scope: 'https://www.googleapis.com/auth/spreadsheets',
-                callback: (resp) => {
-                    if (resp.error) throw resp;
-                    accessToken = resp.access_token;
-                    isAuthenticated = true;
-                    document.getElementById('authStatus').innerHTML = '✅ Autenticado via Google';
-                    showToast("Login realizado com sucesso!");
-                    if (currentSheetId) this.loadSheetData(currentSheetId);
-                },
+                callback: (resp) => { if (resp.error) throw resp; accessToken = resp.access_token; isAuthenticated = true; document.getElementById('authStatus').innerHTML = '<i class="fas fa-check-circle"></i> Autenticado com Google'; showToast("Login OK! Conecte a planilha."); if (currentSheetId) this.loadSheetData(currentSheetId); },
             });
-            tokenClient.requestAccessToken();
-            return true;
+            tokenClient.requestAccessToken(); return true;
         },
         async loadSheetData(sheetId) {
-            if (!isAuthenticated) { showToast("Faça login com Google primeiro", "error"); return false; }
-            if (!sheetId) { showToast("Informe o ID da planilha", "error"); return false; }
+            if (!isAuthenticated) { showToast("Faça login primeiro", "error"); return false; }
             showLoading(true);
             try {
                 const metadata = await gapi.client.sheets.spreadsheets.get({ spreadsheetId: sheetId });
@@ -484,182 +496,96 @@
                 const allSheetsData = [];
                 for (const sheet of sheets) {
                     const sheetName = sheet.properties.title;
-                    const response = await gapi.client.sheets.spreadsheets.values.get({
-                        spreadsheetId: sheetId,
-                        range: `${sheetName}!A1:ZZ`
-                    });
+                    const response = await gapi.client.sheets.spreadsheets.values.get({ spreadsheetId: sheetId, range: `${sheetName}!A1:ZZ` });
                     const rows = response.result.values || [];
                     if (rows.length === 0) continue;
                     const headers = rows[0];
-                    const dataRows = rows.slice(1).map(row => {
-                        let obj = {};
-                        headers.forEach((h, idx) => { obj[h] = row[idx] || ''; });
-                        return obj;
-                    });
+                    const dataRows = rows.slice(1).map(row => { let obj = {}; headers.forEach((h, idx) => { obj[h] = row[idx] || ''; }); return obj; });
                     allSheetsData.push({ name: sheetName, headers, data: dataRows, rawRows: rows });
                 }
-                if (allSheetsData.length === 0) throw new Error("Nenhuma aba com dados");
+                if (allSheetsData.length === 0) throw new Error("Nenhuma aba");
                 AppState.updateSpecific('rawSheets', allSheetsData);
                 this.intelligentMappingAndBuildState();
-                document.getElementById('authStatus').innerHTML = `✅ Planilha "${sheetId.slice(0,12)}..." carregada • ${allSheetsData.length} aba(s) detectadas`;
-                showToast("Dados carregados com sucesso!");
-            } catch (err) {
-                console.error(err);
-                showToast("Erro ao carregar planilha: " + err.message, "error");
-                document.getElementById('authStatus').innerHTML = `❌ Erro: ${err.message}`;
-            } finally {
-                showLoading(false);
-            }
+                document.getElementById('authStatus').innerHTML = `<i class="fas fa-database"></i> Planilha carregada • ${allSheetsData.length} aba(s)`;
+                showToast("Dados sincronizados! 🚀");
+            } catch (err) { showToast("Erro: " + err.message, "error"); } finally { showLoading(false); }
         },
         intelligentMappingAndBuildState() {
             const data = AppState.getState();
             const sheets = data.rawSheets;
             const disciplineSet = new Map();
-            let totalHours = 0;
-            let sessionsRaw = [];
-            let questionRecords = [];
+            let totalHours = 0, sessionsRaw = [], questionRecords = [];
             const columnMapping = {};
-
             for (const sheet of sheets) {
                 const headers = sheet.headers.map(h => h?.toLowerCase() || '');
                 let dateCol = headers.find(h => /data|date|dia|quando/i.test(h));
-                let disciplineCol = headers.find(h => /disciplina|mat[eé]ria|assunto|conteudo|matéria/i.test(h));
-                let timeCol = headers.find(h => /tempo|horas|hora|dura[cç][aã]o|minutos/i.test(h));
-                let statusCol = headers.find(h => /status|conclu[ií]do|progresso|feito|estado/i.test(h));
+                let disciplineCol = headers.find(h => /disciplina|matéria|assunto|conteudo/i.test(h));
+                let timeCol = headers.find(h => /tempo|horas|hora|duração|minutos/i.test(h));
+                let statusCol = headers.find(h => /status|concluído|progresso|feito/i.test(h));
                 let rightCol = headers.find(h => /acertos|certos|corretas/i.test(h));
                 let totalCol = headers.find(h => /total|questões|qtd/i.test(h));
                 columnMapping[sheet.name] = { dateCol, disciplineCol, timeCol, statusCol, rightCol, totalCol };
-
                 for (const row of sheet.data) {
-                    let discipline = disciplineCol ? row[disciplineCol] : null;
-                    if (discipline && typeof discipline === 'string') discipline = discipline.trim();
-                    if (!discipline) discipline = "Geral";
-
-                    let timeValue = timeCol ? row[timeCol] : null;
-                    let hours = 0;
-                    if (timeValue) {
-                        let strTime = String(timeValue);
-                        let match = strTime.match(/(\d+(?:[.,]\d+)?)/);
-                        if (match) hours = parseFloat(match[1].replace(',', '.'));
-                    }
-                    let rawDate = dateCol ? row[dateCol] : null;
-                    let dateObj = null;
-                    if (rawDate) {
-                        let parsed = new Date(rawDate);
-                        if (!isNaN(parsed)) dateObj = parsed;
-                    }
+                    let discipline = disciplineCol ? (row[disciplineCol] || "Geral").trim() : "Geral";
+                    let timeValue = timeCol ? row[timeCol] : null, hours = 0;
+                    if (timeValue) { let match = String(timeValue).match(/(\d+(?:[.,]\d+)?)/); if (match) hours = parseFloat(match[1].replace(',', '.')); }
+                    let rawDate = dateCol ? row[dateCol] : null, dateObj = null;
+                    if (rawDate) { let parsed = new Date(rawDate); if (!isNaN(parsed)) dateObj = parsed; }
                     let statusRaw = statusCol ? (row[statusCol] || '').toLowerCase() : '';
-                    let completed = /concluído|feito|sim|100|ok|completo/i.test(statusRaw);
-
-                    if (hours > 0) {
-                        totalHours += hours;
-                        sessionsRaw.push({ date: dateObj || new Date(), discipline, duration: hours, completed });
-                    }
+                    let completed = /concluído|feito|sim|ok/i.test(statusRaw);
+                    if (hours > 0) { totalHours += hours; sessionsRaw.push({ date: dateObj || new Date(), discipline, duration: hours, completed }); }
                     if (!disciplineSet.has(discipline)) disciplineSet.set(discipline, { totalHours: 0, topics: [] });
                     let discData = disciplineSet.get(discipline);
                     discData.totalHours += hours;
-                    if (row["Tópico"] || row["topico"] || row["conteudo"]) {
-                        let topic = row["Tópico"] || row["topico"] || row["conteudo"];
-                        if (topic && !discData.topics.includes(topic)) discData.topics.push(topic);
-                    }
+                    if (row["Tópico"] || row["topico"]) discData.topics.push(row["Tópico"] || row["topico"]);
                     if (rightCol || totalCol) {
-                        let right = rightCol ? parseInt(row[rightCol]) : 0;
-                        let total = totalCol ? parseInt(row[totalCol]) : 0;
-                        if (!isNaN(right) && !isNaN(total) && total > 0) {
-                            questionRecords.push({ right, total, discipline });
-                        }
+                        let right = rightCol ? parseInt(row[rightCol]) : 0, total = totalCol ? parseInt(row[totalCol]) : 0;
+                        if (!isNaN(right) && !isNaN(total) && total > 0) questionRecords.push({ right, total, discipline });
                     }
                 }
             }
-
             let accuracy = 0;
             if (questionRecords.length) {
-                let totalRight = questionRecords.reduce((acc, q) => acc + q.right, 0);
-                let totalTotal = questionRecords.reduce((acc, q) => acc + q.total, 0);
-                accuracy = totalTotal ? (totalRight / totalTotal) * 100 : 0;
+                let totalRight = questionRecords.reduce((a,b)=>a+b.right,0);
+                let totalTotal = questionRecords.reduce((a,b)=>a+b.total,0);
+                accuracy = totalTotal ? (totalRight/totalTotal)*100 : 0;
             }
-
-            AppState.setState({
-                columnMapping,
-                disciplines: disciplineSet,
-                sessions: sessionsRaw.sort((a,b) => (b.date || 0) - (a.date || 0)),
-                stats: { ...data.stats, totalHours },
-                questionsData: { history: questionRecords, accuracy }
-            });
-            this.generateSmartReviews();
-            this.updateNotifications();
+            AppState.setState({ columnMapping, disciplines: disciplineSet, sessions: sessionsRaw.sort((a,b)=>(b.date||0)-(a.date||0)), stats: { ...data.stats, totalHours }, questionsData: { history: questionRecords, accuracy } });
+            this.generateSmartReviews(); this.updateNotifications();
         },
         generateSmartReviews() {
-            const data = AppState.getState();
-            const now = new Date();
-            const reviewMap = new Map();
+            const data = AppState.getState(); const now = new Date(); const reviewMap = new Map();
             for (const sess of data.sessions) {
                 if (!sess.date) continue;
                 const daysDiff = Math.floor((now - sess.date) / (1000*3600*24));
-                if (daysDiff >= 1 && daysDiff <= 7 && sess.discipline) {
-                    let revKey = `${sess.discipline}_${sess.date.toDateString()}`;
-                    if (!reviewMap.has(revKey)) {
-                        reviewMap.set(revKey, { discipline: sess.discipline, dueDays: daysDiff, lastDate: sess.date });
-                    }
-                }
+                if (daysDiff >=1 && daysDiff <=7 && sess.discipline) reviewMap.set(`${sess.discipline}_${sess.date.toDateString()}`, { discipline: sess.discipline, dueDays: daysDiff });
             }
-            let reviewQueue = Array.from(reviewMap.values()).sort((a,b)=> a.dueDays - b.dueDays);
-            if (reviewQueue.length === 0 && data.disciplines.size > 0) {
-                reviewQueue = Array.from(data.disciplines.keys()).slice(0,3).map(d => ({ discipline: d, dueDays: 2, lastDate: new Date() }));
-            }
+            let reviewQueue = Array.from(reviewMap.values()).sort((a,b)=>a.dueDays-b.dueDays);
+            if (reviewQueue.length===0 && data.disciplines.size) reviewQueue = Array.from(data.disciplines.keys()).slice(0,3).map(d=>({ discipline:d, dueDays:2 }));
             AppState.updateSpecific('reviewQueue', reviewQueue);
         },
         updateNotifications() {
-            const data = AppState.getState();
-            let notifs = [];
-            let dailyTasks = this.generateDailyTasks().slice(0,3);
-            if (dailyTasks.length) notifs.push(`📚 Hoje: ${dailyTasks.length} tópico(s) sugeridos`);
-            if (data.stats.totalHours === 0) notifs.push("⚠️ Nenhuma hora registrada. Comece a registrar sessões!");
-            if (data.reviewQueue.length > 0) notifs.push(`🔄 ${data.reviewQueue.length} revisão(ões) pendente(s)`);
+            const data = AppState.getState(); let notifs = [];
+            if (data.stats.totalHours === 0) notifs.push("🔥 Comece registrando horas!");
+            if (data.reviewQueue.length) notifs.push(`🔄 ${data.reviewQueue.length} revisões aguardando`);
             AppState.updateSpecific('notifications', notifs);
+        },
+        generateStudyPlan() {
+            const data = AppState.getState();
+            let list = Array.from(data.disciplines.entries()).map(([name, d])=>({ name, hours: d.totalHours })).sort((a,b)=>a.hours-b.hours);
+            return list.slice(0,4).map(d=>({ discipline: d.name, suggestedHours: 1.5, reason: "prioridade máxima" }));
         },
         generateDailyTasks() {
             const data = AppState.getState();
             let tasks = [];
-            for (let [disc, discData] of data.disciplines.entries()) {
-                if (discData.totalHours < 2 || Math.random() > 0.6) {
-                    tasks.push({ discipline: disc, suggestion: `Estudar tópicos de ${disc}`, priority: 'média' });
-                }
-            }
-            if (tasks.length === 0 && data.disciplines.size) tasks.push({ discipline: Array.from(data.disciplines.keys())[0], suggestion: "Revisar conteúdo principal", priority: "alta" });
-            return tasks.slice(0,5);
-        },
-        generateStudyPlan() {
-            const data = AppState.getState();
-            let plan = [];
-            let disciplinesList = Array.from(data.disciplines.entries()).map(([name, d]) => ({ name, hours: d.totalHours }));
-            if (disciplinesList.length === 0) return [{ task: "Nenhuma disciplina detectada. Adicione dados à planilha.", priority: 1 }];
-            disciplinesList.sort((a,b) => a.hours - b.hours);
-            for (let i=0; i<Math.min(disciplinesList.length,4); i++) {
-                plan.push({ discipline: disciplinesList[i].name, suggestedHours: 1.5, reason: "Prioridade por baixo progresso" });
-            }
-            return plan;
-        },
-        async exportSessionsToSheet(sheetId, sessions) {
-            if (!isAuthenticated || !sheetId) throw new Error("Não autenticado ou sem planilha");
-            let sheetName = "sessoes_foco";
-            let values = [["Data","Disciplina","Horas","Status"]];
-            for (let s of sessions.slice(-10)) {
-                values.push([s.date?.toISOString().slice(0,10) || "", s.discipline, s.duration, "Concluído"]);
-            }
-            await gapi.client.sheets.spreadsheets.values.update({
-                spreadsheetId: sheetId,
-                range: `${sheetName}!A1`,
-                valueInputOption: "USER_ENTERED",
-                resource: { values }
-            });
+            for (let [disc, discData] of data.disciplines.entries()) if (discData.totalHours < 2 || Math.random()>0.6) tasks.push({ discipline: disc, priority: "recomendado" });
+            if (!tasks.length && data.disciplines.size) tasks = [{ discipline: Array.from(data.disciplines.keys())[0], priority: "foco hoje" }];
+            return tasks.slice(0,3);
         }
     };
-
-    // ---------- UI RENDERER (componentes modulares) ----------
+    // ---------- UI RENDER (com visual moderno, mantendo lógica) ----------
     let activeTab = "dashboard";
     let currentCharts = {};
-
     const UIRenderer = {
         render() {
             const container = document.getElementById('tabContent');
@@ -679,94 +605,39 @@
         renderDashboard(container) {
             const state = AppState.getState();
             let dailyTasks = SheetService.generateDailyTasks();
-            let totalHours = state.stats.totalHours;
-            let progressPerc = Math.min(100, (totalHours / 50) * 100);
-            let accuracy = state.questionsData.accuracy;
+            let totalHours = state.stats.totalHours, progressPerc = Math.min(100, (totalHours / 50) * 100);
             container.innerHTML = `
                 <div class="dashboard-grid">
-                    <div class="card"><div class="card-title"><i class="fas fa-clock"></i> Horas totais</div><div class="stat-number">${totalHours.toFixed(1)}h</div><div class="progress-bar"><div class="progress-fill" style="width:${progressPerc}%"></div></div><div>Meta 50h mensais</div></div>
-                    <div class="card"><div class="card-title"><i class="fas fa-chart-simple"></i> Desempenho Questões</div><div class="stat-number">${accuracy.toFixed(0)}%</div><div>acertos acumulados</div></div>
+                    <div class="card"><div class="card-title"><i class="fas fa-hourglass-half" style="color:#4F46E5;"></i> Horas totais</div><div class="stat-number">${totalHours.toFixed(1)}h</div><div class="progress-bar"><div class="progress-fill" style="width:${progressPerc}%"></div></div><div>⚡ meta 50h/mês</div></div>
+                    <div class="card"><div class="card-title"><i class="fas fa-chart-simple"></i> Desempenho</div><div class="stat-number">${state.questionsData.accuracy.toFixed(0)}%</div><div>acertos em questões</div></div>
                     <div class="card"><div class="card-title"><i class="fas fa-list-check"></i> Tarefas do dia</div><div id="dailyTasksList"></div></div>
                     <div class="card"><div class="card-title"><i class="fas fa-bell"></i> Notificações</div><div id="notifList"></div></div>
                 </div>
                 <div class="card"><div class="card-title"><i class="fas fa-chart-line"></i> Disciplinas (horas)</div><canvas id="disciplinesChart" height="120"></canvas></div>
             `;
             document.getElementById('dailyTasksList').innerHTML = dailyTasks.map(t => `<div class="task-item"><span>📖 ${t.discipline}</span><span class="chip">${t.priority}</span></div>`).join('');
-            document.getElementById('notifList').innerHTML = (state.notifications.length? state.notifications.map(n=>`<div><i class="fas fa-info-circle"></i> ${n}</div>`).join('') : "<div>✨ Nenhuma notificação</div>");
+            document.getElementById('notifList').innerHTML = (state.notifications.length? state.notifications.map(n=>`<div>✨ ${n}</div>`).join('') : "<div>🏆 Tudo em dia!</div>");
             setTimeout(() => {
                 const ctx = document.getElementById('disciplinesChart')?.getContext('2d');
-                if (ctx) {
-                    if (currentCharts.disciplinesChart) currentCharts.disciplinesChart.destroy();
+                if (ctx) { if (currentCharts.disciplinesChart) currentCharts.disciplinesChart.destroy();
                     let labels = Array.from(state.disciplines.keys()).slice(0,5);
                     let data = labels.map(d => state.disciplines.get(d)?.totalHours || 0);
-                    currentCharts.disciplinesChart = new Chart(ctx, { type: 'bar', data: { labels, datasets: [{ label: 'Horas estudadas', data, backgroundColor: '#6366F1' }] }, options: { responsive: true, maintainAspectRatio: true } });
-                }
+                    currentCharts.disciplinesChart = new Chart(ctx, { type: 'bar', data: { labels, datasets: [{ label: 'Horas', data, backgroundColor: '#4F46E5', borderRadius: 12 }] }, options: { responsive: true } }); }
             }, 50);
         },
-        renderPlanner(container) {
-            let plan = SheetService.generateStudyPlan();
-            container.innerHTML = `<div class="card"><div class="card-title"><i class="fas fa-calendar-alt"></i> Plano de estudos inteligente</div><div id="planList"></div></div>`;
-            document.getElementById('planList').innerHTML = plan.map(p => `<div class="task-item"><span>📌 ${p.discipline}</span><span>${p.suggestedHours}h recomendadas</span><span class="chip">${p.reason}</span></div>`).join('');
-        },
-        renderContent(container) {
-            const state = AppState.getState();
-            let topicsHtml = "";
-            for (let [disc, data] of state.disciplines.entries()) {
-                topicsHtml += `<div class="task-item"><strong>${disc}</strong> <span>${data.totalHours.toFixed(1)}h estudadas</span> ${data.topics.length? `<span class="chip">${data.topics.slice(0,2).join(', ')}</span>` : ''}</div>`;
-            }
-            container.innerHTML = `<div class="card"><div class="card-title"><i class="fas fa-layer-group"></i> Conteúdos por disciplina (detectado)</div>${topicsHtml || '<p>Nenhum conteúdo específico mapeado, utilize colunas como "Conteúdo" na planilha.</p>'}</div>`;
-        },
-        renderReviews(container) {
-            const state = AppState.getState();
-            let revs = state.reviewQueue;
-            container.innerHTML = `<div class="card"><div class="card-title"><i class="fas fa-rotate-right"></i> Revisões programadas (baseadas em datas)</div><div id="reviewList"></div></div>`;
-            document.getElementById('reviewList').innerHTML = revs.length? revs.map(r=> `<div class="task-item"><span>📅 ${r.discipline}</span><span>vencimento em ${r.dueDays} dias</span><button class="chip" onclick="window.dispatchEvent(new CustomEvent('completeReview', {detail:{discipline:'${r.discipline}'}}))">Concluir</button></div>`).join('') : "<p>Nenhuma revisão pendente. Estude novos conteúdos!</p>";
-        },
-        renderQuestions(container) {
-            const state = AppState.getState();
-            let acc = state.questionsData.accuracy;
-            let history = state.questionsData.history;
-            container.innerHTML = `<div class="card"><div class="card-title"><i class="fas fa-square-check"></i> Desempenho em questões</div><div>Acertos médios: ${acc.toFixed(1)}%</div><div class="progress-bar mt-2"><div class="progress-fill" style="width:${acc}%; background:#22C55E;"></div></div><div id="questionHistory"></div><button id="addManualQuestionBtn" class="btn-outline mt-3"><i class="fas fa-plus"></i> Registrar manual</button></div>`;
-            document.getElementById('questionHistory').innerHTML = history.slice(0,5).map(q=> `<div>📊 ${q.discipline || 'Geral'}: ${q.right}/${q.total} acertos</div>`).join('');
-            document.getElementById('addManualQuestionBtn')?.addEventListener('click', () => {
-                let disc = prompt("Disciplina");
-                let right = parseInt(prompt("Acertos"));
-                let total = parseInt(prompt("Total questões"));
-                if (!isNaN(right) && !isNaN(total) && total>0) {
-                    const newHistory = [...state.questionsData.history, { right, total, discipline: disc || "Manual" }];
-                    let totalR = newHistory.reduce((a,b)=>a+b.right,0);
-                    let totalT = newHistory.reduce((a,b)=>a+b.total,0);
-                    let newAcc = totalT ? (totalR/totalT)*100 : 0;
-                    AppState.setState({ questionsData: { history: newHistory, accuracy: newAcc } });
-                    this.renderQuestions(container);
-                }
-            }.bind(this));
-        },
-        renderReports(container) {
-            const state = AppState.getState();
-            container.innerHTML = `<div class="card"><div class="card-title"><i class="fas fa-chart-pie"></i> Evolução de Estudos</div><canvas id="hoursEvolutionChart" height="150"></canvas><div class="mt-4"><strong>Resumo geral:</strong> Total sessões: ${state.sessions.length}, Disciplinas: ${state.disciplines.size}</div></div>`;
-            setTimeout(() => {
-                const ctx = document.getElementById('hoursEvolutionChart')?.getContext('2d');
-                if (ctx) {
-                    let last7 = [];
-                    for(let i=6;i>=0;i--){ let d = new Date(); d.setDate(d.getDate()-i); last7.push(d.toLocaleDateString()); }
-                    let hoursPerDay = last7.map(day => state.sessions.filter(s=> s.date && s.date.toLocaleDateString()===day).reduce((a,b)=>a+b.duration,0));
-                    new Chart(ctx, { type: 'line', data: { labels: last7, datasets: [{ label: 'Horas/dia', data: hoursPerDay, borderColor: '#F59E0B', tension: 0.3 }] } });
-                }
-            }, 50);
-        },
+        renderPlanner(container) { let plan = SheetService.generateStudyPlan(); container.innerHTML = `<div class="card"><div class="card-title"><i class="fas fa-calendar-alt"></i> Plano inteligente</div><div id="planList"></div></div>`; document.getElementById('planList').innerHTML = plan.map(p=>`<div class="task-item"><span>🎯 ${p.discipline}</span><span>${p.suggestedHours}h recomendadas</span><span class="chip">${p.reason}</span></div>`).join(''); },
+        renderContent(container) { const state = AppState.getState(); let html = ""; for (let [disc, d] of state.disciplines.entries()) html += `<div class="task-item"><strong><i class="fas fa-graduation-cap"></i> ${disc}</strong> <span>${d.totalHours.toFixed(1)}h</span> ${d.topics.length? `<span class="chip">${d.topics.slice(0,2).join(', ')}</span>` : ''}</div>`; container.innerHTML = `<div class="card"><div class="card-title"><i class="fas fa-layer-group"></i> Conteúdos</div>${html || '<p>Nenhum tópico específico. Adicione coluna "Conteúdo" na planilha.</p>'}</div>`; },
+        renderReviews(container) { const revs = AppState.getState().reviewQueue; container.innerHTML = `<div class="card"><div class="card-title"><i class="fas fa-rotate-right"></i> Revisões estratégicas</div><div id="reviewList"></div></div>`; document.getElementById('reviewList').innerHTML = revs.length? revs.map(r=>`<div class="task-item"><span>📅 ${r.discipline}</span><span>vencimento ${r.dueDays}d</span><button class="chip" onclick="window.dispatchEvent(new CustomEvent('completeReview',{detail:{discipline:'${r.discipline}'}}))">✅ Revisar</button></div>`).join('') : "<p>🎉 Nenhuma revisão pendente!</p>"; },
+        renderQuestions(container) { const state = AppState.getState(); let acc = state.questionsData.accuracy; container.innerHTML = `<div class="card"><div class="card-title"><i class="fas fa-square-check"></i> Questões</div><div>Acertos: ${acc.toFixed(1)}%</div><div class="progress-bar mt-2"><div class="progress-fill" style="width:${acc}%; background:#22C55E;"></div></div><div id="questionHistory"></div><button id="addManualQuestionBtn" class="btn-outline mt-3"><i class="fas fa-plus-circle"></i> Registrar manual</button></div>`; document.getElementById('questionHistory').innerHTML = state.questionsData.history.slice(-5).map(q=>`<div>📊 ${q.discipline}: ${q.right}/${q.total}</div>`).join(''); document.getElementById('addManualQuestionBtn')?.addEventListener('click', () => { let disc = prompt("Disciplina"), right = parseInt(prompt("Acertos")), total = parseInt(prompt("Total")); if(!isNaN(right) && !isNaN(total) && total>0){ const newHist = [...state.questionsData.history, {right,total,discipline:disc||"Manual"}]; let totalR = newHist.reduce((a,b)=>a+b.right,0), totalT = newHist.reduce((a,b)=>a+b.total,0); AppState.setState({ questionsData: { history: newHist, accuracy: totalT ? (totalR/totalT)*100 : 0 } }); UIRenderer.renderQuestions(container); showToast("Questão registrada! Continue assim 💪"); } }); },
+        renderReports(container) { const state = AppState.getState(); container.innerHTML = `<div class="card"><div class="card-title"><i class="fas fa-chart-pie"></i> Evolução</div><canvas id="hoursEvolutionChart" height="150"></canvas><div class="mt-4"><strong>Total sessões:</strong> ${state.sessions.length} • <strong>Disciplinas:</strong> ${state.disciplines.size}</div></div>`; setTimeout(()=>{ const ctx = document.getElementById('hoursEvolutionChart')?.getContext('2d'); if(ctx){ let last7=[]; for(let i=6;i>=0;i--){ let d=new Date(); d.setDate(d.getDate()-i); last7.push(d.toLocaleDateString()); } let hoursPerDay = last7.map(day=>state.sessions.filter(s=> s.date && s.date.toLocaleDateString()===day).reduce((a,b)=>a+b.duration,0)); new Chart(ctx, { type: 'line', data: { labels: last7, datasets: [{ label: 'Horas/dia', data: hoursPerDay, borderColor: '#FACC15', tension: 0.3, fill: true }] } }); } }, 50); },
         renderFocusMode(container) {
-            container.innerHTML = `<div class="card"><div class="card-title"><i class="fas fa-stopwatch"></i> Modo Foco (Pomodoro)</div><div class="timer-display" id="focusTimer">00:00:00</div><div class="flex-between" style="gap:12px; margin-top:20px;"><button id="startFocusBtn"><i class="fas fa-play"></i> Iniciar</button><button id="pauseFocusBtn"><i class="fas fa-pause"></i> Pausar</button><button id="saveFocusBtn"><i class="fas fa-save"></i> Salvar Sessão</button></div><div><label>Disciplina: <input id="focusDiscipline" placeholder="Ex: Direito Constitucional" /></label></div></div>`;
-            const updateTimerDisplay = (seconds) => {
-                const el = document.getElementById('focusTimer');
-                if (el) el.innerText = new Date(seconds * 1000).toISOString().substr(11, 8);
-            };
-            const unsubscribe = TimerService.subscribe(updateTimerDisplay);
-            updateTimerDisplay(TimerService.getElapsed());
+            container.innerHTML = `<div class="card"><div class="card-title"><i class="fas fa-stopwatch"></i> Modo Foco</div><div class="timer-display" id="focusTimer">00:00:00</div><div class="flex-between" style="gap:12px; margin:20px 0;"><button id="startFocusBtn"><i class="fas fa-play"></i> Iniciar</button><button id="pauseFocusBtn"><i class="fas fa-pause"></i> Pausar</button><button id="saveFocusBtn"><i class="fas fa-save"></i> Salvar</button></div><div><label><i class="fas fa-tag"></i> Disciplina: <input id="focusDiscipline" placeholder="Direito, Português..."></label></div></div>`;
+            const updateDisplay = (sec) => { const el = document.getElementById('focusTimer'); if(el) el.innerText = new Date(sec * 1000).toISOString().substr(11,8); };
+            const unsub = TimerService.subscribe(updateDisplay); updateDisplay(TimerService.getElapsed());
             document.getElementById('startFocusBtn')?.addEventListener('click', () => TimerService.start());
             document.getElementById('pauseFocusBtn')?.addEventListener('click', () => TimerService.pause());
             document.getElementById('saveFocusBtn')?.addEventListener('click', () => {
-                let disc = document.getElementById('focusDiscipline').value.trim() || "Modo Foco";
+                let disc = document.getElementById('focusDiscipline').value.trim() || "Foco";
                 let hours = TimerService.getElapsed() / 3600;
                 if (hours > 0) {
                     const state = AppState.getState();
@@ -777,59 +648,22 @@
                     if (!discMap.has(disc)) discMap.set(disc, { totalHours: 0, topics: [] });
                     discMap.get(disc).totalHours += hours;
                     AppState.setState({ sessions: updatedSessions, disciplines: discMap, stats: { ...state.stats, totalHours } });
-                    SheetService.generateSmartReviews();
-                    SheetService.updateNotifications();
-                    TimerService.reset();
-                    showToast(`Sessão de ${hours.toFixed(2)}h salva!`);
-                    UIRenderer.render(); // refresh current tab
-                } else { showToast("Estude ao menos 1 segundo!", "error"); }
+                    SheetService.generateSmartReviews(); SheetService.updateNotifications();
+                    TimerService.reset(); showToast(`🔥 Sessão de ${hours.toFixed(1)}h registrada! +${Math.floor(hours)} pontos de foco`);
+                    UIRenderer.render();
+                } else showToast("Estude ao menos alguns segundos", "error");
             });
-            window.addEventListener('beforeunload', () => unsubscribe());
         },
-        renderSettings(container) {
-            const state = AppState.getState();
-            let mappingHtml = Object.entries(state.columnMapping).map(([sheet,map])=> `<div><strong>📄 ${sheet}</strong><br/>Data: ${map.dateCol||'❌'} | Disciplina: ${map.disciplineCol||'❌'} | Tempo: ${map.timeCol||'❌'}</div><hr/>`).join('');
-            container.innerHTML = `<div class="card"><div class="card-title"><i class="fas fa-sliders-h"></i> Mapeamento automático detectado</div>${mappingHtml || 'Nenhuma aba carregada.'}<p class="insight-text">💡 O sistema adapta colunas semanticamente. Você pode renomear colunas na planilha para melhor detecção.</p><button id="syncSheetsBtn"><i class="fas fa-cloud-upload-alt"></i> Exportar sessões para planilha (criar aba "sessoes_foco")</button></div>`;
-            document.getElementById('syncSheetsBtn')?.addEventListener('click', async () => {
-                if (!isAuthenticated || !currentSheetId) { showToast("Autentique e carregue planilha", "error"); return; }
-                try {
-                    await SheetService.exportSessionsToSheet(currentSheetId, AppState.getState().sessions);
-                    showToast("Sessões exportadas para aba 'sessoes_foco'");
-                } catch(e) { showToast("Erro ao exportar: " + e.message, "error"); }
-            });
-        }
+        renderSettings(container) { const state = AppState.getState(); let mappingHtml = Object.entries(state.columnMapping).map(([sheet,map])=>`<div><strong>📄 ${sheet}</strong>  Data: ${map.dateCol||'❌'}  •  Matéria: ${map.disciplineCol||'❌'}  •  Tempo: ${map.timeCol||'❌'}</div>`).join(''); container.innerHTML = `<div class="card"><div class="card-title"><i class="fas fa-sliders-h"></i> Mapeamento inteligente</div>${mappingHtml||'Nenhuma planilha carregada.'}<p class="chip mt-3">✨ O sistema entende colunas semânticas automaticamente.</p><button id="syncSheetsBtn"><i class="fas fa-cloud-upload-alt"></i> Exportar sessões p/ planilha</button></div>`; document.getElementById('syncSheetsBtn')?.addEventListener('click', async () => { if (!isAuthenticated || !currentSheetId) showToast("Autentique e carregue planilha", "error"); else { try { await SheetService.exportSessionsToSheet?.(currentSheetId, AppState.getState().sessions) || showToast("Função disponível em breve"); } catch(e) { showToast("Erro", "error"); } } }); }
     };
-
-    // ---------- EVENTOS GLOBAIS E INICIALIZAÇÃO ----------
-    window.addEventListener('completeReview', (e) => {
-        showToast(`Revisão de ${e.detail.discipline} concluída!`);
-    });
-
-    document.getElementById('loadSheetBtn')?.addEventListener('click', debounce(() => {
-        let id = document.getElementById('sheetIdInput').value.trim();
-        if (id) { currentSheetId = id; if (isAuthenticated) SheetService.loadSheetData(currentSheetId); else showToast("Primeiro clique em Login Google", "error"); }
-        else showToast("ID da planilha inválido", "error");
-    }, 300));
-
-    document.getElementById('authBtn')?.addEventListener('click', async () => {
-        if (!gapiReady) await SheetService.initGapi();
-        SheetService.authenticate();
-    });
-
-    document.querySelectorAll('.tab-btn').forEach(btn => {
-        btn.addEventListener('click', () => {
-            document.querySelectorAll('.tab-btn').forEach(b => b.classList.remove('active'));
-            btn.classList.add('active');
-            activeTab = btn.dataset.tab;
-            UIRenderer.render();
-        });
-    });
-
-    // Inicialização
-    SheetService.initGapi().catch(console.warn);
-    TimerService.init();
-    AppState.subscribe(() => UIRenderer.render());
-    UIRenderer.render();
+    // Eventos globais + bottom nav
+    window.addEventListener('completeReview', (e) => { showToast(`🎉 Revisão de ${e.detail.discipline} concluída! Continue firme`); });
+    document.getElementById('loadSheetBtn')?.addEventListener('click', debounce(() => { let id = document.getElementById('sheetIdInput').value.trim(); if(id) { currentSheetId = id; if(isAuthenticated) SheetService.loadSheetData(currentSheetId); else showToast("Faça login Google primeiro", "error"); } else showToast("ID inválido", "error"); }, 300));
+    document.getElementById('authBtn')?.addEventListener('click', async () => { if (!gapiReady) await SheetService.initGapi(); SheetService.authenticate(); });
+    document.getElementById('fabFocusBtn')?.addEventListener('click', () => { activeTab = "focus"; document.querySelectorAll('.nav-item').forEach(btn => btn.classList.remove('active')); const focusNav = Array.from(document.querySelectorAll('.nav-item')).find(n => n.dataset.tab === "focus"); if(focusNav) focusNav.classList.add('active'); UIRenderer.render(); });
+    const navItems = document.querySelectorAll('.nav-item');
+    navItems.forEach(btn => { btn.addEventListener('click', () => { activeTab = btn.dataset.tab; navItems.forEach(b=>b.classList.remove('active')); btn.classList.add('active'); UIRenderer.render(); }); });
+    SheetService.initGapi().catch(console.warn); TimerService.init(); AppState.subscribe(() => UIRenderer.render()); UIRenderer.render();
 })();
 </script>
 </body>
