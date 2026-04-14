@@ -3,9 +3,9 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover, user-scalable=yes">
-    <title>QuestFlow — Gestão Completa</title>
-    <!-- Fonts e Ícones -->
-    <link href="https://fonts.googleapis.com/css2?family=Inter:opsz,wght@14..32,300;14..32,400;14..32,500;14..32,600;14..32,700;14..32,800&display=swap" rel="stylesheet">
+    <title>QuestFlow — Gestão Completa + Btcc</title>
+    <!-- Fontes e Ícones -->
+    <link href="https://fonts.googleapis.com/css2?family=Inter:ital,wght@0,400;0,500;0,600;0,700;0,800;1,400&display=swap" rel="stylesheet">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
     <!-- Chart.js -->
     <script src="https://cdn.jsdelivr.net/npm/chart.js@4.4.0/dist/chart.umd.min.js"></script>
@@ -16,58 +16,38 @@
             background: radial-gradient(circle at 10% 20%, #0B1120, #0F172A);
             color: #F8FAFC;
             overflow-x: hidden;
+            line-height: 1.5;
         }
+        h1, h2, h3, h4, .card-title, .logo-text h1 { font-weight: 700; letter-spacing: -0.01em; }
+        .card-title { font-size: 1.4rem; font-weight: 700; color: #FFB347; }
+        p, li, .task-item, .chip, .nav-item span, label { font-weight: 400; }
+        .streak-badge, .btcc-badge, .report-btn-header, .primary-btn { font-weight: 600; }
         @keyframes fadeSlideUp { from { opacity: 0; transform: translateY(20px); } to { opacity: 1; transform: translateY(0); } }
-        @keyframes glowPulse { 0% { text-shadow: 0 0 0 #FF7B00; } 100% { text-shadow: 0 0 12px #FF7B00; } }
         .tab-content { animation: fadeSlideUp 0.4s cubic-bezier(0.2, 0.9, 0.4, 1.1); }
         button, .nav-item, .fab-btn { transition: all 0.2s cubic-bezier(0.2, 0.9, 0.4, 1.1); }
         button:active, .nav-item:active { transform: scale(0.96); }
         .app-container { max-width: 1300px; margin: 0 auto; padding: 20px 24px 90px; }
         .header {
             display: flex; justify-content: space-between; align-items: center; flex-wrap: wrap; gap: 16px;
-            margin-bottom: 32px; padding: 12px 24px; background: rgba(30, 41, 59, 0.6); backdrop-filter: blur(12px);
+            margin-bottom: 20px; padding: 12px 24px; background: rgba(30, 41, 59, 0.6); backdrop-filter: blur(12px);
             border-radius: 48px; border: 1px solid rgba(255, 123, 0, 0.2); box-shadow: 0 8px 20px rgba(0,0,0,0.3);
         }
         .logo { display: flex; align-items: center; gap: 14px; }
         .logo-icon {
-            width: 48px;
-            height: 48px;
-            border-radius: 50%;
-            background: rgba(255, 123, 0, 0.15);
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            box-shadow: 0 0 12px rgba(255, 123, 0, 0.5);
+            width: 48px; height: 48px; border-radius: 50%; background: rgba(255, 123, 0, 0.15);
+            display: flex; align-items: center; justify-content: center; box-shadow: 0 0 12px rgba(255, 123, 0, 0.5);
             border: 1px solid rgba(255, 123, 0, 0.4);
         }
-        .logo-icon img {
-            width: 32px;
-            height: 32px;
-            object-fit: contain;
-            filter: drop-shadow(0 0 4px #FF7B00);
-        }
+        .logo-icon img { width: 32px; height: 32px; object-fit: contain; filter: drop-shadow(0 0 4px #FF7B00); }
         .logo-text h1 { font-size: 1.8rem; font-weight: 800; background: linear-gradient(135deg, #FF7B00, #FFB347); -webkit-background-clip: text; background-clip: text; color: transparent; }
-        .logo-text p { font-size: 0.7rem; color: #94A3B8; }
-        .streak-badge { background: linear-gradient(135deg, #2A2A35, #1E293B); padding: 8px 20px; border-radius: 60px; display: flex; align-items: center; gap: 12px; font-weight: 700; color: #FACC15; border: 1px solid rgba(250,204,21,0.3); }
+        .logo-text p { font-size: 0.7rem; color: #94A3B8; font-weight: 500; }
+        .streak-badge, .btcc-badge { background: linear-gradient(135deg, #2A2A35, #1E293B); padding: 8px 20px; border-radius: 60px; display: flex; align-items: center; gap: 12px; font-weight: 700; border: 1px solid rgba(250,204,21,0.3); }
+        .btcc-badge { color: #FACC15; border-color: rgba(250,204,21,0.5); }
+        .btcc-badge i { color: #F6B83E; }
         .report-btn-header {
             background: linear-gradient(95deg, #FF7B00, #6366F1);
-            border: none;
-            padding: 10px 24px;
-            border-radius: 40px;
-            font-weight: 600;
-            color: white;
-            cursor: pointer;
-            display: flex;
-            align-items: center;
-            gap: 10px;
-            transition: 0.2s;
-            box-shadow: 0 4px 12px rgba(255,123,0,0.3);
-        }
-        .report-btn-header:hover { transform: scale(1.02); box-shadow: 0 8px 20px rgba(255,123,0,0.5); }
-        .report-btn-header img {
-            width: 20px;
-            height: 20px;
-            filter: brightness(0) invert(1);
+            border: none; padding: 10px 24px; border-radius: 40px; font-weight: 600; color: white;
+            cursor: pointer; display: flex; align-items: center; gap: 10px; box-shadow: 0 4px 12px rgba(255,123,0,0.3);
         }
         .bottom-nav { position: fixed; bottom: 20px; left: 50%; transform: translateX(-50%); background: rgba(30, 41, 59, 0.85); backdrop-filter: blur(20px); display: flex; gap: 8px; padding: 8px 20px; border-radius: 60px; border: 1px solid rgba(255,255,255,0.1); z-index: 100; }
         .nav-item { display: flex; flex-direction: column; align-items: center; gap: 4px; background: transparent; border: none; font-size: 0.7rem; font-weight: 500; color: #94A3B8; cursor: pointer; padding: 8px 16px; border-radius: 40px; }
@@ -75,33 +55,38 @@
         .nav-item.active { color: #FF7B00; background: rgba(255, 123, 0, 0.15); transform: translateY(-2px); }
         .fab-btn { position: fixed; bottom: 100px; right: 24px; background: linear-gradient(135deg, #FF7B00, #6366F1); width: 56px; height: 56px; border-radius: 28px; display: flex; align-items: center; justify-content: center; box-shadow: 0 8px 20px rgba(255,123,0,0.5); z-index: 110; cursor: pointer; }
         .card { background: #1E293B; border-radius: 32px; padding: 28px; border: 1px solid rgba(255, 123, 0, 0.15); box-shadow: 0 15px 35px -12px rgba(0,0,0,0.4); transition: all 0.25s ease; margin-bottom: 28px; }
-        .card:hover { transform: translateY(-4px); border-color: #FF7B00; }
-        .card-title { font-size: 1.3rem; font-weight: 700; margin-bottom: 20px; display: flex; align-items: center; gap: 12px; color: #FFB347; }
         .form-group { margin-bottom: 20px; }
         label { display: block; margin-bottom: 8px; font-weight: 500; color: #CBD5E1; }
-        input, select, textarea { width: 100%; padding: 12px 16px; background: #0F172A; border: 1px solid #334155; border-radius: 24px; color: white; font-family: inherit; transition: 0.2s; }
-        input:focus, select:focus { outline: none; border-color: #FF7B00; box-shadow: 0 0 0 2px rgba(255,123,0,0.2); }
+        input, select, textarea { width: 100%; padding: 12px 16px; background: #0F172A; border: 1px solid #334155; border-radius: 24px; color: white; font-family: inherit; }
         button.primary-btn { background: linear-gradient(95deg, #FF7B00, #6366F1); border: none; padding: 12px 24px; border-radius: 40px; font-weight: 600; color: white; cursor: pointer; width: 100%; }
         .data-table { width: 100%; overflow-x: auto; }
         table { width: 100%; border-collapse: collapse; }
         th, td { text-align: left; padding: 12px 8px; border-bottom: 1px solid #334155; }
-        th { color: #FFB347; }
+        th { color: #FFB347; font-weight: 600; }
         .action-btn { background: none; border: none; color: #FF7B00; cursor: pointer; margin: 0 4px; font-size: 1rem; }
         .sub-nav { display: flex; gap: 12px; margin-bottom: 24px; border-bottom: 1px solid #334155; padding-bottom: 12px; flex-wrap: wrap; }
-        .sub-nav-item { background: transparent; border: none; padding: 8px 20px; border-radius: 40px; color: #94A3B8; cursor: pointer; }
+        .sub-nav-item { background: transparent; border: none; padding: 8px 20px; border-radius: 40px; color: #94A3B8; cursor: pointer; font-weight: 500; }
         .sub-nav-item.active { background: #FF7B00; color: white; }
         .toast { position: fixed; bottom: 100px; left: 50%; transform: translateX(-50%); background: #1E293B; border-left: 4px solid #FF7B00; padding: 12px 24px; border-radius: 60px; z-index: 1000; animation: fadeSlideUp 0.2s ease; }
         .loading-overlay { position: fixed; top:0;left:0;width:100%;height:100%;background: rgba(15,23,42,0.9);backdrop-filter: blur(12px);display: flex;align-items: center;justify-content: center;z-index: 1000;visibility: hidden;opacity: 0;transition: 0.2s; }
         .loading-overlay.active { visibility: visible; opacity: 1; }
         .spinner { width: 48px; height: 48px; border: 4px solid #2A2A35; border-top: 4px solid #FF7B00; border-radius: 50%; animation: spin 0.8s linear infinite; }
         @keyframes spin { to { transform: rotate(360deg); } }
-        .task-item, .progress-bar { margin-bottom: 16px; }
         .task-item { display: flex; justify-content: space-between; align-items: center; padding: 8px 0; border-bottom: 1px dashed #334155; }
-        .progress-bar { height: 12px; background: #0F172A; border-radius: 20px; overflow: hidden; }
+        .progress-bar { height: 12px; background: #0F172A; border-radius: 20px; overflow: hidden; margin: 8px 0; }
         .progress-fill { height: 100%; background: linear-gradient(90deg, #FF7B00, #FFB347); border-radius: 20px; width: 0%; }
         .timer-display { font-size: 4rem; font-weight: 800; text-align: center; font-variant-numeric: tabular-nums; }
         .chip { background: #2A2A35; padding: 4px 12px; border-radius: 40px; font-size: 0.8rem; }
-        @media (max-width: 680px) { .app-container { padding: 16px; } .bottom-nav { gap: 4px; padding: 6px 12px; } .nav-item { padding: 6px 10px; } }
+        .frase-motivacional { background: rgba(99, 102, 241, 0.15); padding: 16px 24px; border-radius: 60px; text-align: center; font-style: italic; border-left: 4px solid #6366F1; margin-bottom: 24px; }
+        .disciplina-card, .assunto-card, .legislacao-card { background: #0F172A; border-radius: 24px; padding: 20px; margin-bottom: 16px; border: 1px solid #334155; }
+        .badge-desempenho { padding: 6px 12px; border-radius: 40px; font-weight: 600; font-size: 0.8rem; }
+        .color-ruim { background: #7F1D1D; color: #FCA5A5; }
+        .color-regular { background: #854D0E; color: #FDE047; }
+        .color-bom { background: #166534; color: #86EFAC; }
+        .color-muitobom { background: #1E3A8A; color: #93C5FD; }
+        .color-excelente { background: #6B21A8; color: #D8B4FE; }
+        .clickable { cursor: pointer; }
+        @media (max-width: 680px) { .app-container { padding: 16px; } }
     </style>
 </head>
 <body>
@@ -110,26 +95,28 @@
     <div class="header">
         <div class="logo">
             <div class="logo-icon">
-                <!-- Ícone do capacete (Flaticon) -->
-                <img src="https://cdn-icons-png.flaticon.com/512/2276/2276592.png" alt="Capacete guerreiro" style="width: 32px; height: 32px;">
+                <img src="https://cdn-icons-png.flaticon.com/512/2276/2276592.png" alt="Capacete guerreiro">
             </div>
             <div class="logo-text">
                 <h1>QuestFlow</h1>
                 <p>performance & evolução</p>
             </div>
         </div>
-        <div class="streak-badge"><i class="fas fa-fire"></i> <span id="streakValue">0</span> dias</div>
+        <div style="display: flex; gap: 12px;">
+            <div class="streak-badge"><i class="fas fa-fire"></i> <span id="streakValue">0</span> dias</div>
+            <div class="btcc-badge"><i class="fas fa-coins"></i> <span id="btccSaldo">0</span> Btcc</div>
+        </div>
         <button id="reportHeaderBtn" class="report-btn-header">
-            <!-- Ícone de relatório (Flaticon) -->
-            <img src="https://cdn-icons-png.flaticon.com/512/8328/8328461.png" alt="Relatório" style="width: 20px; height: 20px;">
+            <img src="https://cdn-icons-png.flaticon.com/512/8328/8328461.png" alt="Relatório" style="width:20px;height:20px;">
             Relatórios
         </button>
     </div>
     <div id="tabContent" class="tab-content"></div>
-    <footer style="text-align:center; margin-top:40px; font-size:0.7rem; color:#475569;">⚡ Gestão completa • CRUD integrado com SheetDB</footer>
+    <footer style="text-align:center; margin-top:40px; font-size:0.7rem; color:#475569;">⚡ Gestão completa • CRUD integrado com SheetDB • Btcc motivacional</footer>
 </div>
 <div class="bottom-nav" id="bottomNav">
     <button class="nav-item active" data-tab="dashboard"><i class="fas fa-chart-line"></i><span>Visão</span></button>
+    <button class="nav-item" data-tab="desempenho"><i class="fas fa-trophy"></i><span>Desempenho</span></button>
     <button class="nav-item" data-tab="planner"><i class="fas fa-calendar-week"></i><span>Plano</span></button>
     <button class="nav-item" data-tab="gestao"><i class="fas fa-database"></i><span>Gestão</span></button>
     <button class="nav-item" data-tab="reports"><i class="fas fa-chart-simple"></i><span>Relatórios</span></button>
@@ -139,185 +126,344 @@
 
 <script>
 // ====================== CONFIGURAÇÃO SHEETDB ======================
-const BASE_API = "https://sheetdb.io/api/v1/yzz4a1hv8hm9w"; // Nova URL fornecida
+const BASE_API = "https://sheetdb.io/api/v1/yzz4a1hv8hm9w";
 
-// Estados globais para cada tabela (todas as abas)
-let resumo = [];
-let disciplinas = [];
-let planoDiario = [];
-let revisoes = [];
-let questoes = [];
-let planoEstudo = [];
-let conteudos = [];
-let estatisticas = [];
-let sessoes = [];
-let notificacoes = [];
-
+// Estados globais (unificados)
+let resumo = [], disciplinas = [], planoDiario = [], revisoes = [], questoes = [];
+let planoEstudo = [], conteudos = [], estatisticas = [], sessoes = [], notificacoes = [], legislacao = [];
 let activeTab = "dashboard";
-let activeSubTab = "conteudo"; // dentro da gestão
+let activeSubTab = "conteudo";
+let disciplinaSelecionada = null;
+let ultimaFrase = "";
 
-// Helper toast e loading
+// Frases motivacionais
+const frasesMotivacionais = [
+    "✨ Cada questão te aproxima da vaga.", "🚀 Você está mais perto do que imagina.",
+    "💪 Constância vence talento.", "🌟 Só de estar aqui já é progresso.",
+    "📈 Quem continua, chega.", "📚 Um dia de cada vez.",
+    "🎯 Você não parou — isso já é vitória.", "👣 Pequenos passos também contam.",
+    "🧠 Foco no processo, o resultado vem.", "⚡ Persistir é o que te diferencia."
+];
+
+// Helpers
 function showToast(msg, type='info') {
     const toast = document.createElement('div'); 
     toast.className = 'toast'; 
     toast.innerHTML = `<i class="fas ${type==='error'?'fa-exclamation-triangle':'fa-check-circle'}"></i> ${msg}`;
-    document.body.appendChild(toast); 
-    setTimeout(()=>toast.remove(), 3000);
+    document.body.appendChild(toast); setTimeout(()=>toast.remove(), 3000);
 }
 function showLoading(show) { 
-    const el = document.getElementById('loadingOverlay'); 
-    if(el) show ? el.classList.add('active') : el.classList.remove('active'); 
+    document.getElementById('loadingOverlay').classList[show?'add':'remove']('active'); 
 }
 
-// ====================== FUNÇÕES CRUD GENÉRICAS ======================
-async function fetchSheet(sheetName) {
-    const url = `${BASE_API}?sheet=${sheetName}`;
-    const resp = await fetch(url);
-    if(!resp.ok) throw new Error(`Erro ao buscar ${sheetName}`);
-    const data = await resp.json();
-    return data;
+// ====================== CRUD ======================
+async function fetchSheet(sheet) {
+    const resp = await fetch(`${BASE_API}?sheet=${sheet}`);
+    if(!resp.ok) throw new Error(`Erro ao buscar ${sheet}`);
+    return await resp.json();
 }
-
-async function addRow(sheetName, rowData) {
-    const url = `${BASE_API}?sheet=${sheetName}`;
-    const resp = await fetch(url, {
-        method: "POST",
-        headers: { "Content-Type": "application/json" },
-        body: JSON.stringify({ data: [rowData] }) // SheetDB espera array
+async function addRow(sheet, row) {
+    const resp = await fetch(`${BASE_API}?sheet=${sheet}`, {
+        method: "POST", headers: {"Content-Type": "application/json"},
+        body: JSON.stringify({ data: [row] })
     });
-    if(!resp.ok) throw new Error(`Erro ao adicionar em ${sheetName}`);
+    if(!resp.ok) throw new Error(`Erro ao adicionar em ${sheet}`);
     return await resp.json();
 }
-
-async function updateRow(sheetName, rowId, updatedData) {
-    const url = `${BASE_API}/id/${rowId}?sheet=${sheetName}`;
-    const resp = await fetch(url, {
-        method: "PUT",
-        headers: { "Content-Type": "application/json" },
-        body: JSON.stringify({ data: updatedData })
+async function updateRow(sheet, id, data) {
+    const resp = await fetch(`${BASE_API}/id/${id}?sheet=${sheet}`, {
+        method: "PUT", headers: {"Content-Type": "application/json"},
+        body: JSON.stringify({ data })
     });
-    if(!resp.ok) throw new Error(`Erro ao atualizar ${sheetName}`);
+    if(!resp.ok) throw new Error(`Erro ao atualizar ${sheet}`);
+    return await resp.json();
+}
+async function deleteRow(sheet, id) {
+    const resp = await fetch(`${BASE_API}/id/${id}?sheet=${sheet}`, { method: "DELETE" });
+    if(!resp.ok) throw new Error(`Erro ao deletar de ${sheet}`);
     return await resp.json();
 }
 
-async function deleteRow(sheetName, rowId) {
-    const url = `${BASE_API}/id/${rowId}?sheet=${sheetName}`;
-    const resp = await fetch(url, { method: "DELETE" });
-    if(!resp.ok) throw new Error(`Erro ao deletar de ${sheetName}`);
-    return await resp.json();
-}
-
-// ====================== CARREGAR TODOS OS DADOS ======================
+// ====================== CARREGAR DADOS ======================
 async function loadAllData() {
     showLoading(true);
     try {
-        const [
-            r, d, pd, rev, q, pe, c, e, s, n
-        ] = await Promise.all([
-            fetchSheet("RESUMO").catch(()=>[]),
-            fetchSheet("DISCIPLINAS").catch(()=>[]),
-            fetchSheet("PLANO_DIARIO").catch(()=>[]),
-            fetchSheet("REVISOES").catch(()=>[]),
-            fetchSheet("QUESTOES").catch(()=>[]),
-            fetchSheet("PLANO_ESTUDO").catch(()=>[]),
-            fetchSheet("CONTEUDO").catch(()=>[]),
-            fetchSheet("ESTATISTICAS").catch(()=>[]),
-            fetchSheet("SESSOES").catch(()=>[]),
-            fetchSheet("NOTIFICACOES").catch(()=>[])
+        [resumo, disciplinas, planoDiario, revisoes, questoes, planoEstudo, conteudos, estatisticas, sessoes, notificacoes, legislacao] = await Promise.all([
+            fetchSheet("RESUMO").catch(()=>[]), fetchSheet("DISCIPLINAS").catch(()=>[]),
+            fetchSheet("PLANO_DIARIO").catch(()=>[]), fetchSheet("REVISOES").catch(()=>[]),
+            fetchSheet("QUESTOES").catch(()=>[]), fetchSheet("PLANO_ESTUDO").catch(()=>[]),
+            fetchSheet("CONTEUDO").catch(()=>[]), fetchSheet("ESTATISTICAS").catch(()=>[]),
+            fetchSheet("SESSOES").catch(()=>[]), fetchSheet("NOTIFICACOES").catch(()=>[]),
+            fetchSheet("LEGISLACAO").catch(()=>[])
         ]);
-        resumo = r;
-        disciplinas = d;
-        planoDiario = pd;
-        revisoes = rev;
-        questoes = q;
-        planoEstudo = pe;
-        conteudos = c;
-        estatisticas = e;
-        sessoes = s;
-        notificacoes = n;
-
-        updateStreakFromSessoes();
+        updateStreak();
+        calcularBtcc();
         renderCurrentTab();
-    } catch(err) { 
-        showToast("Erro ao carregar dados: "+err.message, "error"); 
-    } finally { 
-        showLoading(false); 
-    }
+    } catch(e) { showToast("Erro: "+e.message, "error"); }
+    finally { showLoading(false); }
 }
 
-function updateStreakFromSessoes() {
+function updateStreak() {
     if(!sessoes.length) return;
     const dates = [...new Set(sessoes.map(s => s.Data ? new Date(s.Data).toDateString() : null).filter(d=>d))];
-    let streak = 0; 
-    let current = new Date();
-    // Contagem de dias consecutivos
-    while(true) { 
-        if(dates.includes(current.toDateString())) streak++; 
-        else break; 
-        current.setDate(current.getDate()-1); 
-    }
+    let streak = 0, cur = new Date();
+    while(dates.includes(cur.toDateString())) { streak++; cur.setDate(cur.getDate()-1); }
     document.getElementById('streakValue').innerText = streak;
 }
 
-// ====================== UI RENDER ======================
+function classificarDesempenho(p) {
+    if(p<50) return 'Ruim'; if(p<70) return 'Regular'; if(p<85) return 'Bom'; if(p<95) return 'Muito Bom'; return 'Excelente';
+}
+function calcularBtcc() {
+    let total = 0;
+    const discMap = new Map();
+    questoes.forEach(q => {
+        const d = q.Disciplina || 'Geral';
+        if(!discMap.has(d)) discMap.set(d, {c:0,e:0});
+        const v = discMap.get(d);
+        (q['Acerto (1/0)'] || q.Acerto) == 1 ? v.c++ : v.e++;
+    });
+    for(let [_,{c,e}] of discMap) {
+        const perc = (c+e) ? (c/(c+e))*100 : 0;
+        if(perc>=95) total+=12; else if(perc>=85) total+=8; else if(perc>=70) total+=5; else if(perc>=50) total+=2;
+    }
+    const streak = parseInt(document.getElementById('streakValue')?.innerText||0);
+    if(streak>=15) total+=15; else if(streak>=7) total+=7; else if(streak>=3) total+=3;
+    document.getElementById('btccSaldo').innerText = total;
+}
+
+// ====================== RENDER PRINCIPAL ======================
 function renderCurrentTab() {
-    const container = document.getElementById('tabContent');
-    if(!container) return;
-    if(activeTab === 'gestao') UIRenderer.renderGestao(container);
-    else if(activeTab === 'dashboard') UIRenderer.renderDashboard(container);
-    else if(activeTab === 'planner') UIRenderer.renderPlanner(container);
-    else if(activeTab === 'reports') UIRenderer.renderReports(container);
-    else if(activeTab === 'focus') UIRenderer.renderFocusMode(container);
-    else UIRenderer.renderDashboard(container);
+    const c = document.getElementById('tabContent');
+    if(activeTab === 'gestao') UIRenderer.renderGestao(c);
+    else if(activeTab === 'dashboard') UIRenderer.renderDashboard(c);
+    else if(activeTab === 'desempenho') UIRenderer.renderDesempenho(c);
+    else if(activeTab === 'planner') UIRenderer.renderPlanner(c);
+    else if(activeTab === 'reports') UIRenderer.renderReports(c);
+    else if(activeTab === 'focus') UIRenderer.renderFocusMode(c);
 }
 
 const UIRenderer = {
+    // ---------- DASHBOARD (com frases e Btcc) ----------
     renderDashboard(container) {
-        let totalHoras = sessoes.reduce((acc,s)=> acc + (parseFloat(s.Duracao_Min||0)/60 || 0), 0);
-        let totalQuestoes = questoes.length;
-        let progresso = Math.min(100, (totalHoras/50)*100);
+        let totalHoras = sessoes.reduce((a,s)=> a + (parseFloat(s.Duracao_Min||0)/60), 0);
+        let certas = questoes.filter(q => (q['Acerto (1/0)']||q.Acerto)==1).length;
+        let erradas = questoes.length - certas;
+        let perc = questoes.length ? (certas/questoes.length)*100 : 0;
+        let frase = frasesMotivacionais[Math.floor(Math.random()*frasesMotivacionais.length)];
+        while(frase === ultimaFrase && frasesMotivacionais.length>1) frase = frasesMotivacionais[Math.floor(Math.random()*frasesMotivacionais.length)];
+        ultimaFrase = frase;
         container.innerHTML = `
+            <div class="frase-motivacional">✨ ${frase}</div>
             <div class="card"><div class="card-title"><i class="fas fa-chart-line"></i> Visão Geral</div>
-            <div class="task-item"><span>⏱ Total Horas</span><strong style="font-size:2rem">${totalHoras.toFixed(1)}h</strong></div>
-            <div class="progress-bar mt-2"><div class="progress-fill" style="width:${progresso}%"></div></div>
-            <div class="task-item"><span>📚 Conteúdos cadastrados</span><strong>${conteudos.length}</strong></div>
-            <div class="task-item"><span>🎯 Sessões realizadas</span><strong>${sessoes.length}</strong></div>
-            <div class="task-item"><span>📋 Questões respondidas</span><strong>${totalQuestoes}</strong></div>
+                <div class="task-item"><span>📊 Média geral</span><strong>${perc.toFixed(1)}%</strong></div>
+                <div class="task-item"><span>✅ Certas / ❌ Erradas</span><strong>${certas} / ${erradas}</strong></div>
+                <div class="task-item"><span>⏱ Total Horas</span><strong>${totalHoras.toFixed(1)}h</strong></div>
+                <div class="progress-bar"><div class="progress-fill" style="width:${perc}%"></div></div>
             </div>
+            <div class="card"><div class="card-title"><i class="fas fa-chart-bar"></i> Desempenho por Disciplina</div><canvas id="barrasDisciplina" height="150"></canvas></div>
             <div class="card"><div class="card-title"><i class="fas fa-history"></i> Últimas Sessões</div><div id="ultimasSessoes"></div></div>
         `;
-        let ultimas = [...sessoes].sort((a,b)=> new Date(b.Data) - new Date(a.Data)).slice(0,5);
+        setTimeout(() => {
+            const ctx = document.getElementById('barrasDisciplina')?.getContext('2d');
+            if(!ctx) return;
+            const discMap = new Map();
+            questoes.forEach(q => {
+                const d = q.Disciplina || 'Outros';
+                if(!discMap.has(d)) discMap.set(d, {c:0,e:0});
+                const v = discMap.get(d);
+                (q['Acerto (1/0)'] || q.Acerto) == 1 ? v.c++ : v.e++;
+            });
+            const labels = [], data = [], colors = [];
+            for(let [disc, {c,e}] of discMap) {
+                const p = (c+e) ? (c/(c+e))*100 : 0;
+                labels.push(disc); data.push(p);
+                colors.push(p<50 ? '#EF4444' : (p<70 ? '#FACC15' : '#22C55E'));
+            }
+            new Chart(ctx, { type:'bar', data:{ labels, datasets:[{ label:'% Acerto', data, backgroundColor: colors }] } });
+        }, 100);
+        let ultimas = [...sessoes].sort((a,b)=> new Date(b.Data)-new Date(a.Data)).slice(0,5);
         document.getElementById('ultimasSessoes').innerHTML = ultimas.map(s=>`<div class="task-item"><span>${s.Data||'—'}</span><span>${s.Disciplina||'?'}</span><span>${s.Duracao_Min||0}min</span></div>`).join('');
     },
-    renderPlanner(container) {
-        // Utiliza PLANO_ESTUDO e PLANO_DIARIO para exibir planejamento
-        let planos = planoEstudo.length ? planoEstudo : planoDiario;
-        container.innerHTML = `<div class="card"><div class="card-title"><i class="fas fa-calendar-alt"></i> Plano de Estudos</div><div id="planList"></div></div>`;
-        let html = '';
-        if (planos.length) {
-            planos.slice(0,10).forEach(p => {
-                html += `<div class="task-item"><span>📖 ${p.Disciplina || p.Tipo || 'Estudo'}</span><span class="chip">${p.Tempo_Min || p.Tempo_Planejado || '?'} min</span></div>`;
-            });
-        } else {
-            html = '<p>Nenhum plano cadastrado. Use a aba Gestão para adicionar.</p>';
+
+    // ---------- DESEMPENHO (Disciplinas > Assuntos + Legislação) ----------
+    renderDesempenho(container) {
+        if (disciplinaSelecionada) { this.renderAssuntos(container, disciplinaSelecionada); return; }
+        container.innerHTML = `
+            <div class="sub-nav">
+                <button class="sub-nav-item active" data-sub="disciplinas">📚 Disciplinas</button>
+                <button class="sub-nav-item" data-sub="legislacao">⚖️ Legislação</button>
+                <button class="sub-nav-item" id="btnVoltarDisciplina" style="display:none;"><i class="fas fa-arrow-left"></i> Voltar</button>
+            </div>
+            <div id="subDesempenho"></div>
+        `;
+        const sub = document.getElementById('subDesempenho');
+        sub.innerHTML = `<div class="card"><div class="card-title">🏆 Disciplinas</div><div id="listaDisciplinas"></div>
+            <button class="primary-btn" id="btnAddDisciplinaDesempenho"><i class="fas fa-plus"></i> Adicionar Disciplina</button></div>`;
+        const discMap = new Map();
+        questoes.forEach(q => {
+            const d = q.Disciplina || 'Geral';
+            if(!discMap.has(d)) discMap.set(d, {c:0,e:0});
+            const v = discMap.get(d);
+            (q['Acerto (1/0)'] || q.Acerto) == 1 ? v.c++ : v.e++;
+        });
+        disciplinas.forEach(d => { if(!discMap.has(d.Disciplina)) discMap.set(d.Disciplina, {c:0,e:0}); });
+        let cards = '';
+        for(let [nome, {c,e}] of discMap) {
+            const total = c+e, perc = total ? (c/total)*100 : 0;
+            const nivel = classificarDesempenho(perc);
+            const cor = nivel === 'Ruim' ? 'color-ruim' : (nivel === 'Regular' ? 'color-regular' : (nivel === 'Bom' ? 'color-bom' : (nivel === 'Muito Bom' ? 'color-muitobom' : 'color-excelente')));
+            cards += `<div class="disciplina-card clickable" data-disciplina="${nome}">
+                <div style="display:flex; justify-content:space-between;"><h3>${nome}</h3><span class="badge-desempenho ${cor}">${nivel}</span></div>
+                <div class="task-item"><span>✅ ${c} certas</span><span>❌ ${e} erradas</span></div>
+                <div class="task-item"><span>📊 ${perc.toFixed(1)}%</span></div>
+                <div class="progress-bar"><div class="progress-fill" style="width:${perc}%"></div></div>
+                <div style="margin-top:8px;"><i class="fas fa-chevron-right"></i> Ver assuntos</div>
+            </div>`;
         }
-        document.getElementById('planList').innerHTML = html;
+        document.getElementById('listaDisciplinas').innerHTML = cards || '<p>Nenhuma disciplina.</p>';
+        document.querySelectorAll('.disciplina-card').forEach(c => c.addEventListener('click', () => {
+            disciplinaSelecionada = c.dataset.disciplina; renderCurrentTab();
+        }));
+        document.getElementById('btnAddDisciplinaDesempenho').onclick = async () => {
+            const nome = prompt('Nome da disciplina:'); if(!nome) return;
+            await addRow("DISCIPLINAS", { Disciplina: nome, 'Total Tópicos': 0, 'Tópicos Concluídos': 0, Horas: 0 });
+            showToast('Disciplina adicionada!'); await loadAllData();
+        };
+        document.querySelector('[data-sub="legislacao"]').onclick = () => this.renderLegislacao(container);
     },
+
+    renderAssuntos(container, disciplina) {
+        container.innerHTML = `
+            <div class="sub-nav">
+                <button class="sub-nav-item" id="voltarDisciplinas"><i class="fas fa-arrow-left"></i> Disciplinas</button>
+                <button class="sub-nav-item active">📖 ${disciplina}</button>
+            </div>
+            <div class="card"><div class="card-title">📌 Assuntos de ${disciplina}</div><div id="listaAssuntos"></div>
+                <button class="primary-btn" id="btnAddAssunto"><i class="fas fa-plus"></i> Adicionar Assunto</button></div>
+        `;
+        const assuntosFiltrados = conteudos.filter(c => c.Disciplina === disciplina);
+        const assuntoMap = new Map();
+        questoes.filter(q => q.Disciplina === disciplina).forEach(q => {
+            const a = q.Assunto || 'Geral';
+            if(!assuntoMap.has(a)) assuntoMap.set(a, {c:0,e:0});
+            const v = assuntoMap.get(a);
+            (q['Acerto (1/0)'] || q.Acerto) == 1 ? v.c++ : v.e++;
+        });
+        let html = '';
+        assuntosFiltrados.forEach(ass => {
+            const nome = ass.Assunto;
+            const stats = assuntoMap.get(nome) || {c:0,e:0};
+            const total = stats.c + stats.e, perc = total ? (stats.c/total)*100 : 0;
+            const nivel = classificarDesempenho(perc);
+            const cor = nivel === 'Ruim' ? 'color-ruim' : (nivel === 'Regular' ? 'color-regular' : (nivel === 'Bom' ? 'color-bom' : (nivel === 'Muito Bom' ? 'color-muitobom' : 'color-excelente')));
+            html += `<div class="assunto-card">
+                <div style="display:flex; justify-content:space-between;"><h4>${nome}</h4><span class="badge-desempenho ${cor}">${nivel}</span></div>
+                <div class="task-item"><span>✅ ${stats.c}</span><span>❌ ${stats.e}</span></div>
+                <div class="task-item"><span>📊 ${perc.toFixed(1)}%</span></div>
+                <div class="progress-bar"><div class="progress-fill" style="width:${perc}%"></div></div>
+            </div>`;
+        });
+        document.getElementById('listaAssuntos').innerHTML = html || '<p>Nenhum assunto cadastrado.</p>';
+        document.getElementById('voltarDisciplinas').onclick = () => { disciplinaSelecionada = null; renderCurrentTab(); };
+        document.getElementById('btnAddAssunto').onclick = async () => {
+            const nome = prompt('Nome do assunto:'); if(!nome) return;
+            await addRow("CONTEUDO", { Disciplina: disciplina, Assunto: nome, Subassunto: '', Peso: 1, Status: 'Pendente' });
+            showToast('Assunto adicionado!'); await loadAllData(); disciplinaSelecionada = disciplina; renderCurrentTab();
+        };
+    },
+
+    renderLegislacao(container) {
+        container.innerHTML = `
+            <div class="sub-nav">
+                <button class="sub-nav-item active">⚖️ Legislação</button>
+                <button class="sub-nav-item" id="btnVoltarLegislacao" style="display:none;"><i class="fas fa-arrow-left"></i> Voltar</button>
+            </div>
+            <div id="legislacaoContent"></div>
+        `;
+        this.renderListaLegislacao(document.getElementById('legislacaoContent'));
+    },
+    renderListaLegislacao(container) {
+        container.innerHTML = `<div class="card"><div class="card-title">📜 Legislações</div><div id="listaLeis"></div>
+            <button class="primary-btn" id="btnAddLegislacao"><i class="fas fa-plus"></i> Adicionar Legislação</button></div>`;
+        let leisHtml = '';
+        legislacao.forEach(lei => {
+            const prog = [lei.Lido, lei.Revisado, lei.Esquematizado, lei.Questoes].filter(v => v=='true'||v===true).length * 25;
+            leisHtml += `<div class="legislacao-card clickable" data-id="${lei._id}">
+                <h4>${lei.Nome}</h4><div class="task-item"><span>Progresso</span><strong>${prog}%</strong></div>
+                <div class="progress-bar"><div class="progress-fill" style="width:${prog}%"></div></div>
+                <div style="margin-top:8px;"><i class="fas fa-edit"></i> Editar checklist</div>
+            </div>`;
+        });
+        document.getElementById('listaLeis').innerHTML = leisHtml || '<p>Nenhuma legislação.</p>';
+        document.querySelectorAll('.legislacao-card').forEach(c => c.addEventListener('click', () => this.renderDetalheLegislacao(container, c.dataset.id)));
+        document.getElementById('btnAddLegislacao').onclick = async () => {
+            const nome = prompt('Nome da lei:'); if(!nome) return;
+            await addRow("LEGISLACAO", { Nome: nome, Lido: false, Revisado: false, Esquematizado: false, Questoes: false });
+            showToast('Legislação adicionada!'); await loadAllData(); this.renderListaLegislacao(container);
+        };
+    },
+    renderDetalheLegislacao(container, id) {
+        const lei = legislacao.find(l => l._id === id); if(!lei) return;
+        container.innerHTML = `
+            <div class="sub-nav">
+                <button class="sub-nav-item" id="voltarLegislacao"><i class="fas fa-arrow-left"></i> Legislações</button>
+                <button class="sub-nav-item active">${lei.Nome}</button>
+            </div>
+            <div class="card"><div class="card-title">✅ Checklist</div><div id="checklistLeg"></div><div id="mensagemParabens"></div></div>
+        `;
+        const state = {
+            lido: lei.Lido=='true'||lei.Lido===true, revisado: lei.Revisado=='true'||lei.Revisado===true,
+            esquematizado: lei.Esquematizado=='true'||lei.Esquematizado===true, questoes: lei.Questoes=='true'||lei.Questoes===true
+        };
+        const update = async () => {
+            const prog = [state.lido, state.revisado, state.esquematizado, state.questoes].filter(v=>v).length * 25;
+            document.getElementById('mensagemParabens').innerHTML = prog===100 ? '<div style="background:#166534; padding:16px; border-radius:24px;">🎉 Parabéns! Você concluiu completamente o estudo dessa legislação!</div>' : '';
+            await updateRow("LEGISLACAO", id, { Lido: state.lido, Revisado: state.revisado, Esquematizado: state.esquematizado, Questoes: state.questoes });
+            await loadAllData();
+        };
+        document.getElementById('checklistLeg').innerHTML = `
+            <label><input type="checkbox" id="chkLido" ${state.lido?'checked':''}> 📖 Lido</label>
+            <label><input type="checkbox" id="chkRevisado" ${state.revisado?'checked':''}> 🔁 Revisado</label>
+            <label><input type="checkbox" id="chkEsquematizado" ${state.esquematizado?'checked':''}> 📝 Esquematizado</label>
+            <label><input type="checkbox" id="chkQuestoes" ${state.questoes?'checked':''}> ❓ Questões simuladas</label>
+        `;
+        document.getElementById('chkLido').onchange = e => { state.lido = e.target.checked; update(); };
+        document.getElementById('chkRevisado').onchange = e => { state.revisado = e.target.checked; update(); };
+        document.getElementById('chkEsquematizado').onchange = e => { state.esquematizado = e.target.checked; update(); };
+        document.getElementById('chkQuestoes').onchange = e => { state.questoes = e.target.checked; update(); };
+        document.getElementById('voltarLegislacao').onclick = () => this.renderLegislacao(container);
+        update();
+    },
+
+    // ---------- PLANO (antigo) ----------
+    renderPlanner(container) {
+        let planos = planoEstudo.length ? planoEstudo : planoDiario;
+        container.innerHTML = `<div class="card"><div class="card-title"><i class="fas fa-calendar-alt"></i> Planejamento</div><div id="planList"></div>
+            <button class="primary-btn" id="btnAddPlanoRapido"><i class="fas fa-plus"></i> Adicionar rápido</button></div>`;
+        let html = planos.slice(0,10).map(p => `<div class="task-item"><span>📖 ${p.Disciplina||p.Tipo||'Estudo'}</span><span class="chip">${p.Tempo_Min||p.Tempo_Planejado||'?'} min</span></div>`).join('');
+        document.getElementById('planList').innerHTML = html || '<p>Nenhum plano. Use a aba Gestão.</p>';
+        document.getElementById('btnAddPlanoRapido').onclick = async () => {
+            const disc = prompt('Disciplina:'); if(!disc) return;
+            const tempo = prompt('Tempo (min):');
+            await addRow("PLANO_ESTUDO", { Data: new Date().toISOString().slice(0,10), Disciplina: disc, Tipo: 'Plano', Tempo_Min: tempo, Prioridade: 'Média' });
+            showToast('Plano adicionado!'); await loadAllData();
+        };
+    },
+
+    // ---------- RELATÓRIOS (antigo) ----------
     renderReports(container) {
-        if(!sessoes.length) { container.innerHTML = `<div class="card">Nenhuma sessão registrada.</div>`; return; }
-        let horasPorDia = sessoes.reduce((acc,s)=>{ let data = s.Data; if(data) acc[data] = (acc[data]||0) + (parseFloat(s.Duracao_Min||0)/60); return acc; },{});
-        let labels = Object.keys(horasPorDia).slice(-7);
-        let data = labels.map(l=>horasPorDia[l]);
+        if(!sessoes.length) { container.innerHTML = '<div class="card">Nenhuma sessão registrada.</div>'; return; }
+        let horasPorDia = sessoes.reduce((a,s)=>{ let d=s.Data; if(d) a[d]=(a[d]||0)+(parseFloat(s.Duracao_Min||0)/60); return a; },{});
+        let labels = Object.keys(horasPorDia).slice(-7), data = labels.map(l=>horasPorDia[l]);
         container.innerHTML = `<div class="card"><div class="card-title"><i class="fas fa-chart-line"></i> Evolução (últimos 7 dias)</div><canvas id="evolucaoChart" height="150"></canvas></div>`;
-        setTimeout(()=>{
-            const ctx = document.getElementById('evolucaoChart')?.getContext('2d');
-            if(ctx) new Chart(ctx, { type:'line', data:{ labels, datasets:[{ label:'Horas', data, borderColor:'#FF7B00', tension:0.3 }] } });
-        },50);
+        setTimeout(()=>{ new Chart(document.getElementById('evolucaoChart'), { type:'line', data:{ labels, datasets:[{ label:'Horas', data, borderColor:'#FF7B00' }] } }); },50);
     },
+
+    // ---------- FOCO (antigo) ----------
     renderFocusMode(container) {
         container.innerHTML = `
-            <div class="card">
-                <div class="card-title"><i class="fas fa-stopwatch"></i> Modo Foco</div>
+            <div class="card"><div class="card-title"><i class="fas fa-stopwatch"></i> Modo Foco</div>
                 <div class="timer-display" id="focusTimer">00:00:00</div>
                 <div style="display:flex; gap:12px; margin:24px 0;">
                     <button id="startFocusBtn" class="primary-btn" style="width:auto">Iniciar</button>
@@ -327,31 +473,23 @@ const UIRenderer = {
                 <div><input id="focusDiscipline" placeholder="Disciplina" value="Foco"></div>
             </div>`;
         let timerSec = 0, interval=null, running=false;
-        const updateDisplay = () => { const el=document.getElementById('focusTimer'); if(el) el.innerText = new Date(timerSec*1000).toISOString().substr(11,8); };
-        document.getElementById('startFocusBtn').onclick = () => { if(!running) { running=true; interval=setInterval(()=>{ timerSec++; updateDisplay(); },1000); } };
-        document.getElementById('pauseFocusBtn').onclick = () => { running=false; if(interval) clearInterval(interval); };
-        document.getElementById('saveFocusBtn').onclick = async () => {
-            let disc = document.getElementById('focusDiscipline').value.trim() || "Geral";
-            let duracao = Math.round(timerSec/60);
-            if(duracao<=0) { showToast("Estude ao menos 1 minuto"); return; }
-            try {
-                await addRow("SESSOES", { 
-                    Data: new Date().toISOString().slice(0,10), 
-                    Hora_Inicio: "", Hora_Fim: "", 
-                    Duracao_Min: duracao, 
-                    Disciplina: disc, 
-                    Tipo: "Foco", 
-                    Status: "Concluído" 
-                });
-                showToast("Sessão salva!");
-                timerSec=0; updateDisplay(); running=false; if(interval) clearInterval(interval);
-                await loadAllData();
-            } catch(e) { showToast("Erro ao salvar", "error"); }
+        const update = () => { document.getElementById('focusTimer').innerText = new Date(timerSec*1000).toISOString().substr(11,8); };
+        document.getElementById('startFocusBtn').onclick = ()=>{ if(!running){ running=true; interval=setInterval(()=>{ timerSec++; update(); },1000); } };
+        document.getElementById('pauseFocusBtn').onclick = ()=>{ running=false; clearInterval(interval); };
+        document.getElementById('saveFocusBtn').onclick = async ()=>{
+            let disc = document.getElementById('focusDiscipline').value.trim()||"Geral";
+            let dur = Math.round(timerSec/60);
+            if(dur<=0) { showToast("Estude ao menos 1 min"); return; }
+            await addRow("SESSOES", { Data: new Date().toISOString().slice(0,10), Duracao_Min: dur, Disciplina: disc, Tipo: "Foco", Status: "Concluído" });
+            showToast("Sessão salva!"); timerSec=0; update(); running=false; clearInterval(interval);
+            await loadAllData();
         };
     },
+
+    // ---------- GESTÃO (antigo, com todas as sub-abas) ----------
     renderGestao(container) {
         container.innerHTML = `
-            <div class="sub-nav" id="subNav">
+            <div class="sub-nav">
                 <button class="sub-nav-item ${activeSubTab==='conteudo'?'active':''}" data-sub="conteudo">📚 Conteúdo</button>
                 <button class="sub-nav-item ${activeSubTab==='sessoes'?'active':''}" data-sub="sessoes">⏱ Sessões</button>
                 <button class="sub-nav-item ${activeSubTab==='plano'?'active':''}" data-sub="plano">📅 Plano</button>
@@ -360,20 +498,18 @@ const UIRenderer = {
             </div>
             <div id="subContent"></div>
         `;
-        document.querySelectorAll('.sub-nav-item').forEach(btn => {
-            btn.onclick = () => { activeSubTab = btn.dataset.sub; this.renderGestao(container); };
-        });
-        const subContainer = document.getElementById('subContent');
-        if(activeSubTab === 'conteudo') this.renderConteudo(subContainer);
-        else if(activeSubTab === 'sessoes') this.renderSessoes(subContainer);
-        else if(activeSubTab === 'plano') this.renderPlanoEstudo(subContainer);
-        else if(activeSubTab === 'questoes') this.renderQuestoes(subContainer);
-        else if(activeSubTab === 'disciplinas') this.renderDisciplinas(subContainer);
+        document.querySelectorAll('.sub-nav-item').forEach(b => b.onclick = ()=> { activeSubTab = b.dataset.sub; this.renderGestao(container); });
+        const sub = document.getElementById('subContent');
+        if(activeSubTab==='conteudo') this.renderConteudo(sub);
+        else if(activeSubTab==='sessoes') this.renderSessoes(sub);
+        else if(activeSubTab==='plano') this.renderPlanoEstudo(sub);
+        else if(activeSubTab==='questoes') this.renderQuestoes(sub);
+        else if(activeSubTab==='disciplinas') this.renderDisciplinas(sub);
     },
+
     renderConteudo(container) {
         container.innerHTML = `
-            <div class="card">
-                <div class="card-title">➕ Novo Conteúdo</div>
+            <div class="card"><div class="card-title">➕ Novo Conteúdo</div>
                 <form id="formConteudo">
                     <div class="form-group"><label>Disciplina</label><input id="disc" required></div>
                     <div class="form-group"><label>Assunto</label><input id="assunto" required></div>
@@ -385,32 +521,28 @@ const UIRenderer = {
             <div class="card"><div class="card-title">📋 Lista de Conteúdos</div><div id="listaConteudos"></div></div>
         `;
         const renderList = () => {
-            const listDiv = document.getElementById('listaConteudos');
-            if(!listDiv) return;
-            listDiv.innerHTML = `<div class="data-table"><table><thead><tr><th>Disciplina</th><th>Assunto</th><th>Peso</th><th>Ações</th></tr></thead><tbody>
-                ${conteudos.map(c => `<tr><td>${c.Disciplina||''}</td><td>${c.Assunto||''}</td><td>${c.Peso||''}</td><td><button class="action-btn" data-id="${c._id}" data-action="delete"><i class="fas fa-trash"></i></button></td></tr>`).join('')}
+            const div = document.getElementById('listaConteudos');
+            div.innerHTML = `<div class="data-table"><table><thead><tr><th>Disciplina</th><th>Assunto</th><th>Peso</th><th>Ações</th></tr></thead><tbody>
+                ${conteudos.map(c => `<tr><td>${c.Disciplina||''}</td><td>${c.Assunto||''}</td><td>${c.Peso||''}</td><td><button class="action-btn" data-id="${c._id}" data-action="deleteConteudo"><i class="fas fa-trash"></i></button></td></tr>`).join('')}
             </tbody></table></div>`;
-            document.querySelectorAll('[data-action="delete"]').forEach(btn => {
-                btn.onclick = async () => { if(confirm("Remover?")) { await deleteRow("CONTEUDO", btn.dataset.id); await loadAllData(); } };
+            document.querySelectorAll('[data-action="deleteConteudo"]').forEach(b => b.onclick = async () => {
+                if(confirm("Remover?")) { await deleteRow("CONTEUDO", b.dataset.id); await loadAllData(); }
             });
         };
         document.getElementById('formConteudo').onsubmit = async (e) => {
             e.preventDefault();
-            const newItem = {
-                Disciplina: document.getElementById('disc').value,
-                Assunto: document.getElementById('assunto').value,
-                Subassunto: document.getElementById('subassunto').value,
-                Peso: parseFloat(document.getElementById('peso').value) || 0,
-                Status: "Pendente"
-            };
-            try { await addRow("CONTEUDO", newItem); showToast("Conteúdo adicionado!"); document.getElementById('formConteudo').reset(); await loadAllData(); } catch(err) { showToast("Erro: "+err.message,"error"); }
+            await addRow("CONTEUDO", {
+                Disciplina: document.getElementById('disc').value, Assunto: document.getElementById('assunto').value,
+                Subassunto: document.getElementById('subassunto').value, Peso: parseFloat(document.getElementById('peso').value)||0, Status: "Pendente"
+            });
+            showToast("Conteúdo adicionado!"); document.getElementById('formConteudo').reset(); await loadAllData();
         };
         renderList();
     },
+
     renderSessoes(container) {
         container.innerHTML = `
-            <div class="card">
-                <div class="card-title">➕ Registrar Sessão</div>
+            <div class="card"><div class="card-title">➕ Registrar Sessão</div>
                 <form id="formSessao">
                     <div class="form-group"><label>Data</label><input id="dataSessao" type="date" required></div>
                     <div class="form-group"><label>Hora Início</label><input id="horaInicio" type="time"></div>
@@ -425,35 +557,30 @@ const UIRenderer = {
         `;
         const renderList = () => {
             const div = document.getElementById('listaSessoes');
-            if(!div) return;
-            div.innerHTML = `<div class="data-table"><table><thead><tr><th>Data</th><th>Disciplina</th><th>Duração (min)</th><th>Tipo</th><th>Ações</th></tr></thead><tbody>
+            div.innerHTML = `<div class="data-table"><table><thead><tr><th>Data</th><th>Disciplina</th><th>Duração</th><th>Tipo</th><th>Ações</th></tr></thead><tbody>
                 ${sessoes.map(s => `<tr><td>${s.Data||''}</td><td>${s.Disciplina||''}</td><td>${s.Duracao_Min||0}</td><td>${s.Tipo||''}</td><td><button class="action-btn" data-id="${s._id}" data-action="deleteSessao"><i class="fas fa-trash"></i></button></td></tr>`).join('')}
             </tbody></table></div>`;
-            document.querySelectorAll('[data-action="deleteSessao"]').forEach(btn => {
-                btn.onclick = async () => { if(confirm("Remover sessão?")) { await deleteRow("SESSOES", btn.dataset.id); await loadAllData(); } };
+            document.querySelectorAll('[data-action="deleteSessao"]').forEach(b => b.onclick = async () => {
+                if(confirm("Remover sessão?")) { await deleteRow("SESSOES", b.dataset.id); await loadAllData(); }
             });
         };
         document.getElementById('formSessao').onsubmit = async (e) => {
             e.preventDefault();
-            const duracao = parseInt(document.getElementById('duracao').value);
-            if(duracao<=0) { showToast("Duração inválida","error"); return; }
-            const newSessao = {
-                Data: document.getElementById('dataSessao').value,
-                Hora_Inicio: document.getElementById('horaInicio').value,
-                Hora_Fim: document.getElementById('horaFim').value,
-                Duracao_Min: duracao,
-                Disciplina: document.getElementById('disciplinaSessao').value,
-                Tipo: document.getElementById('tipoSessao').value,
-                Status: "Concluído"
-            };
-            try { await addRow("SESSOES", newSessao); showToast("Sessão registrada!"); document.getElementById('formSessao').reset(); await loadAllData(); } catch(err) { showToast("Erro: "+err.message,"error"); }
+            const dur = parseInt(document.getElementById('duracao').value);
+            if(dur<=0) { showToast("Duração inválida","error"); return; }
+            await addRow("SESSOES", {
+                Data: document.getElementById('dataSessao').value, Hora_Inicio: document.getElementById('horaInicio').value,
+                Hora_Fim: document.getElementById('horaFim').value, Duracao_Min: dur,
+                Disciplina: document.getElementById('disciplinaSessao').value, Tipo: document.getElementById('tipoSessao').value, Status: "Concluído"
+            });
+            showToast("Sessão registrada!"); document.getElementById('formSessao').reset(); await loadAllData();
         };
         renderList();
     },
+
     renderPlanoEstudo(container) {
         container.innerHTML = `
-            <div class="card">
-                <div class="card-title">➕ Adicionar Plano</div>
+            <div class="card"><div class="card-title">➕ Adicionar Plano</div>
                 <form id="formPlano">
                     <div class="form-group"><label>Data</label><input id="planoData" type="date" required></div>
                     <div class="form-group"><label>Disciplina</label><input id="planoDisc" required></div>
@@ -466,37 +593,31 @@ const UIRenderer = {
             <div class="card"><div class="card-title">📋 Planos de Estudo</div><div id="listaPlanos"></div></div>
         `;
         const renderList = () => {
+            const planos = planoEstudo.length ? planoEstudo : planoDiario;
             const div = document.getElementById('listaPlanos');
-            if(!div) return;
-            let planos = planoEstudo.length ? planoEstudo : planoDiario;
             div.innerHTML = `<div class="data-table"><table><thead><tr><th>Data</th><th>Disciplina</th><th>Tipo</th><th>Tempo</th><th>Ações</th></tr></thead><tbody>
-                ${planos.map(p => `<tr><td>${p.Data||''}</td><td>${p.Disciplina||''}</td><td>${p.Tipo||''}</td><td>${p.Tempo_Min || p.Tempo_Planejado || ''}</td><td><button class="action-btn" data-id="${p._id}" data-action="deletePlano"><i class="fas fa-trash"></i></button></td></tr>`).join('')}
+                ${planos.map(p => `<tr><td>${p.Data||''}</td><td>${p.Disciplina||''}</td><td>${p.Tipo||''}</td><td>${p.Tempo_Min||p.Tempo_Planejado||''}</td><td><button class="action-btn" data-id="${p._id}" data-action="deletePlano"><i class="fas fa-trash"></i></button></td></tr>`).join('')}
             </tbody></table></div>`;
-            document.querySelectorAll('[data-action="deletePlano"]').forEach(btn => {
-                btn.onclick = async () => { 
-                    let sheet = planoEstudo.length ? "PLANO_ESTUDO" : "PLANO_DIARIO";
-                    if(confirm("Remover plano?")) { await deleteRow(sheet, btn.dataset.id); await loadAllData(); } 
-                };
+            document.querySelectorAll('[data-action="deletePlano"]').forEach(b => b.onclick = async () => {
+                const sheet = planoEstudo.length ? "PLANO_ESTUDO" : "PLANO_DIARIO";
+                if(confirm("Remover plano?")) { await deleteRow(sheet, b.dataset.id); await loadAllData(); }
             });
         };
         document.getElementById('formPlano').onsubmit = async (e) => {
             e.preventDefault();
-            const newPlano = {
-                Data: document.getElementById('planoData').value,
-                Disciplina: document.getElementById('planoDisc').value,
-                Tipo: document.getElementById('planoTipo').value,
-                Tempo_Min: parseInt(document.getElementById('planoTempo').value),
-                Prioridade: document.getElementById('planoPrioridade').value,
-                Status: "Pendente"
-            };
-            try { await addRow("PLANO_ESTUDO", newPlano); showToast("Plano adicionado!"); document.getElementById('formPlano').reset(); await loadAllData(); } catch(err) { showToast("Erro: "+err.message,"error"); }
+            await addRow("PLANO_ESTUDO", {
+                Data: document.getElementById('planoData').value, Disciplina: document.getElementById('planoDisc').value,
+                Tipo: document.getElementById('planoTipo').value, Tempo_Min: parseInt(document.getElementById('planoTempo').value),
+                Prioridade: document.getElementById('planoPrioridade').value, Status: "Pendente"
+            });
+            showToast("Plano adicionado!"); document.getElementById('formPlano').reset(); await loadAllData();
         };
         renderList();
     },
+
     renderQuestoes(container) {
         container.innerHTML = `
-            <div class="card">
-                <div class="card-title">➕ Registrar Questão</div>
+            <div class="card"><div class="card-title">➕ Registrar Questão</div>
                 <form id="formQuestao">
                     <div class="form-group"><label>Data</label><input id="qData" type="date" required></div>
                     <div class="form-group"><label>Disciplina</label><input id="qDisc" required></div>
@@ -511,33 +632,28 @@ const UIRenderer = {
         `;
         const renderList = () => {
             const div = document.getElementById('listaQuestoes');
-            if(!div) return;
             div.innerHTML = `<div class="data-table"><table><thead><tr><th>Data</th><th>Disciplina</th><th>Assunto</th><th>Acerto</th><th>Ações</th></tr></thead><tbody>
                 ${questoes.map(q => `<tr><td>${q.Data||''}</td><td>${q.Disciplina||''}</td><td>${q.Assunto||''}</td><td>${q['Acerto (1/0)']||q.Acerto||''}</td><td><button class="action-btn" data-id="${q._id}" data-action="deleteQuestao"><i class="fas fa-trash"></i></button></td></tr>`).join('')}
             </tbody></table></div>`;
-            document.querySelectorAll('[data-action="deleteQuestao"]').forEach(btn => {
-                btn.onclick = async () => { if(confirm("Remover questão?")) { await deleteRow("QUESTOES", btn.dataset.id); await loadAllData(); } };
+            document.querySelectorAll('[data-action="deleteQuestao"]').forEach(b => b.onclick = async () => {
+                if(confirm("Remover questão?")) { await deleteRow("QUESTOES", b.dataset.id); await loadAllData(); }
             });
         };
         document.getElementById('formQuestao').onsubmit = async (e) => {
             e.preventDefault();
-            const newQ = {
-                Data: document.getElementById('qData').value,
-                Disciplina: document.getElementById('qDisc').value,
-                Assunto: document.getElementById('qAssunto').value,
-                'Acerto (1/0)': parseInt(document.getElementById('qAcerto').value) || 0,
-                Tempo: document.getElementById('qTempo').value,
-                Banca: document.getElementById('qBanca').value
-            };
-            try { await addRow("QUESTOES", newQ); showToast("Questão registrada!"); document.getElementById('formQuestao').reset(); await loadAllData(); } catch(err) { showToast("Erro: "+err.message,"error"); }
+            await addRow("QUESTOES", {
+                Data: document.getElementById('qData').value, Disciplina: document.getElementById('qDisc').value,
+                Assunto: document.getElementById('qAssunto').value, 'Acerto (1/0)': parseInt(document.getElementById('qAcerto').value)||0,
+                Tempo: document.getElementById('qTempo').value, Banca: document.getElementById('qBanca').value
+            });
+            showToast("Questão registrada!"); document.getElementById('formQuestao').reset(); await loadAllData();
         };
         renderList();
     },
+
     renderDisciplinas(container) {
-        let disciplinasSet = [...new Set(conteudos.map(c=>c.Disciplina).filter(Boolean))];
         container.innerHTML = `
-            <div class="card">
-                <div class="card-title">➕ Nova Disciplina</div>
+            <div class="card"><div class="card-title">➕ Nova Disciplina</div>
                 <form id="formDisciplina">
                     <div class="form-group"><label>Nome</label><input id="nomeDisc" required></div>
                     <div class="form-group"><label>Total Tópicos</label><input id="totalTopicos" type="number"></div>
@@ -546,28 +662,24 @@ const UIRenderer = {
                     <button type="submit" class="primary-btn">Salvar</button>
                 </form>
             </div>
-            <div class="card"><div class="card-title">🏷 Disciplinas</div><div id="listaDisciplinas"></div></div>
+            <div class="card"><div class="card-title">🏷 Disciplinas</div><div id="listaDisciplinasGestao"></div></div>
         `;
         const renderList = () => {
-            const div = document.getElementById('listaDisciplinas');
-            if(!div) return;
+            const div = document.getElementById('listaDisciplinasGestao');
             div.innerHTML = `<div class="data-table"><table><thead><tr><th>Disciplina</th><th>Total Tópicos</th><th>Concluídos</th><th>Horas</th><th>Ações</th></tr></thead><tbody>
                 ${disciplinas.map(d => `<tr><td>${d.Disciplina||''}</td><td>${d['Total Tópicos']||''}</td><td>${d['Tópicos Concluídos']||''}</td><td>${d.Horas||''}</td><td><button class="action-btn" data-id="${d._id}" data-action="deleteDisciplina"><i class="fas fa-trash"></i></button></td></tr>`).join('')}
             </tbody></table></div>`;
-            document.querySelectorAll('[data-action="deleteDisciplina"]').forEach(btn => {
-                btn.onclick = async () => { if(confirm("Remover disciplina?")) { await deleteRow("DISCIPLINAS", btn.dataset.id); await loadAllData(); } };
+            document.querySelectorAll('[data-action="deleteDisciplina"]').forEach(b => b.onclick = async () => {
+                if(confirm("Remover disciplina?")) { await deleteRow("DISCIPLINAS", b.dataset.id); await loadAllData(); }
             });
         };
         document.getElementById('formDisciplina').onsubmit = async (e) => {
             e.preventDefault();
-            const newDisc = {
-                Disciplina: document.getElementById('nomeDisc').value,
-                'Total Tópicos': document.getElementById('totalTopicos').value,
-                'Tópicos Concluídos': document.getElementById('concluidos').value,
-                Horas: document.getElementById('horasDisc').value,
-                Acertos: '', Erros: '', '%': ''
-            };
-            try { await addRow("DISCIPLINAS", newDisc); showToast("Disciplina adicionada!"); document.getElementById('formDisciplina').reset(); await loadAllData(); } catch(err) { showToast("Erro: "+err.message,"error"); }
+            await addRow("DISCIPLINAS", {
+                Disciplina: document.getElementById('nomeDisc').value, 'Total Tópicos': document.getElementById('totalTopicos').value,
+                'Tópicos Concluídos': document.getElementById('concluidos').value, Horas: document.getElementById('horasDisc').value
+            });
+            showToast("Disciplina adicionada!"); document.getElementById('formDisciplina').reset(); await loadAllData();
         };
         renderList();
     }
@@ -580,24 +692,25 @@ function initNavigation() {
             activeTab = btn.dataset.tab;
             document.querySelectorAll('.nav-item').forEach(b=>b.classList.remove('active'));
             btn.classList.add('active');
+            disciplinaSelecionada = null;
             renderCurrentTab();
         });
     });
-    document.getElementById('fabFocusBtn').addEventListener('click', () => {
+    document.getElementById('fabFocusBtn').onclick = () => {
         activeTab = 'focus';
         document.querySelectorAll('.nav-item').forEach(b=>b.classList.remove('active'));
         document.querySelector('[data-tab="focus"]').classList.add('active');
         renderCurrentTab();
-    });
-    document.getElementById('reportHeaderBtn').addEventListener('click', () => {
+    };
+    document.getElementById('reportHeaderBtn').onclick = () => {
         activeTab = 'reports';
         document.querySelectorAll('.nav-item').forEach(b=>b.classList.remove('active'));
         document.querySelector('[data-tab="reports"]').classList.add('active');
         renderCurrentTab();
-    });
+    };
 }
 
-// ====================== INICIALIZAÇÃO ======================
+// Inicialização
 loadAllData();
 initNavigation();
 </script>
